@@ -1,0 +1,46 @@
+schema_version: 1
+id: fw-secure-image-loading-method
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Secure firmware image loading method
+prompt: >
+  What is the most secure, yet flexible method of loading a firmware image like BIOS or PCIe PHY into an on-chip microcontroller?
+topics:
+  primary: firmware
+  secondary:
+    - secure-boot
+    - bsp
+    - microcontroller
+    - bios
+    - pcie-phy
+difficulty: intermediate
+source:
+  platform: linkedin
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Let the OS handle it
+  - id: b
+    text: Primary core (BSP) before booting OS
+  - id: c
+    text: Dedicated off-chip uC should handle it
+  - id: d
+    text: FW image should reside in a ROM
+  - id: e
+    text: Autonomous hardware DMA with hardcoded addresses
+answer:
+  correct: b
+  explanation: >
+    Loading the image from the primary core during early boot gives a strong balance
+    of security and flexibility. It allows authentication and policy checks before the
+    OS starts, while still keeping the firmware updateable. ROM is more fixed than
+    flexible, and OS- or DMA-driven approaches are typically weaker from a boot-time
+    trust and control perspective.
+notes:
+  - Correct answer inferred from the prompt's security-versus-flexibility tradeoff.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
