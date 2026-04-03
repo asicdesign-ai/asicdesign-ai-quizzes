@@ -1,8 +1,8 @@
 schema_version: 1
 id: sv-flop-reset-value
-status: draft
-review_state: needs_answer
-question_type: short_answer
+status: reviewed
+review_state: answered
+question_type: multiple_choice
 title: Flop reset value
 prompt: >
   In the below SystemVerilog code, what should `rst_val` not be set to?
@@ -24,15 +24,27 @@ topics:
 difficulty: intermediate
 source:
   platform: linkedin
-  import_kind: stem_only
-choices: []
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: a hardcoded value
+  - id: b
+    text: input that drives a constant
+  - id: c
+    text: stable Q output of a reg/FF
+  - id: d
+    text: localparam
 answer:
-  correct: null
-  explanation: null
+  correct: c
+  explanation: >
+    For reset coding, `rst_val` should ideally resolve to a constant reset value.
+    A stable Q output from another register or flop is still a signal, not a true
+    reset constant, and can undermine clean reset intent or inference. A literal or
+    `localparam` is the safer pattern.
 notes:
-  - Added as a draft because the source prompt did not include choices or a confirmed answer.
+  - This item was initially imported as a draft stem and later completed with choices.
 automation:
   authoring_format: yaml
   build_target: json
   ready_for_ingestion: true
-  review_required: true
+  review_required: false
