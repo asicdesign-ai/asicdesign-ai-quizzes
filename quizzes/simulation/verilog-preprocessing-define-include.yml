@@ -1,0 +1,60 @@
+schema_version: 1
+id: verilog-preprocessing-define-include
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Verilog `define and `include handling stage
+prompt: >
+  In Verilog simulators, what is the name of the internal process that handles
+  `define and `include directives?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: verilog
+  secondary:
+    - preprocessing
+    - compiler-directives
+    - macros
+    - include-files
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Elaboration
+  - id: b
+    text: Preprocessing
+  - id: c
+    text: Linting
+  - id: d
+    text: Executable Generation
+answer:
+  correct: b
+  short_explainer: >
+    `define and `include are preprocessor directives, so they are handled during
+    preprocessing. That stage expands macros and inserts included text before the
+    simulator moves on to parsing, elaboration, or code generation.
+  explanation: >
+    The correct answer is preprocessing. In Verilog tool flows, directives such as
+    `define, `include, `ifdef, and related compiler directives are resolved by the
+    preprocessor before the main compilation pipeline continues. Elaboration happens
+    later, when modules are instantiated and parameterized design structure is
+    resolved. Linting is a separate analysis activity, and executable generation is
+    a later backend step in simulators that compile into an intermediate or native
+    executable form.
+notes:
+  - Added from user-provided quiz prompt.
+references:
+  - title: Icarus Verilog - Simulation Using Icarus Verilog
+    url: https://steveicarus.github.io/iverilog/usage/simulation.html
+    note: Describes macro preprocessing as the first step and says `define and `include are handled there.
+  - title: Icarus Verilog - IVLPP Preprocessor
+    url: https://steveicarus.github.io/iverilog/usage/ivlpp_flags.html
+    note: Documents the Verilog preprocessor that implements `include handling and macro substitution.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
