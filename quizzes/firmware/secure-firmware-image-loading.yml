@@ -31,13 +31,34 @@ choices:
     text: Autonomous hardware DMA with hardcoded addresses
 answer:
   correct: c
+  short_explainer: >
+    A dedicated off-chip management controller gives firmware loading its own trust
+    boundary, so images can be authenticated and controlled before the host OS is in
+    the picture. That keeps the flow updateable while avoiding dependence on the main
+    cores or untrusted runtime software.
   explanation: >
     A dedicated off-chip microcontroller provides a stronger trust and control
     boundary while still allowing the firmware image to remain updateable. That
     makes it more secure than relying on the host OS or primary core alone, and
-    more flexible than fixing the image permanently in ROM.
+    more flexible than fixing the image permanently in ROM. This matches common
+    management-controller patterns where an isolated controller or root-of-trust
+    component handles early boot orchestration, image authentication, and recovery.
 notes:
   - Correct answer updated after user clarification.
+  - Rationale aligned to isolated management-controller and hardware-root-of-trust patterns.
+references:
+  - title: Arm System Firmware Interfaces
+    url: https://www.arm.com/architecture/system-architectures/system-firmware
+    note: Arm says many designs include controllers dedicated to low-level system management and security tasks.
+  - title: Arm OpenBMC and UEFI learning path
+    url: https://learn.arm.com/learning-paths/servers-and-cloud-computing/openbmc-rdv3/1_introduction_openbmc/
+    note: Arm describes the BMC as operating independently from the host CPU and managing early boot, power sequencing, and secure firmware update mechanisms.
+  - title: Intel FPGA PAC N3000 Secure Remote System Update
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683709/current/secure-remote-system-update.html
+    note: Intel documents a BMC root-of-trust flow where controller firmware authenticates images before they are committed.
+  - title: Microsoft Project Cerberus
+    url: https://learn.microsoft.com/en-us/azure/security/fundamentals/project-cerberus
+    note: Microsoft documents a hardware root-of-trust used to validate platform firmware integrity across host, BMC, SoC, and peripherals.
 automation:
   authoring_format: yaml
   build_target: json

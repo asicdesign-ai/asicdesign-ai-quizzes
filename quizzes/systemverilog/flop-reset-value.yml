@@ -36,6 +36,10 @@ choices:
     text: localparam
 answer:
   correct: c
+  short_explainer: >
+    Reset values should resolve to a true constant. A stable Q output from another
+    flop is still a signal, not a constant reset value, so it is the wrong pattern
+    for `rst_val` here.
   explanation: >
     For reset coding, `rst_val` should ideally resolve to a constant reset value.
     A stable Q output from another register or flop is still a signal, not a true
@@ -43,6 +47,7 @@ answer:
     `localparam` is the safer pattern.
 notes:
   - This item was initially imported as a draft stem and later completed with choices.
+references: []
 automation:
   authoring_format: yaml
   build_target: json

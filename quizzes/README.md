@@ -19,6 +19,15 @@ That gives you:
 - predictable machine-friendly output for the website
 - room for draft items that are not fully reviewed yet
 
+## Required Answer Pattern
+
+All quiz YAML files should include:
+- `answer.correct`
+- `answer.short_explainer`
+- `answer.explanation`
+
+Use `answer.short_explainer` for the short learner-facing explanation shown immediately in the website UI after answer resolution.
+
 ## Suggested Conventions
 
 - One quiz item per file.
@@ -26,3 +35,5 @@ That gives you:
 - Store draft items even when the final answer is not confirmed yet.
 - Keep prompt text and code snippets separate.
 - Keep metadata easy to map into validation or build scripts later.
+- Add `references` when an answer is backed by platform or vendor documentation.
+- Start new multiple-choice quiz items from `templates/multiple-choice.template.yml`.

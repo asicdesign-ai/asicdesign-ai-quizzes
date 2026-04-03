@@ -1,0 +1,40 @@
+schema_version: 1
+id: sample-quiz-id
+status: draft
+review_state: needs_answer
+question_type: multiple_choice
+title: Sample quiz title
+prompt: >
+  Replace this with the quiz question.
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sample-topic
+  secondary:
+    - sample-subtopic
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: First option
+  - id: b
+    text: Second option
+  - id: c
+    text: Third option
+  - id: d
+    text: Fourth option
+answer:
+  correct: null
+  short_explainer: null
+  explanation: null
+notes:
+  - Replace or remove these notes during review.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: true
