@@ -1,0 +1,54 @@
+schema_version: 1
+id: cdc-metastability-risk
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Main risk in an unsynchronized CDC
+prompt: >
+  When a signal crosses between unrelated clock domains without proper
+  synchronization, what is the primary risk?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - metastability
+    - asynchronous-clocks
+    - fundamentals
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Metastability caused by setup and hold violations at the receiving flip-flop
+  - id: b
+    text: Automatic retiming between the two clock domains
+  - id: c
+    text: Guaranteed extra setup margin on the destination path
+  - id: d
+    text: Deterministic phase alignment after a few cycles
+answer:
+  correct: a
+  short_explainer: >
+    The core CDC risk is metastability. Because unrelated clocks can sample data
+    at unsafe times, the receiving flip-flop can violate setup or hold and take
+    extra time to resolve to a stable value.
+  explanation: >
+    Intel's CDC timing overview explains that asynchronous crossings can create
+    setup and hold violations at the receiving flip-flop. That can place the
+    destination register into a metastable state, which may then propagate
+    incorrect or unpredictable behavior if the crossing is not properly
+    synchronized.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Prime Pro Edition User Guide - CDC Timing Overview
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683243/25-3/cdc-timing-overview.html
+    note: Describes CDC risk, setup/hold violations, metastability, and the need for synchronizers.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

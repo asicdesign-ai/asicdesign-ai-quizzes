@@ -1,0 +1,51 @@
+schema_version: 1
+id: sta-setup-slack-equation
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Setup slack equation
+prompt: >
+  For a setup check in static timing analysis, how is slack computed?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - setup
+    - slack
+    - equations
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Data required time minus data arrival time
+  - id: b
+    text: Data arrival time minus data required time
+  - id: c
+    text: Clock period minus launch clock delay only
+  - id: d
+    text: Setup time plus hold time
+answer:
+  correct: a
+  short_explainer: >
+    Setup slack is computed as required time minus arrival time. If arrival is
+    later than required, slack becomes negative and the path fails setup.
+  explanation: >
+    Intel's timing-analysis equations define setup slack as the difference
+    between data required time and data arrival time. That expression is the
+    standard sign convention used to decide whether a setup path has positive
+    margin or a timing violation.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Timing Analyzer Example - Clock Analysis Equations
+    url: https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-examples/quartus/tq-clock.html
+    note: Gives the setup slack equation as data required time minus data arrival time.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

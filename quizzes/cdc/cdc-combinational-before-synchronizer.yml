@@ -1,0 +1,55 @@
+schema_version: 1
+id: cdc-combinational-before-synchronizer
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Combinational logic before a synchronizer
+prompt: >
+  Why is it unsafe to feed the first stage of a synchronizer chain directly from
+  combinational logic?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - synchronizer
+    - combinational-logic
+    - topology
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A synchronizer chain should synchronize the output of a register, not raw combinational logic
+  - id: b
+    text: Combinational logic eliminates metastability before the first flip-flop
+  - id: c
+    text: Combinational logic is safe if the destination clock is faster
+  - id: d
+    text: The only problem is extra dynamic power, not correctness
+answer:
+  correct: a
+  short_explainer: >
+    A synchronizer chain is intended to receive a registered source signal. If
+    combinational logic feeds the first stage, the CDC topology is no longer a
+    clean synchronizer input and can become unsafe unless the transfer is
+    redesigned or converted to a handshake.
+  explanation: >
+    Intel's CDC guidance says a synchronizer chain can only synchronize a signal
+    that comes from a register, not the output of combinational logic. Their
+    recommendation is to remove the combinational logic from the transfer, add a
+    source-domain register after it, or replace the path with an explicit
+    handshake structure.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Design Assistant Rule CDC-50011
+    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/current/da_rules/cdc_50011.htm
+    note: Explains that synchronizer chains should not be driven directly by combinational logic.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

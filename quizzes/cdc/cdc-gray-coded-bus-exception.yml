@@ -1,0 +1,53 @@
+schema_version: 1
+id: cdc-gray-coded-bus-exception
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: When multi-bit synchronizer buses are valid
+prompt: >
+  A CDC bus made from independent synchronizer chains on multiple bits is
+  considered valid only under what condition?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - multi-bit-transfer
+    - gray-code
+    - bus-synchronization
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The bus transfers Gray-coded data
+  - id: b
+    text: The source clock is slower than the destination clock
+  - id: c
+    text: The bus width is 8 bits or less
+  - id: d
+    text: The destination path has only setup checks and no hold checks
+answer:
+  correct: a
+  short_explainer: >
+    Independent per-bit synchronizer chains are only valid for special cases
+    such as Gray-coded buses. For ordinary multi-bit data, separate
+    synchronizers do not guarantee all bits settle and are observed together.
+  explanation: >
+    Intel's CDC bus rule explicitly says that a multi-bit synchronizer bus is
+    valid only when the bus transfers Gray-coded data. Otherwise, the transfer
+    should use a control or handshake scheme, because separate bit synchronizers
+    cannot guarantee coherent capture of a normal multi-bit value.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Design Assistant Rule CDC-50008
+    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/21.3/da_rules/cdc_50008.htm
+    note: States that multi-bit synchronizer-chain CDC buses are only valid for Gray-coded data.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

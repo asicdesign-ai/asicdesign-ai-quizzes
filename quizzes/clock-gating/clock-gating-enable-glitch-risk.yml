@@ -1,0 +1,56 @@
+schema_version: 1
+id: clock-gating-enable-glitch-risk
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Enable timing risk on a clock-gating buffer
+prompt: >
+  What can happen if the enable or select timing requirement of a dedicated
+  clock-gating buffer such as BUFGCE or BUFGCTRL is violated?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: clock-gating
+  secondary:
+    - glitch
+    - bufgce
+    - implementation
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A clock glitch or short pulse can appear at the output
+  - id: b
+    text: The clock automatically becomes asynchronous to itself
+  - id: c
+    text: The destination logic is permanently reset
+  - id: d
+    text: The tool automatically inserts an extra PLL
+answer:
+  correct: a
+  short_explainer: >
+    Even dedicated clock-control buffers have timing requirements on their
+    enable or select inputs. If those requirements are violated, the output can
+    glitch.
+  explanation: >
+    AMD's clocking guide states that BUFGCE and related BUFGCTRL-based clock
+    buffers require the enable or select timing requirement to be met. If it is
+    violated, glitches or short pulses can appear on the clock output, which is
+    exactly the kind of failure clock-gating circuitry must avoid.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: AMD 7 Series FPGAs Clocking Resources User Guide (UG472)
+    url: https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug472_7Series_Clocking.pdf
+    note: States that violating BUFGCE or BUFGMUX setup requirements can result in a glitch.
+  - title: AMD UltraScale Architecture Libraries Guide - BUFGCE_DIV (UG974)
+    url: https://docs.amd.com/r/2024.1-English/ug974-vivado-ultrascale-libraries/BUFGCE_DIV
+    note: Documents AMD's enable-capable dedicated clock buffer primitive family.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

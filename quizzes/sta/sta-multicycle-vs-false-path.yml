@@ -1,0 +1,53 @@
+schema_version: 1
+id: sta-multicycle-vs-false-path
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: When to prefer multicycle over false path
+prompt: >
+  If a synchronous path still must be timed, verified, and optimized but needs
+  relaxed timing, which constraint is preferred over `set_false_path`?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - multicycle
+    - false-path
+    - timing-exceptions
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A multicycle constraint
+  - id: b
+    text: A false path constraint
+  - id: c
+    text: A clock-disable constraint
+  - id: d
+    text: No constraint at all
+answer:
+  correct: a
+  short_explainer: >
+    If the path is still real and must remain timed, use a multicycle
+    constraint, not a false path. False paths remove analysis, while multicycle
+    keeps the path in timing with relaxed requirements.
+  explanation: >
+    AMD's constraints guide explicitly recommends using a multicycle constraint
+    instead of a false path when the intent is only to relax timing on a
+    synchronous path that still must be timed, verified, and optimized. That
+    guidance matches standard STA practice.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: AMD Vivado Design Suite User Guide - Using Constraints (UG903)
+    url: https://download.amd.com/docnav/documents/UG903_2023.1_English.pdf
+    note: Recommends multicycle instead of false path when the synchronous path still must be timed and optimized.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

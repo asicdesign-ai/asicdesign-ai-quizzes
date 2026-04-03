@@ -1,0 +1,53 @@
+schema_version: 1
+id: clock-gating-source-vs-deep-tree
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why source-side clock gating saves more
+prompt: >
+  Why is gating a clock near the source often preferred over gating it deeper in
+  the fanout tree?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: clock-gating
+  secondary:
+    - power
+    - clock-network
+    - source-gating
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because the clock network itself consumes switching power, so source gating shuts down more of it
+  - id: b
+    text: Because source gating automatically removes all timing constraints
+  - id: c
+    text: Because deeper gating is impossible in real designs
+  - id: d
+    text: Because source gating converts the design to combinational logic
+answer:
+  correct: a
+  short_explainer: >
+    Gating close to the source can shut down more of the clock tree, not just
+    the endpoints. That usually gives better power savings than gating farther
+    downstream.
+  explanation: >
+    Intel's recommended clock-gating method says to gate at the source whenever
+    possible because the clock network contributes to switching power
+    consumption. Source-side gating disables a larger portion of the network,
+    which is why it can save more power than gating later in the tree.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Prime Pro Edition User Guide - Recommended Clock-Gating Methods
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683082/22-2/recommended-clock-gating-methods.html
+    note: Recommends source-side clock gating because the clock network itself contributes to switching power.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

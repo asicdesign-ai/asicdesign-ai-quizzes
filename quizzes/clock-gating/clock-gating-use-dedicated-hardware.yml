@@ -1,0 +1,57 @@
+schema_version: 1
+id: clock-gating-use-dedicated-hardware
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Preferred implementation of clock gating
+prompt: >
+  When implementing clock gating, what is preferred over using a plain AND or OR
+  gate directly on the clock?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: clock-gating
+  secondary:
+    - implementation
+    - dedicated-hardware
+    - clock-buffers
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Dedicated clock-gating hardware or clock-control buffers
+  - id: b
+    text: Ordinary combinational logic inserted on any local route
+  - id: c
+    text: A tristate buffer on the clock line
+  - id: d
+    text: A larger fanout tree driven from the same ungated clock
+answer:
+  correct: a
+  short_explainer: >
+    Dedicated clock-gating resources are preferred because they use proper clock
+    routing and avoid many of the skew, hold, and glitch problems that plain
+    logic gating can create.
+  explanation: >
+    Intel explicitly recommends using dedicated hardware rather than an AND or
+    OR gate for clock gating. Their guidance points to clock-control blocks and
+    dedicated global clock routing as the safer implementation choice because
+    they reduce skew and avoid hold-time problems created by logic delay on the
+    clock line.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Prime Pro Edition User Guide - Use Gated Clocks
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683082/24-2/use-gated-clocks.html
+    note: Recommends dedicated clock-gating hardware instead of plain AND/OR logic on the clock.
+  - title: AMD 7 Series FPGAs Clocking Resources User Guide (UG472)
+    url: https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug472_7Series_Clocking.pdf
+    note: Documents BUFGCE and BUFHCE as dedicated enable-capable clock resources.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

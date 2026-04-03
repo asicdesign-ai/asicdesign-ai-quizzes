@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-false-path-first-stage-only
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: False-path target for a synchronizer
+prompt: >
+  For a correctly synchronized asynchronous signal, which path should typically
+  receive the false-path timing exception?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - constraints
+    - false-path
+    - synchronizer
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The path into the first synchronizer register only
+  - id: b
+    text: Every register-to-register stage inside the synchronizer chain
+  - id: c
+    text: All paths driven by the destination clock domain
+  - id: d
+    text: None of them, because synchronizers must always be fully timed end-to-end
+answer:
+  correct: a
+  short_explainer: >
+    The false path should usually cut only the asynchronous path into the first
+    synchronizer stage. Cutting the internal stages of the synchronizer chain is
+    a common mistake and can hide real implementation issues.
+  explanation: >
+    Intel's synchronizer constraint guidance shows the false-path exception
+    applied to the first register in the synchronizer chain. Their CDC debug
+    example also warns that cutting every stage in the chain is incorrect,
+    because the internal synchronizer stages still need to be recognized and
+    implemented properly.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Prime Pro Edition User Guide - Constraining Synchronizers in CDCs
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683243/24-3/constraining-synchronizers-in-cdcs.html
+    note: Shows the false-path exception applied to the first synchronizer stage.
+  - title: Intel Quartus Prime Pro Edition User Guide - Debug CDC Example 1
+    url: https://www.intel.com/content/www/us/en/docs/programmable/683243/24-3/debug-cdc-example-1-incorrect-sdc-definition.html
+    note: Explains why cutting all synchronizer stages is incorrect.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

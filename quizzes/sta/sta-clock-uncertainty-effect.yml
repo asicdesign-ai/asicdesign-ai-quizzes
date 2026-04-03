@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-clock-uncertainty-effect
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Effect of clock uncertainty
+prompt: >
+  How does clock uncertainty affect required time in setup and hold analysis?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - clock-uncertainty
+    - setup
+    - hold
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Setup uncertainty is subtracted from required time, while hold uncertainty is added to required time
+  - id: b
+    text: Both setup and hold uncertainty are subtracted from arrival time only
+  - id: c
+    text: Uncertainty affects hold checks only, not setup checks
+  - id: d
+    text: Uncertainty changes clock frequency but not required time
+answer:
+  correct: a
+  short_explainer: >
+    Setup uncertainty makes setup harder by shrinking required time, while hold
+    uncertainty makes hold harder by increasing the required time for the hold
+    check.
+  explanation: >
+    Intel's `set_clock_uncertainty` documentation states that setup uncertainty
+    is subtracted from data required time and hold uncertainty is added to data
+    required time. That means uncertainty tightens both checks, but in opposite
+    arithmetic directions.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Timing Analyzer - set_clock_uncertainty
+    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/18.1/analyze/sta/sta_db_set_clock_uncertainty.htm
+    note: Describes how setup and hold uncertainty modify data required time.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

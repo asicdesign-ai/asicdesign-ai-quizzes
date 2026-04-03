@@ -1,0 +1,55 @@
+schema_version: 1
+id: cdc-single-bit-synchronizer-chain
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Recommended protection for a 1-bit asynchronous transfer
+prompt: >
+  For a 1-bit asynchronous transfer, what structure should protect the
+  destination side?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - synchronizer
+    - single-bit-transfer
+    - destination-domain
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A chain of two or more registers in the destination clock domain
+  - id: b
+    text: A single combinational gate before the destination register
+  - id: c
+    text: A multi-bit synchronizer bus without control logic
+  - id: d
+    text: A set_max_delay constraint with no synchronizer registers
+answer:
+  correct: a
+  short_explainer: >
+    A single-bit asynchronous signal should be protected by a synchronizer chain
+    in the destination domain. The usual guidance is two or more flip-flops so
+    the first stage can absorb metastability risk before downstream logic uses
+    the signal.
+  explanation: >
+    Intel's CDC rule documentation says that a protected 1-bit asynchronous
+    transfer should feed a synchronizer chain of two or more destination-domain
+    registers, with no combinational logic between the registers. That structure
+    reduces the chance that metastability from the first stage escapes into the
+    receiving logic.
+notes:
+  - Generated from official documentation only.
+references:
+  - title: Intel Quartus Design Assistant Rule CDC-50001
+    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/current/da_rules/cdc_50001.htm
+    note: Recommends a two-stage or longer synchronizer chain for single-bit asynchronous transfers.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
