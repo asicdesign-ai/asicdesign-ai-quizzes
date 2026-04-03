@@ -66,12 +66,32 @@ Over time, this repository should become a clean, automation-friendly quiz bank 
 
 Updated: 2026-04-03
 
-- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/firmware`, `quizzes/simulation`, `quizzes/systemverilog`, and `quizzes/vlsi`.
-- `quizzes/cache-coherency/` has been created and populated with 20 reviewed multiple-choice quiz items.
-- The cache-coherency set is research-backed and currently draws from trusted primary or course-quality sources including:
+- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/systemverilog`, and `quizzes/vlsi`.
+- Current reviewed counts by directory are:
+  - `cache-coherency`: 30
+  - `l2-cache-controller`: 10
+  - `firmware`: 1
+  - `simulation`: 1
+  - `systemverilog`: 1
+  - `vlsi`: 2
+- `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
+- `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
+- The current trusted source set used in recent research-backed items includes:
   - Sorin, Hill, and Wood, *A Primer on Memory Consistency and Cache Coherence*
-  - CMU 15-418 cache coherence lecture material
-  - University of Utah CS 6810 cache coherence lecture material
+  - MIT 6.823 lecture and handout material
+  - CMU 15-418 cache-coherence implementation material
+  - University of Utah CS 6810 cache-coherence material
   - *The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect*
-- Recent reviewed items outside cache coherency also exist in `simulation` and `vlsi`, and should continue to follow the same YAML structure and explanation requirements.
+  - UPenn CIS 501 cache lectures
+  - Wisconsin CS/ECE 752 cache lectures
+  - Kroft, *Lockup-Free Instruction Fetch/Prefetch Cache Organization*
+  - gem5 classic cache documentation as supporting systems documentation
+- A GitHub Actions workflow now exists in this repo to trigger a portal rebuild when `quizzes/**` changes land on `main`.
 - For new researched quizzes, keep preserving per-item `references` sections and avoid adding claims that are not supported by a trustworthy source.
+
+## Still Missing / Open Gaps
+
+- Coverage is still thin outside `cache-coherency` and `l2-cache-controller`; most other domains currently have only one or two reviewed items.
+- `quizzes/verilog/` currently exists but has no quiz content. Future work should either populate it or remove the empty category if it is no longer needed.
+- This repo still lacks its own dedicated schema-validation or content-lint workflow. Validation currently happens mainly through manual checks and the downstream portal ingestion/build pipeline.
+- As the quiz bank grows, continue normalizing older and newer items so explanation quality, metadata consistency, and source citation depth stay aligned across directories.
