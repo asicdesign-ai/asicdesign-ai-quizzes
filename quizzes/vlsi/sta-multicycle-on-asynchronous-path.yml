@@ -1,0 +1,56 @@
+schema_version: 1
+id: sta-multicycle-on-asynchronous-path
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: STA check behavior for asynchronous path with multicycle constraint
+prompt: >
+  Will STA (static timing analysis) perform a timing check on an asynchronous path
+  when a `set_multicycle_path` constraint is defined for it?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: vlsi
+  secondary:
+    - sta
+    - timing-constraints
+    - asynchronous-paths
+    - multicycle-path
+    - sdc
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: No, async paths are ignored
+  - id: b
+    text: Depends on the technology lib
+  - id: c
+    text: Yes, propagation delay is checked
+  - id: d
+    text: No, only set_max_delay works
+answer:
+  correct: c
+  short_explainer: >
+    Yes. If you apply a `set_multicycle_path` constraint, STA still analyzes the
+    path timing; the constraint changes the required timing relationship rather than
+    disabling analysis. In other words, propagation delay is still checked against
+    the updated setup and hold windows.
+  explanation: >
+    `set_multicycle_path` does not turn a path into a false path. Instead, it tells
+    STA to relax or shift the capture relationship by a defined number of cycles, so
+    the path remains part of timing analysis. That means the tool still computes
+    propagation delay and compares it against the modified setup and hold
+    requirements. By contrast, a false-path style exception removes normal timing
+    checks, while `set_max_delay` is another way to constrain a path directly in
+    absolute time, not the only way to analyze an asynchronous or unusual path.
+notes:
+  - Correct answer provided by user as choice 3.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
