@@ -1,0 +1,38 @@
+schema_version: 1
+id: sv-flop-reset-value
+status: draft
+review_state: needs_answer
+question_type: short_answer
+title: Flop reset value
+prompt: >
+  In the below SystemVerilog code, what should `rst_val` not be set to?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n)
+        if (~rst_n)
+             q[2:0] <= rst_val;
+        else
+             q[2:0] <= d[2:0];
+topics:
+  primary: systemverilog
+  secondary:
+    - reset
+    - always_ff
+    - sequential-logic
+    - flop-coding-style
+difficulty: intermediate
+source:
+  platform: linkedin
+  import_kind: stem_only
+choices: []
+answer:
+  correct: null
+  explanation: null
+notes:
+  - Added as a draft because the source prompt did not include choices or a confirmed answer.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: true
