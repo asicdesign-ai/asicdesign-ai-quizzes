@@ -30,15 +30,14 @@ choices:
   - id: e
     text: Autonomous hardware DMA with hardcoded addresses
 answer:
-  correct: b
+  correct: c
   explanation: >
-    Loading the image from the primary core during early boot gives a strong balance
-    of security and flexibility. It allows authentication and policy checks before the
-    OS starts, while still keeping the firmware updateable. ROM is more fixed than
-    flexible, and OS- or DMA-driven approaches are typically weaker from a boot-time
-    trust and control perspective.
+    A dedicated off-chip microcontroller provides a stronger trust and control
+    boundary while still allowing the firmware image to remain updateable. That
+    makes it more secure than relying on the host OS or primary core alone, and
+    more flexible than fixing the image permanently in ROM.
 notes:
-  - Correct answer inferred from the prompt's security-versus-flexibility tradeoff.
+  - Correct answer updated after user clarification.
 automation:
   authoring_format: yaml
   build_target: json
