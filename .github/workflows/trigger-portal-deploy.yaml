@@ -1,0 +1,41 @@
+name: Trigger Portal Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "quizzes/**"
+
+permissions:
+  contents: read
+
+jobs:
+  trigger-portal:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dispatch portal rebuild
+        env:
+          PORTAL_REPO_DISPATCH_TOKEN: ${{ secrets.PORTAL_REPO_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$PORTAL_REPO_DISPATCH_TOKEN" ]; then
+            echo "PORTAL_REPO_DISPATCH_TOKEN is required to trigger the portal workflow." >&2
+            exit 1
+          fi
+
+          curl --fail --show-error --silent \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${PORTAL_REPO_DISPATCH_TOKEN}" \
+            https://api.github.com/repos/asicdesign-ai/asicdesign-ai-portal/dispatches \
+            -d @- <<EOF
+          {
+            "event_type": "quizzes_changed",
+            "client_payload": {
+              "source_repo": "${GITHUB_REPOSITORY}",
+              "source_ref": "${GITHUB_REF_NAME}",
+              "source_sha": "${GITHUB_SHA}"
+            }
+          }
+          EOF
