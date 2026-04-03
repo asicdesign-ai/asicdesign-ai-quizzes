@@ -50,3 +50,4 @@ automation:
   build_target: json
   ready_for_ingestion: true
   review_required: false
+auditors: gal_rosen
