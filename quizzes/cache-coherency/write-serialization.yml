@@ -1,0 +1,55 @@
+schema_version: 1
+id: cc-write-serialization
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of write serialization
+prompt: >
+  What does write serialization require in a coherent shared-memory system?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - fundamentals
+    - writes
+    - ordering
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Every store must be written through to DRAM before retirement
+  - id: b
+    text: Writes to the same memory location are seen in the same order by all processors
+  - id: c
+    text: All writes in the whole machine must complete one at a time globally
+  - id: d
+    text: Each cache must serialize its own writes but not writes from other caches
+answer:
+  correct: b
+  short_explainer: >
+    Write serialization is about agreement on order for one address. All processors
+    must observe writes to that location in the same order, even if the system uses
+    private caches and overlapping execution.
+  explanation: >
+    Utah's cache coherence lecture and the primer both frame coherence as requiring
+    that writes to the same memory location be serialized. This does not mean all
+    writes to all addresses are globally one-at-a-time; it means observers cannot
+    disagree about the order of writes to one coherent location.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: Defines write serialization as writes to the same location being seen in the same order by all processors.
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Lists write serialization as a standard coherence property.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

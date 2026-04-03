@@ -1,0 +1,54 @@
+schema_version: 1
+id: cc-forward-state-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of the MESIF Forward state
+prompt: >
+  What is the purpose of the `Forward` (`F`) state in the MESIF protocol?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - mesif
+    - states
+    - optimizations
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To mark the only cache that may supply shared clean data in response to a coherence request
+  - id: b
+    text: To allow multiple caches to write a line simultaneously
+  - id: c
+    text: To indicate that a line is dirty and must be written back before any read
+  - id: d
+    text: To reserve a victim line for the next prefetch stream
+answer:
+  correct: a
+  short_explainer: >
+    The `F` state picks one clean sharer as the designated responder. That avoids
+    the waste of having multiple shared caches all try to answer the same request.
+  explanation: >
+    The MESIF paper says `F` is a clean, read-only state, but unlike plain `S`, a
+    cache in `F` may forward data to satisfy coherence requests. Only one cache may
+    hold `F` at a time, which makes it the single responder for shared clean data
+    and reduces unnecessary reply traffic.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect
+    url: https://www.cs.auckland.ac.nz/~goodman/TechnicalReports/MESIF-2009.pdf
+    note: Introduces the Forward state as the designated clean responder in MESIF.
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Describes F as a clean read-only state from which only one cache may forward data.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

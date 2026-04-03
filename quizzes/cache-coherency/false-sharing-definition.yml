@@ -1,0 +1,52 @@
+schema_version: 1
+id: cc-false-sharing-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Definition of false sharing
+prompt: >
+  Which scenario best describes false sharing?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - performance
+    - false-sharing
+    - cache-lines
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Two processors repeatedly write different addresses that happen to be in the same cache line
+  - id: b
+    text: Two processors repeatedly write the exact same variable intentionally
+  - id: c
+    text: One processor reads a private stack variable from its own cache
+  - id: d
+    text: A core uses an instruction cache miss to fetch a new basic block
+answer:
+  correct: a
+  short_explainer: >
+    False sharing happens when different data items share one coherence unit, so
+    the line bounces even though the threads are not logically communicating. The
+    slowdown is real, but the sharing is only accidental.
+  explanation: >
+    CMU defines false sharing as the condition where two processors write to
+    different addresses, but those addresses map to the same cache line. The line
+    then ping-pongs between caches, generating coherence traffic even though there
+    is no inherent communication between the threads' data.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: Defines false sharing as writes to different addresses that map to the same cache line, causing ping-pong traffic.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

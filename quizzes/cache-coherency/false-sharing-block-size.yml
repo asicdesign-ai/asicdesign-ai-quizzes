@@ -1,0 +1,55 @@
+schema_version: 1
+id: cc-false-sharing-block-size
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Block size effect on false sharing
+prompt: >
+  Why can a larger cache block size increase the chance of false sharing?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - performance
+    - false-sharing
+    - block-size
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Larger blocks force all caches to become fully associative
+  - id: b
+    text: Larger blocks can place more unrelated words in the same coherence unit
+  - id: c
+    text: Larger blocks eliminate all cold misses, which exposes false sharing by itself
+  - id: d
+    text: Larger blocks prevent caches from holding modified data
+answer:
+  correct: b
+  short_explainer: >
+    Bigger coherence blocks mean more nearby data gets tied to one cache line. That
+    makes it easier for unrelated variables to collide in the same coherence unit
+    and interfere with each other.
+  explanation: >
+    The primer explicitly notes that the larger the coherence block, the greater the
+    potential for false sharing. The reason is straightforward: when more unrelated
+    data is packed into a single cache line, independent writes are more likely to
+    trigger invalidations on that shared line.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: States that larger blocks increase the potential for false sharing.
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: Shows false sharing behavior changing with cache line size in example applications.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,57 @@
+schema_version: 1
+id: cc-directory-sharing-status
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What a coherence directory tracks
+prompt: >
+  In a directory-based cache coherence protocol, what does the directory track for
+  a memory block?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - directory
+    - sharers
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Only the replacement policy for the L1 caches
+  - id: b
+    text: The sharing status of the block and, depending on the design, which caches hold it
+  - id: c
+    text: Only the branch predictor entries related to that address
+  - id: d
+    text: The source code line that allocated the block
+answer:
+  correct: b
+  short_explainer: >
+    A directory keeps coherence metadata for a block, such as whether it is shared
+    and which caches currently have copies. That information lets the protocol send
+    targeted messages instead of broadcasting everywhere.
+  explanation: >
+    Both the MESIF paper and Utah's lecture describe directory-based coherence as a
+    scheme in which a directory records the sharing status of a memory block. In
+    practice that metadata is what allows the home node or directory controller to
+    forward requests to relevant sharers or owners rather than involving every
+    cache in the system.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect
+    url: https://www.cs.auckland.ac.nz/~goodman/TechnicalReports/MESIF-2009.pdf
+    note: Explains that directory-based protocols maintain coherence information for a cache line.
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: States that a directory keeps track of the sharing status of a block of memory.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

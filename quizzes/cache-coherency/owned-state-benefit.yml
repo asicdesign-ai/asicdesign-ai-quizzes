@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-owned-state-benefit
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Benefit of adding the Owned state
+prompt: >
+  Why is adding an `Owned` (`O`) state useful when another core reads a block that
+  is currently in `M` or `E`?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - moesi
+    - mosi
+    - optimizations
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It avoids an immediate writeback to memory or LLC while still allowing the block to be shared
+  - id: b
+    text: It allows all sharers to update the line without invalidations
+  - id: c
+    text: It forces memory to service every future read instead of peer caches
+  - id: d
+    text: It removes the need for directories or snooping entirely
+answer:
+  correct: a
+  short_explainer: >
+    `Owned` lets the current owner keep responsibility for a dirty line even after a
+    read by another core. That avoids an immediate memory update while still
+    letting another cache receive the data.
+  explanation: >
+    The primer calls out the key benefit directly: compared with MSI or MESI, the
+    `O` state helps when a cache holding `M` or `E` sees a `GetS`. Without `O`, the
+    responder would typically need to send data to both the requestor and memory.
+    With `O`, it can keep ownership of the dirty block and defer the writeback.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Explains that adding Owned avoids immediate copyback to memory or LLC when a shared read arrives for a block in M or E.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

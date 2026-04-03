@@ -61,3 +61,17 @@ Use `quizzes/templates/multiple-choice.template.yml` as the default starting poi
 ## Preferred Outcome
 
 Over time, this repository should become a clean, automation-friendly quiz bank with a consistent authoring pattern that is easy to review, ingest, and render in `asicdesign-ai-portal`.
+
+## Current Progress Snapshot
+
+Updated: 2026-04-03
+
+- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/firmware`, `quizzes/simulation`, `quizzes/systemverilog`, and `quizzes/vlsi`.
+- `quizzes/cache-coherency/` has been created and populated with 20 reviewed multiple-choice quiz items.
+- The cache-coherency set is research-backed and currently draws from trusted primary or course-quality sources including:
+  - Sorin, Hill, and Wood, *A Primer on Memory Consistency and Cache Coherence*
+  - CMU 15-418 cache coherence lecture material
+  - University of Utah CS 6810 cache coherence lecture material
+  - *The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect*
+- Recent reviewed items outside cache coherency also exist in `simulation` and `vlsi`, and should continue to follow the same YAML structure and explanation requirements.
+- For new researched quizzes, keep preserving per-item `references` sections and avoid adding claims that are not supported by a trustworthy source.

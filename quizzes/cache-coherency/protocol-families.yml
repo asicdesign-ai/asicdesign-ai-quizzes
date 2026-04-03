@@ -1,0 +1,55 @@
+schema_version: 1
+id: cc-protocol-families
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Classic families of coherence protocols
+prompt: >
+  What are the two classic families of hardware cache coherence protocols?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - snooping
+    - directory
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Set-associative and direct-mapped
+  - id: b
+    text: Snooping and directory-based
+  - id: c
+    text: Inclusive and exclusive
+  - id: d
+    text: Harvard and von Neumann
+answer:
+  correct: b
+  short_explainer: >
+    The classic split is snooping versus directory-based coherence. Snooping uses
+    broadcast observation, while directory protocols keep track of sharing
+    information and target only the nodes that matter.
+  explanation: >
+    The MESIF paper introduces the standard taxonomy of coherence protocols as
+    either snooping or directory-based. Utah's architecture lecture uses the same
+    distinction. Interviewers often ask for this split because it leads naturally to
+    questions about scalability, broadcast traffic, and sharer tracking.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect
+    url: https://www.cs.auckland.ac.nz/~goodman/TechnicalReports/MESIF-2009.pdf
+    note: Introduces snooping and directory-based protocols as the two coherence categories.
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: Lists directory-based and snooping as the two main coherence protocol families.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

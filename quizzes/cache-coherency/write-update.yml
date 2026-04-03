@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-write-update
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Behavior of a write-update protocol
+prompt: >
+  In a write-update coherence protocol, what happens when a processor writes a
+  shared block?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - writes
+    - updates
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The processor invalidates every other copy and keeps the block private forever
+  - id: b
+    text: The processor updates the other shared copies with the new value
+  - id: c
+    text: The processor must evict the block before storing to it
+  - id: d
+    text: The processor sends the write only to main memory and never to peer caches
+answer:
+  correct: b
+  short_explainer: >
+    Write-update propagates the new value to other sharers instead of invalidating
+    them. That keeps the copies current, but it can cost more bandwidth than
+    invalidation.
+  explanation: >
+    Utah's lecture contrasts write-update with write-invalidate directly: in a
+    write-update protocol, when a processor writes, it updates the other shared
+    copies of the block. This is a classic interview contrast because it highlights
+    the tradeoff between keeping readers current and limiting coherence traffic.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: Defines write-update as sending the new value to other shared copies of the block.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

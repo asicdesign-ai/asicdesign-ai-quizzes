@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-coherence-vs-consistency
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Cache coherence versus memory consistency
+prompt: >
+  What is the key difference between cache coherence and memory consistency?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - fundamentals
+    - memory-consistency
+    - interview-core
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Coherence is specified per memory location, while consistency is specified across all memory locations
+  - id: b
+    text: Coherence applies only to write-through caches, while consistency applies only to write-back caches
+  - id: c
+    text: Coherence is a software policy, while consistency is a hardware protocol
+  - id: d
+    text: Coherence and consistency are two names for the same property
+answer:
+  correct: a
+  short_explainer: >
+    Cache coherence is about what all cores observe for one memory location, while
+    memory consistency is about ordering relationships across loads and stores to
+    all locations. They are related, but they are not the same concept.
+  explanation: >
+    Sorin, Hill, and Wood explicitly distinguish the two by scope. Coherence is
+    defined on a per-location basis: a coherent system must make accesses to a
+    single address appear in a sensible order. Consistency is broader and governs
+    ordering across different memory locations, which is why a system can be
+    coherent yet still expose a relaxed consistency model.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Distinguishes coherence as a per-memory-location property and consistency as a property over all memory locations.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

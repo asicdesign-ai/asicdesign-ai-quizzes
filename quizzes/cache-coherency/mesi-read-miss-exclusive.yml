@@ -1,0 +1,52 @@
+schema_version: 1
+id: cc-mesi-read-miss-exclusive
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Read miss that enters Exclusive state
+prompt: >
+  In MESI, if a core issues a read miss and no other cache currently has the
+  requested line, which stable state can the requester enter?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - mesi
+    - read-miss
+    - states
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Shared
+  - id: b
+    text: Invalid
+  - id: c
+    text: Exclusive
+  - id: d
+    text: Owned
+answer:
+  correct: c
+  short_explainer: >
+    If no other cache has the line, MESI can return it in `Exclusive` rather than
+    `Shared`. That optimization is one of the main differences between MESI and MSI.
+  explanation: >
+    The primer's MESI running example states that when a `GetS` request arrives and
+    the LLC or memory has the block in `I`, it can send `Exclusive` data to the
+    requester. This lets the core hold a clean private copy and later upgrade to a
+    write more cheaply than if it started in `Shared`.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Shows a MESI example where a read miss with no other sharers returns Exclusive data.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

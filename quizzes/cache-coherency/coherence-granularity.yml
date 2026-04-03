@@ -1,0 +1,52 @@
+schema_version: 1
+id: cc-coherence-granularity
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Hardware granularity of cache coherence
+prompt: >
+  In most cache-coherent systems, at what granularity is coherence normally
+  maintained?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - fundamentals
+    - cache-lines
+    - interview-core
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Individual bits
+  - id: b
+    text: Entire programs
+  - id: c
+    text: Cache blocks or cache lines
+  - id: d
+    text: Full DRAM rows
+answer:
+  correct: c
+  short_explainer: >
+    Coherence is usually tracked at cache-line granularity, not per byte. That is
+    why unrelated variables that share one line can still interfere with each other.
+  explanation: >
+    The primer notes that loads and stores may be as small as a byte, but coherence
+    is typically maintained for a larger region, usually the cache block or cache
+    line. This design choice keeps hardware practical, but it is also the reason
+    false sharing exists: the coherence unit is larger than the individual variable.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Explains that coherence is typically maintained at cache block granularity rather than per-byte granularity.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

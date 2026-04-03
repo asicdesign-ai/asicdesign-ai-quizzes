@@ -1,0 +1,56 @@
+schema_version: 1
+id: cc-snooping-scalability-limit
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Scalability limit of snooping
+prompt: >
+  Why do snooping-based coherence protocols become harder to scale as core count
+  grows?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - snooping
+    - scalability
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: They require every coherence message to be broadcast to all caches
+  - id: b
+    text: They require every cache line to be permanently pinned in all L1 caches
+  - id: c
+    text: They work only with write-through caches
+  - id: d
+    text: They prevent caches from serving data to one another
+answer:
+  correct: a
+  short_explainer: >
+    Snooping relies on everyone seeing coherence traffic, so the interconnect must
+    distribute messages broadly. That broadcast requirement becomes expensive as the
+    number of caches grows.
+  explanation: >
+    CMU's lecture notes call out the core scaling issue directly: a bus-based
+    snooping protocol must broadcast notifications to all caches. The MESIF paper
+    makes the same point when contrasting snooping with directory-based coherence.
+    This is why directory schemes are often favored in larger systems.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: States that snooping is limited because coherence messages must be broadcast to all caches.
+  - title: The MESIF Cache Coherence Protocol for the Intel QuickPath Interconnect
+    url: https://www.cs.auckland.ac.nz/~goodman/TechnicalReports/MESIF-2009.pdf
+    note: Contrasts snooping broadcasts with directory protocols that target only relevant nodes.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

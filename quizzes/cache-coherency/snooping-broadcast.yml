@@ -1,0 +1,56 @@
+schema_version: 1
+id: cc-snooping-broadcast
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Main idea of snooping coherence
+prompt: >
+  What is the main mechanism used by a snooping-based cache coherence protocol?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - snooping
+    - broadcast
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A central directory is the only component allowed to see coherence requests
+  - id: b
+    text: Each cache controller monitors shared traffic so it can update state when coherence events occur
+  - id: c
+    text: Each processor disables private caching for all shared data
+  - id: d
+    text: Memory always supplies data directly and caches never respond to each other
+answer:
+  correct: b
+  short_explainer: >
+    In snooping, caches watch the shared interconnect and react when coherence
+    traffic appears. That observation step is what lets every cache keep its local
+    state consistent with system-wide events.
+  explanation: >
+    Utah's lecture describes snooping as every cache block being accompanied by
+    sharing status, while all cache controllers monitor the shared bus so they can
+    update that status when needed. CMU's lecture makes the same point in a more
+    operational way: a cache controller broadcasts a notification, and all other
+    controllers snoop it and update their local state.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: Describes snooping as all cache controllers monitoring the shared bus and maintaining sharing status.
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: Explains snooping as broadcast notification plus state updates in other cache controllers.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

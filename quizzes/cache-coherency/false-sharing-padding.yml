@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-false-sharing-padding
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Padding as a false-sharing mitigation
+prompt: >
+  Which code change is the most direct way to reduce false sharing for per-thread
+  counters stored in an array?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - performance
+    - false-sharing
+    - padding
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Pad each thread's state so separate counters land on different cache lines
+  - id: b
+    text: Replace the array with a global variable shared by all threads
+  - id: c
+    text: Use a smaller integer type so more counters fit into one cache line
+  - id: d
+    text: Force every update to bypass the cache entirely
+answer:
+  correct: a
+  short_explainer: >
+    Padding separates independent counters so they stop bouncing the same line back
+    and forth between cores. It does not remove communication that is real, but it
+    is a common fix for accidental line sharing.
+  explanation: >
+    CMU's lecture shows a before-and-after example where a plain per-thread counter
+    array is replaced with a padded structure sized to the cache line. The padded
+    version avoids placing multiple hot counters in the same line, which cuts the
+    coherence ping-pong caused by false sharing.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: Demonstrates padding per-thread state to cache-line size as a practical false-sharing mitigation.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

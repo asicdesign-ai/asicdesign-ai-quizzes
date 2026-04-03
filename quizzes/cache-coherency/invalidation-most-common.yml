@@ -1,0 +1,56 @@
+schema_version: 1
+id: cc-invalidation-most-common
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Most common coherence style in practice
+prompt: >
+  According to the cited architecture references, which kind of coherence protocol
+  is used most commonly in modern designs?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - invalidation
+    - interview-core
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Invalidation-based protocols
+  - id: b
+    text: Pure write-update protocols
+  - id: c
+    text: Software-managed coherence only
+  - id: d
+    text: Per-byte token protocols only
+answer:
+  correct: a
+  short_explainer: >
+    Invalidation-based protocols are the mainstream choice. They fit naturally with
+    the single-writer rule and usually avoid the bandwidth cost of updating every
+    sharer on each write.
+  explanation: >
+    CMU's lecture notes say current systems most commonly use an invalidation-based
+    protocol. The primer echoes this from a broader perspective, stating that the
+    vast majority of coherence protocols are invalidate protocols designed to
+    maintain the standard coherence invariants.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: States that current systems most commonly use invalidation-based cache coherence.
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Notes that the vast majority of coherence protocols are invalidate protocols.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

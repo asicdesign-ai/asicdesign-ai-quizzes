@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-owned-state-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of the Owned state
+prompt: >
+  What best describes the `Owned` (`O`) state in MOSI or MOESI-style coherence
+  protocols?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - moesi
+    - mosi
+    - states
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A line that is invalid locally but reserved in the directory
+  - id: b
+    text: A line that is valid, read-only, dirty, and whose owner must respond to coherence requests
+  - id: c
+    text: A line that is clean, exclusive, and silently evictable
+  - id: d
+    text: A line that allows all sharers to write concurrently
+answer:
+  correct: b
+  short_explainer: >
+    `Owned` means the line is still dirty with respect to memory, but it may also
+    be shared. The owner keeps responsibility for supplying the correct data on
+    future coherence requests.
+  explanation: >
+    The primer defines `O` as valid, read-only, dirty, and owned, meaning memory
+    is not yet updated and the owner cache must respond to coherence requests for
+    the block. That makes `O` different from `S`, which is clean, and from `M`,
+    which is dirty but not shared for reading by other caches.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Defines the Owned state as valid, read-only, dirty, and owner-responsible for coherence responses.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

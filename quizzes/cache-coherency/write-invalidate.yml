@@ -1,0 +1,55 @@
+schema_version: 1
+id: cc-write-invalidate
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Behavior of a write-invalidate protocol
+prompt: >
+  In a write-invalidate coherence protocol, what happens before a processor writes
+  a shared cache block?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - protocols
+    - writes
+    - invalidation
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It invalidates the other shared copies so it can gain exclusive access
+  - id: b
+    text: It updates every other shared copy with the new value immediately
+  - id: c
+    text: It bypasses caches and writes directly to disk-backed memory
+  - id: d
+    text: It demotes the block to an uncached state in every processor permanently
+answer:
+  correct: a
+  short_explainer: >
+    Write-invalidate means the writer first knocks out other copies, then writes as
+    the sole owner. That matches the single-writer rule behind coherence.
+  explanation: >
+    Utah's lecture defines write-invalidate as a processor gaining exclusive access
+    to a block before writing by invalidating all other copies. The primer also
+    notes that invalidate protocols send messages to ensure no other core keeps a
+    read-only or read-write copy when a write epoch begins.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS 6810 Cache Coherence Lecture
+    url: https://my.eng.utah.edu/~cs6810/pres/07-6810-18.pdf
+    note: Defines write-invalidate as invalidating other copies before writing.
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Describes invalidate protocols as ending old epochs so a new write epoch can begin.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

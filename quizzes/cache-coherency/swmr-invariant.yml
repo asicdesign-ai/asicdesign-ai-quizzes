@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-swmr-invariant
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Single-writer multiple-reader invariant
+prompt: >
+  Which statement best matches the Single-Writer, Multiple-Reader (SWMR)
+  coherence invariant?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - fundamentals
+    - invariants
+    - swmr
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Any number of cores may write the same location at the same time if they use write-back caches
+  - id: b
+    text: At any given time, either one core may write a location or multiple cores may only read it
+  - id: c
+    text: Only the directory controller may write a shared memory location
+  - id: d
+    text: A location can be read only after all caches have evicted it
+answer:
+  correct: b
+  short_explainer: >
+    SWMR means the system never allows simultaneous writers and readers for the
+    same location. At a given moment, a location is either in a single-writer phase
+    or a read-only shared phase.
+  explanation: >
+    The primer states the SWMR invariant as: for any memory location, there is
+    either one core that may write it and also read it, or some number of cores
+    that may only read it. This invariant is the core safety idea behind familiar
+    coherence protocols such as MSI, MESI, and MOESI.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Defines the Single-Writer, Multiple-Reader coherence invariant.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

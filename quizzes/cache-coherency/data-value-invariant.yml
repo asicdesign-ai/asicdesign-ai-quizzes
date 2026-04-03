@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-data-value-invariant
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Data-value coherence invariant
+prompt: >
+  What does the Data-Value coherence invariant require?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - fundamentals
+    - invariants
+    - data-values
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Every read must come directly from DRAM rather than from another cache
+  - id: b
+    text: The value at the start of an epoch matches the value at the end of the previous read-write epoch
+  - id: c
+    text: Every store must immediately update all cache lines in the system
+  - id: d
+    text: All loads and stores to all addresses must execute in one global total order
+answer:
+  correct: b
+  short_explainer: >
+    The Data-Value invariant says values must propagate correctly from one access
+    epoch to the next. A reader should observe the value established by the last
+    completed write epoch for that location.
+  explanation: >
+    In the primer's formulation, coherence is not just about who may read or write,
+    but also about what value is seen next. The Data-Value invariant says the value
+    at the start of an epoch equals the value at the end of the previous read-write
+    epoch. That is what prevents a core from reading an arbitrarily old or
+    inconsistent value for a coherent address.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Defines the Data-Value invariant used alongside SWMR in a coherence specification.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-mesi-exclusive-state
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of the MESI Exclusive state
+prompt: >
+  In the MESI protocol, what does the `Exclusive` (`E`) state mean?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - mesi
+    - states
+    - protocol-states
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The line is dirty and shared, and only memory may respond to requests
+  - id: b
+    text: The line is invalid and reserved for a future store
+  - id: c
+    text: The line is present in exactly one cache, is clean, and matches memory
+  - id: d
+    text: The line is writable simultaneously by all sharers
+answer:
+  correct: c
+  short_explainer: >
+    `Exclusive` means one cache has the line, but it is still clean, so memory is
+    already up to date. That is what distinguishes `E` from `M`.
+  explanation: >
+    The primer defines `E` as a state in which the cache is the only one with the
+    block and the copy is clean. Because memory is current, the line can often be
+    silently upgraded to `M` on a write without first fetching data from elsewhere.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Describes the Exclusive state as a clean block held by only one cache.
+  - title: CMU 15-418 Cache Coherence Lecture
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-f23/www/lectures/10_cachecoherence.pdf
+    note: Lists E as clean and exclusive to one cache, unlike M which is modified.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
