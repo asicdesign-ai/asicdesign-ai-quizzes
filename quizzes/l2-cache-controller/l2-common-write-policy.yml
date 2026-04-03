@@ -1,0 +1,54 @@
+schema_version: 1
+id: l2c-common-write-policy
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Common write policy for L2 and beyond
+prompt: >
+  What write policy is generally common for second-level and beyond caches?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - write-policy
+    - write-back
+    - hierarchy
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Write-back
+  - id: b
+    text: Write-through
+  - id: c
+    text: Write-around only
+  - id: d
+    text: Update-based writes only
+answer:
+  correct: a
+  short_explainer: >
+    Second-level and lower caches are commonly write-back caches. This reduces
+    lower-level traffic because only dirty evictions need to be written back.
+  explanation: >
+    The UPenn and Wisconsin cache lectures both describe lower levels such as
+    L2 and L3 as commonly using write-back. The reason is bandwidth efficiency:
+    writes are propagated when a dirty block is replaced, rather than on every
+    store as in write-through.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 501 Caches - Write Policies
+    url: https://acg.cis.upenn.edu/milom/cis501-Fall12/lectures/06_caches.pdf
+    note: States that second-level and beyond are generally write-back caches.
+  - title: CS/ECE 752 Caches - Write-Through vs. Write-Back
+    url: https://pages.cs.wisc.edu/~sohi/cs752/Spring2025/Slides/08_caches.pdf
+    note: Notes a common design of write-through L1 with write-back L2 and L3.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

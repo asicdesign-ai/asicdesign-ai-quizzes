@@ -1,0 +1,56 @@
+schema_version: 1
+id: cc-inclusive-llc-snoop-filter
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Inclusive LLC as a snoop filter
+prompt: >
+  Why is an inclusive LLC often described as a natural snoop filter?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - inclusive-caches
+    - snoop-filter
+    - llc
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: If a line misses in the inclusive LLC, the system knows it cannot be present in upper-level caches
+  - id: b
+    text: It guarantees that all dirty data is always already in DRAM
+  - id: c
+    text: It removes the need for any coherence protocol
+  - id: d
+    text: It allows multiple caches to write the same line simultaneously
+answer:
+  correct: a
+  short_explainer: >
+    Inclusion means upper-level cached lines must also exist in the inclusive LLC.
+    So an LLC miss can rule out upper-level hits, which is exactly why it acts like
+    a snoop filter.
+  explanation: >
+    The MICRO paper explains that inclusive caches are beneficial because they serve
+    as a natural snoop filter: when an LLC lookup misses, no snoops need to be sent
+    to the core caches because the line is guaranteed not to be present there. That
+    coherence simplification is one of the classic reasons designers choose
+    inclusive hierarchies.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Achieving Non-Inclusive Cache Performance with Inclusive Caches
+    url: https://people.csail.mit.edu/emer/media/papers/2010.12.micro.tla.pdf
+    note: Explains that inclusive caches act as a natural snoop filter because an LLC miss guarantees the line is not in the upper caches.
+  - title: MIT 6.823 Lecture 4 - Memory Management
+    url: https://csg.csail.mit.edu/6.823S20/Lectures/L04.pdf
+    note: Lists easier coherence as a reason to choose inclusive multilevel caches.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

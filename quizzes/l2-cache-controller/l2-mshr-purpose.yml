@@ -1,0 +1,55 @@
+schema_version: 1
+id: l2c-mshr-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of an MSHR
+prompt: >
+  In a lockup-free L2 cache controller, what is an MSHR used for?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - mshr
+    - non-blocking-cache
+    - miss-handling
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To hold miss information and status for an outstanding miss
+  - id: b
+    text: To replace the tag array for hit detection
+  - id: c
+    text: To store dirty cache lines permanently
+  - id: d
+    text: To encode the replacement policy only
+answer:
+  correct: a
+  short_explainer: >
+    MSHR stands for miss status holding register. It tracks the state and
+    bookkeeping needed while a miss is outstanding.
+  explanation: >
+    Kroft's original lockup-free cache paper requires one miss
+    information/status holding register for each miss handled concurrently and
+    explains that these registers hold the information needed to process
+    returning data and match later accesses to data in transit. That is the
+    classic role of an MSHR in a non-blocking controller.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Kroft - Lockup-Free Instruction Fetch/Prefetch Cache Organization
+    url: https://www.cs.auckland.ac.nz/compsci703s1c/resources/Kroft.pdf
+    note: Defines MSHRs as miss information and status holding registers used for concurrent outstanding misses.
+  - title: gem5 Classic Caches
+    url: https://www.gem5.org/documentation/general_docs/memory_system/classic_caches/
+    note: Describes the default cache as a non-blocking cache with MSHR and write buffer support.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

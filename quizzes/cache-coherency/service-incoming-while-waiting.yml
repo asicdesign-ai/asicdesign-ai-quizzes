@@ -1,0 +1,54 @@
+schema_version: 1
+id: cc-service-incoming-while-waiting
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why a waiting cache must still snoop incoming requests
+prompt: >
+  Why must a cache controller still be able to service incoming coherence
+  transactions while it is waiting to acquire the bus for its own request?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - controller-implementation
+    - deadlock
+    - snooping
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Otherwise the system can deadlock when another core requests a line this cache must provide
+  - id: b
+    text: Otherwise the cache loses its replacement-policy history
+  - id: c
+    text: Otherwise the cache becomes effectively direct-mapped
+  - id: d
+    text: Otherwise ECC bits cannot be regenerated
+answer:
+  correct: a
+  short_explainer: >
+    Waiting for the bus does not remove a cache’s coherence obligations. If it stops
+    servicing incoming transactions, another core can block forever waiting for data
+    or an acknowledgment this cache is supposed to provide.
+  explanation: >
+    The CMU lecture gives a concrete fetch-deadlock example: one cache is waiting
+    for the bus to issue `BusRdX` on one line while another core issues `BusRd` for
+    a different line that the waiting cache currently owns in modified form. To
+    avoid deadlock, the waiting cache must still respond to incoming coherence
+    traffic.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418/618 Lecture 12 - A Basic Snooping-Based Multi-Processor Implementation
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/lectures/12_snoopimpl.pdf
+    note: Shows a fetch-deadlock scenario and explains that caches must service incoming transactions while waiting to issue their own requests.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-inclusive-directory-miss-means-invalid
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of a miss in an inclusive directory cache
+prompt: >
+  In a directory cache embedded in an inclusive LLC, what does a miss in the
+  directory/LLC imply about that block on chip?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - directory
+    - inclusive-caches
+    - llc
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The block is not cached in any L1 on chip and is effectively in state I there
+  - id: b
+    text: The block must be shared in at least one L1
+  - id: c
+    text: The block must be dirty in the last requester
+  - id: d
+    text: The block is guaranteed to be in the write-back buffer
+answer:
+  correct: a
+  short_explainer: >
+    If inclusion holds, any line present in an upper cache must also appear in the
+    inclusive LLC or directory. So a miss there means no upper-level cache on chip
+    can still have that block.
+  explanation: >
+    The second-edition primer says that with an inclusive LLC-embedded directory,
+    if a block is not in the LLC, then it is also not in any L1 and must therefore
+    be in state `I` for all caches on the chip. That is the key simplification an
+    inclusive directory cache exploits.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence, Second Edition
+    url: https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf
+    note: Explains that if a block is not present in an inclusive LLC, then it is also not present in the on-chip L1 caches and is in state I there.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

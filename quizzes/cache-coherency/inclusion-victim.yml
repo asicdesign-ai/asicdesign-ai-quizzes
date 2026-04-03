@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-inclusion-victim
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of an inclusion victim
+prompt: >
+  What is an inclusion victim in an inclusive cache hierarchy?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - inclusive-caches
+    - llc
+    - performance
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A line invalidated from an upper cache because the inclusive outer cache evicted its copy
+  - id: b
+    text: A line silently moved from L1 to L2 in an exclusive hierarchy
+  - id: c
+    text: A line updated in all sharers by a write-update protocol
+  - id: d
+    text: A line that misses only because of virtual-address aliasing
+answer:
+  correct: a
+  short_explainer: >
+    Inclusion victims are a downside of inclusive hierarchies. An outer-cache
+    eviction can force a still-useful upper-level line to be invalidated just to
+    preserve inclusion.
+  explanation: >
+    The MIT MICRO paper defines this effect directly: when a line is evicted from
+    an inclusive LLC, inclusion is enforced by back-invalidating that line from the
+    smaller caches if present. The paper then explains that these forced
+    invalidations can hurt performance even when the upper-level line still has
+    strong temporal locality.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Achieving Non-Inclusive Cache Performance with Inclusive Caches
+    url: https://people.csail.mit.edu/emer/media/papers/2010.12.micro.tla.pdf
+    note: Defines inclusion, back-invalidation, and the inclusion-victim performance problem in inclusive hierarchies.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

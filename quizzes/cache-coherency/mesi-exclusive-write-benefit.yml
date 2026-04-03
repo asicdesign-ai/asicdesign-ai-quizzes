@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-mesi-exclusive-write-benefit
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why MESI adds the Exclusive state
+prompt: >
+  What is the main performance benefit of the `Exclusive` state in MESI when a
+  core reads a block that no other cache currently holds and then later writes it?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - mesi
+    - exclusive
+    - optimizations
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The later write can upgrade silently to Modified without another coherence request
+  - id: b
+    text: Multiple caches can write the line at the same time
+  - id: c
+    text: The line becomes shared and dirty at the same time
+  - id: d
+    text: Main memory is immediately updated on every store
+answer:
+  correct: a
+  short_explainer: >
+    If a line is in `Exclusive`, the cache already knows no one else has it. That
+    lets a later write move to `Modified` without paying for another coherence
+    transaction.
+  explanation: >
+    The primer says a cache in `E` may silently transition to `M` without issuing
+    another coherence request. The motivation section explains why this matters:
+    compared with MSI, MESI can eliminate the second transaction in the common
+    read-then-write case when no other cache shares the block.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Explains that E may silently change to M and that this removes a coherence transaction in the common read-then-write case.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

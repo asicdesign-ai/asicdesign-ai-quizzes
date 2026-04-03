@@ -1,0 +1,53 @@
+schema_version: 1
+id: l2c-unified-instruction-data
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why L2 caches are often unified
+prompt: >
+  Why are L2 and L3 caches often unified for instructions and data?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - unified-cache
+    - hierarchy
+    - capacity
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To dynamically allocate capacity between instructions and data and reduce miss rate
+  - id: b
+    text: To guarantee simultaneous instruction and data accesses every cycle
+  - id: c
+    text: To remove set conflicts entirely
+  - id: d
+    text: Because lower-level caches do not use tags
+answer:
+  correct: a
+  short_explainer: >
+    Lower-level caches are often unified so unused instruction capacity can be
+    used for data, and vice versa. That helps reduce miss rate where capacity
+    matters more.
+  explanation: >
+    The UPenn cache lecture explicitly says that as designers move down to L2
+    and L3, unified instruction and data caching is used to dynamically
+    allocate capacity, and that unified L2/L3 helps minimize miss rate. The
+    tradeoff is potentially more instruction/data conflicts, but the effect is
+    smaller in larger caches.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 501 Caches - Designing a Cache Hierarchy and Split vs Unified Caches
+    url: https://acg.cis.upenn.edu/milom/cis501-Fall12/lectures/06_caches.pdf
+    note: States that moving down to L2 and L3 uses unified instruction and data caching to dynamically allocate capacity and reduce miss rate.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

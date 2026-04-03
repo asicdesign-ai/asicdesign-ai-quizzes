@@ -1,0 +1,56 @@
+schema_version: 1
+id: l2c-writeback-buffer-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of a write-back buffer
+prompt: >
+  Why is a write-back buffer commonly added behind a write-back cache?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - write-back-buffer
+    - dirty-eviction
+    - miss-handling
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: So a dirty evicted line can be flushed later while the requested line is loaded immediately
+  - id: b
+    text: To convert the cache into a write-through design
+  - id: c
+    text: To avoid storing dirty bits in the cache
+  - id: d
+    text: To guarantee the snoop controller never checks buffered addresses
+answer:
+  correct: a
+  short_explainer: >
+    A write-back buffer lets the controller decouple dirty eviction from the
+    critical miss path. The processor can resume after the fill while the dirty
+    line is written back later.
+  explanation: >
+    Both the Wisconsin and CMU material describe the point of a write-back
+    buffer: on a dirty miss, the requested line can be loaded first and the
+    dirty victim can be flushed afterward. CMU also points out a controller
+    detail that matters for correctness: snoops must check write-back buffer
+    addresses too, because the newest data may already be sitting there.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS/ECE 752 Caches - Write-Through vs. Write-Back
+    url: https://pages.cs.wisc.edu/~sohi/cs752/Spring2025/Slides/08_caches.pdf
+    note: Mentions the common writeback-buffer design that fills first and writes back later.
+  - title: CMU 15-418 A Basic Snooping-Based Multi-Processor Implementation
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/lectures/12_snoopimpl.pdf
+    note: Explains that a write-back buffer allows the requested line to load immediately while the dirty line is flushed later, and that snoops must check the buffer.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

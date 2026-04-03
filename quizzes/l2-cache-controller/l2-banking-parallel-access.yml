@@ -1,0 +1,51 @@
+schema_version: 1
+id: l2c-banking-parallel-access
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why bank an L2 cache
+prompt: >
+  What is the main reason to bank a cache or SRAM inside an L2 controller?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - banking
+    - bandwidth
+    - sram
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To allow parallel access to different banks
+  - id: b
+    text: To eliminate the need for cache tags
+  - id: c
+    text: To guarantee every access is single-cycle
+  - id: d
+    text: To remove coherence-related traffic
+answer:
+  correct: a
+  short_explainer: >
+    Banking is used to increase access bandwidth by letting different banks be
+    accessed in parallel. It does not remove tags or coherence logic.
+  explanation: >
+    The Wisconsin slides describe banking as dividing SRAM into banks and
+    allowing parallel access to different banks. The tradeoff is that requests
+    mapping to the same bank can still conflict, so banking improves bandwidth
+    but does not make the structure conflict-free.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS/ECE 752 Caches - Banking an SRAM
+    url: https://pages.cs.wisc.edu/~sohi/cs752/Spring2025/Slides/08_caches.pdf
+    note: States that SRAM can be divided into banks to allow parallel access to different banks.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

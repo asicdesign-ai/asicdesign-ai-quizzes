@@ -1,0 +1,52 @@
+schema_version: 1
+id: cc-dirty-cache-supplies-read-miss
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Read miss when another cache has dirty data
+prompt: >
+  In a basic snooping implementation, if a `BusRd` finds that another cache has a
+  dirty copy of the line, who should supply the data?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - snooping
+    - dirty-data
+    - read-miss
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Main memory should always supply the data
+  - id: b
+    text: The cache with the dirty copy should supply the data
+  - id: c
+    text: Both memory and the cache should respond at the same time
+  - id: d
+    text: No one responds until the requester retries
+answer:
+  correct: b
+  short_explainer: >
+    If another cache has the dirty, most recent copy, memory is stale. The cache
+    that owns that dirty data has to respond instead.
+  explanation: >
+    CMU's snooping implementation notes say the collective snoop result must tell
+    memory whether another cache has dirty data. If so, memory should not respond,
+    and the cache with the up-to-date line should provide the data for the read
+    miss.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418/618 Lecture 12 - A Basic Snooping-Based Multi-Processor Implementation
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/lectures/12_snoopimpl.pdf
+    note: Explains that if snoop results indicate another cache has the most recent dirty data, memory should not respond and the cache should provide the data.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

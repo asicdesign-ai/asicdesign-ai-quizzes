@@ -1,0 +1,56 @@
+schema_version: 1
+id: l2c-inclusive-eviction-invalidates-l1
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Inclusive L2 eviction effect
+prompt: >
+  In an inclusive L1/L2 hierarchy, what must happen if a block is evicted from
+  L2?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - inclusive
+    - hierarchy
+    - invalidation
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The corresponding L1 copy must also be evicted or invalidated
+  - id: b
+    text: The L1 copy remains valid because L1 is authoritative
+  - id: c
+    text: Main memory must be invalidated first
+  - id: d
+    text: Only the replacement policy metadata changes
+answer:
+  correct: a
+  short_explainer: >
+    Inclusion means an L1 line must also exist in L2. If L2 evicts that block,
+    the L1 copy can no longer remain, so the controller must invalidate or
+    evict it as well.
+  explanation: >
+    The UPenn lecture states that in an inclusive hierarchy a block in L1 is
+    always in L2, and therefore if the block is evicted from L2 it must also be
+    evicted from L1. This is a core controller obligation in inclusive cache
+    hierarchies.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 501 Caches - Hierarchy Inclusion versus Exclusion
+    url: https://acg.cis.upenn.edu/milom/cis501-Fall12/lectures/06_caches.pdf
+    note: States that if a block is evicted from L2 in an inclusive hierarchy, it must also be evicted from L1.
+  - title: MIT 6.823 Lecture 4 - Inclusion Policy
+    url: https://csg.csail.mit.edu/6.823S20/Lectures/L04.pdf
+    note: Defines inclusive caches as having outer-cache copies of inner-cache lines.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

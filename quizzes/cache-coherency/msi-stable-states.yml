@@ -1,0 +1,51 @@
+schema_version: 1
+id: cc-msi-stable-states
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Stable states in the MSI protocol
+prompt: >
+  Which set lists the stable cache-line states of the MSI coherence protocol?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - msi
+    - states
+    - protocol-basics
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Modified, Shared, Invalid
+  - id: b
+    text: Modified, Exclusive, Shared, Invalid
+  - id: c
+    text: Modified, Owned, Shared, Invalid
+  - id: d
+    text: Exclusive, Shared, Invalid
+answer:
+  correct: a
+  short_explainer: >
+    MSI has three stable states: Modified, Shared, and Invalid. `Exclusive` is
+    added in MESI, not in MSI.
+  explanation: >
+    MIT's directory-based MSI handout explicitly defines the cache states as
+    Modified, Shared, and Invalid, with separate transient states such as `S→M`
+    while an upgrade request is in flight. That is why the four-state answer is a
+    MESI answer, not an MSI answer.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: MIT 6.823 Handout 13 - Directory-based MSI Protocol
+    url: https://csg.csail.mit.edu/6.823S15/StudyMaterials/Handouts/handout13-directory.pdf
+    note: Lists the stable cache states for MSI as Modified, Shared, and Invalid.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

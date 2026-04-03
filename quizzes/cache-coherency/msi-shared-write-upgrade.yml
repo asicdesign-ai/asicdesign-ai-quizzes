@@ -1,0 +1,53 @@
+schema_version: 1
+id: cc-msi-shared-write-upgrade
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Writing a line in Shared state under MSI
+prompt: >
+  In the MSI protocol, what must happen before a cache can complete a write to a
+  line that is currently in `Shared` state?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - msi
+    - writes
+    - upgrades
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The cache must request exclusive ownership and transition toward Modified
+  - id: b
+    text: The cache may write silently because Shared already allows writes
+  - id: c
+    text: The cache must first move to Exclusive without any coherence request
+  - id: d
+    text: The cache must evict the line and write directly to memory
+answer:
+  correct: a
+  short_explainer: >
+    A write cannot complete from `Shared` in MSI. The cache has to request write
+    permission so other shared copies can be invalidated and the line can move to
+    `Modified`.
+  explanation: >
+    The MIT handout says a write hit is valid only in `M`, not in `S`. It also
+    defines a transient `S→M` path in which the cache has sent an upgrade or
+    exclusive request and is waiting for the response. That is the required step
+    before the write can complete.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: MIT 6.823 Handout 13 - Directory-based MSI Protocol
+    url: https://csg.csail.mit.edu/6.823S15/StudyMaterials/Handouts/handout13-directory.pdf
+    note: States that write hits occur only in M and shows a transient S→M state while an upgrade request is pending.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,53 @@
+schema_version: 1
+id: l2c-design-emphasis-miss-rate
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Design emphasis for lower-level caches
+prompt: >
+  When designing lower-level caches such as L2 and L3, what is typically
+  emphasized more than hit time?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - hierarchy
+    - miss-rate
+    - tradeoffs
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Reducing miss rate
+  - id: b
+    text: Maximizing structural hazards
+  - id: c
+    text: Minimizing the number of tag bits only
+  - id: d
+    text: Keeping instruction and data physically split at all costs
+answer:
+  correct: a
+  short_explainer: >
+    Lower-level caches are usually designed to reduce miss rate, because they
+    are accessed less often but pay a large penalty on a miss.
+  explanation: >
+    The UPenn cache lecture contrasts upper levels and lower levels directly:
+    L1 emphasizes low hit time, while moving down to L2 and L3 shifts emphasis
+    toward reducing miss rate because misses are more expensive. That is why
+    lower levels often grow capacity and associativity rather than chasing the
+    absolute lowest hit latency.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 501 Caches - Designing a Cache Hierarchy
+    url: https://acg.cis.upenn.edu/milom/cis501-Fall12/lectures/06_caches.pdf
+    note: States that moving down to L2 and L3 turns the emphasis toward miss rate rather than hit time.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

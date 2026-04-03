@@ -1,0 +1,50 @@
+schema_version: 1
+id: cc-busupg-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of a BusUpg transaction
+prompt: >
+  In a snooping MESI-style system, what is a `BusUpg` transaction used for?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - snooping
+    - busupg
+    - upgrades
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To invalidate other sharers when the requester already has the line and does not need data returned
+  - id: b
+    text: To fetch the full line from memory and invalidate all caches
+  - id: c
+    text: To downgrade a Modified line to Shared
+  - id: d
+    text: To force a dirty writeback from the requester to memory
+answer:
+  correct: a
+  short_explainer: >
+    `BusUpg` is the no-data upgrade path. It is used when the cache already has the
+    line but needs other shared copies invalidated so it can write.
+  explanation: >
+    CMU's implementation notes describe `BusUpg` as a transaction exactly like
+    `BusRdX` except that it does not need to return data. That makes it the natural
+    optimization for the `S→M` case when the requester already holds a valid copy.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418/618 Lecture 12 - A Basic Snooping-Based Multi-Processor Implementation
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/lectures/12_snoopimpl.pdf
+    note: Defines BusUpg as a new bus transaction for S→M when the cache does not need data returned.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

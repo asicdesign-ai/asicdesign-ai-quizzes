@@ -1,0 +1,56 @@
+schema_version: 1
+id: cc-shared-snoop-result-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why MESI needs a shared snoop result
+prompt: >
+  On a read miss in MESI, why does the requester care whether the collective
+  snoop result says the line is shared by another cache?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cache-coherency
+  secondary:
+    - mesi
+    - snooping
+    - shared-state
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It determines whether the requester should load the line in Shared or Exclusive
+  - id: b
+    text: It selects the replacement way inside the cache set
+  - id: c
+    text: It tells the cache whether ECC should be checked
+  - id: d
+    text: It decides whether the processor should trap to the OS
+answer:
+  correct: a
+  short_explainer: >
+    A read miss can become `Exclusive` only if no one else already has a valid
+    copy. If another cache reports sharing, the requester must load the line in
+    `Shared` instead.
+  explanation: >
+    The CMU notes call out this exact purpose: the requester needs to know whether
+    the line is shared so it can choose `S` rather than `E`. Without that snoop
+    result, the cache controller cannot safely decide whether it has sole ownership
+    of a clean copy.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CMU 15-418/618 Lecture 12 - A Basic Snooping-Based Multi-Processor Implementation
+    url: https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/lectures/12_snoopimpl.pdf
+    note: Explains that the shared snoop result tells the loading cache whether to place the line in S instead of E.
+  - title: A Primer on Memory Consistency and Cache Coherence
+    url: https://users.cs.utah.edu/~vijay/papers/primer.pdf
+    note: Describes MESI’s use of E only when no other cache has the block.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

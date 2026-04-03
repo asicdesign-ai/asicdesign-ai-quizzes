@@ -1,0 +1,53 @@
+schema_version: 1
+id: l2c-mshr-count-limits-outstanding-misses
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What limits outstanding misses
+prompt: >
+  What ultimately limits how many misses a non-blocking cache can track without
+  lockup?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - mshr
+    - non-blocking-cache
+    - outstanding-misses
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The number of MSHRs or unresolved misses the cache can track
+  - id: b
+    text: The number of ways in each set
+  - id: c
+    text: The number of load opcodes in the ISA
+  - id: d
+    text: The number of cores on the chip
+answer:
+  correct: a
+  short_explainer: >
+    A lockup-free cache can overlap misses only up to the number of outstanding
+    misses it has structures to track. In Kroft's design, that structure is the
+    MSHR.
+  explanation: >
+    Kroft explicitly says the limit on streaming requests at the hit throughput
+    rate is the number of misses the cache can track simultaneously without
+    lockup, and then requires one MSHR for each miss handled concurrently. So
+    MSHR capacity is what bounds concurrent outstanding misses.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Kroft - Lockup-Free Instruction Fetch/Prefetch Cache Organization
+    url: https://www.cs.auckland.ac.nz/compsci703s1c/resources/Kroft.pdf
+    note: States that the limit is the number of misses tracked simultaneously without lockup and requires one MSHR per concurrent miss.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

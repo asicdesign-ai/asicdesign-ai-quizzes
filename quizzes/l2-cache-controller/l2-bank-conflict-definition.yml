@@ -1,0 +1,52 @@
+schema_version: 1
+id: l2c-bank-conflict-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Bank conflicts in a banked cache
+prompt: >
+  In a banked L2 cache, what is a bank conflict?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: l2-cache-controller
+  secondary:
+    - banking
+    - bandwidth
+    - arbitration
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Two accesses target the same bank, so one has to wait
+  - id: b
+    text: A line has both clean and dirty status at the same time
+  - id: c
+    text: Two cache sets resolve to the same tag value
+  - id: d
+    text: Main memory returns blocks in a different order than requested
+answer:
+  correct: a
+  short_explainer: >
+    In a banked cache, parallelism comes from sending requests to different
+    banks. If two accesses land in the same bank, they contend for that bank
+    and one must wait.
+  explanation: >
+    The Wisconsin cache slides define banking as dividing SRAM into banks so
+    different banks can be accessed in parallel. They also state that when two
+    accesses go to the same bank, a bank conflict occurs and one waits. That is
+    exactly the controller-level meaning of a bank conflict.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CS/ECE 752 Caches - Banking an SRAM
+    url: https://pages.cs.wisc.edu/~sohi/cs752/Spring2025/Slides/08_caches.pdf
+    note: Defines banking and states that two accesses to the same bank create a bank conflict.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
