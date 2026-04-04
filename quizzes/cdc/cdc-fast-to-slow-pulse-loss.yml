@@ -1,0 +1,61 @@
+schema_version: 1
+id: cdc-fast-to-slow-pulse-loss
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Fast-to-slow pulse loss with a simple synchronizer
+prompt: >
+  What is the main hazard when a one-cycle pulse from a fast source domain is
+  sent through a simple 2-FF synchronizer into a slower destination domain?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - pulse-transfer
+    - fast-to-slow
+    - single-bit-transfer
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The pulse can disappear before any destination edge samples it
+  - id: b
+    text: The source pulse becomes wider automatically
+  - id: c
+    text: The destination clock becomes phase-locked to the source
+  - id: d
+    text: The crossing becomes safe simply because the clocks are unrelated
+answer:
+  correct: a
+  short_explainer: >
+    A short fast-domain pulse may never overlap a destination sampling edge, so
+    the destination can miss it entirely. That is why fast-to-slow events often
+    need pulse stretching, toggle or handshake logic, or an async FIFO instead
+    of a bare 2-FF path.
+  explanation: >
+    VerilogPro and EDN both point out that fast-to-slow crossings are the hard
+    case for a simple synchronizer because a short pulse can vanish before the
+    slow clock samples it. Aignacio makes the same practical observation and
+    recommends either holding the signal long enough or using a closed-loop
+    synchronizer when every event must be observed.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Explains why fast-to-slow single-bit pulses can be missed by a simple two-flop synchronizer.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Shows that short source pulses may be missed or captured incorrectly in the slow domain.
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: Gives a practical fast-to-slow example where a one-cycle pulse is not reliably captured by a 2-FF synchronizer.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

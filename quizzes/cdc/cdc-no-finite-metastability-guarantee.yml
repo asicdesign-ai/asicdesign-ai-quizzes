@@ -1,0 +1,56 @@
+schema_version: 1
+id: cdc-no-finite-metastability-guarantee
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why synchronizers do not provide an absolute guarantee
+prompt: >
+  Which statement is true about metastability in real synchronizers?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - metastability
+    - synchronizer
+    - theory
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It can be reduced to a very low probability, but no finite synchronizer can guarantee bounded-time resolution in every case
+  - id: b
+    text: It disappears completely once two flip-flops are used
+  - id: c
+    text: It occurs only in FPGAs, not ASICs
+  - id: d
+    text: It is caused only by simulation models
+answer:
+  correct: a
+  short_explainer: >
+    Synchronizers are risk reducers, not mathematical guarantees. The goal is
+    to make failure probability acceptably small, not to pretend the probability
+    is zero.
+  explanation: >
+    The MIT synchronization lecture states that a synchronizer with finite
+    timing bounds cannot guarantee correct resolution for all close clock and
+    data alignments. Technion makes the same point in probabilistic terms: for
+    any finite resolution interval there is still a non-zero probability that a
+    latch remains metastable longer.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: 6.2.6 Synchronization and Metastability
+    url: https://www.youtube.com/watch?v=ZPpuDMk9BOU&t=10s
+    note: MIT OpenCourseWare explains that no finite tE and tD can guarantee a perfect synchronizer for all asynchronous events.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Shows that metastability resolution is probabilistic and cannot be eliminated by finite synchronizer structures.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

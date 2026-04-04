@@ -33,20 +33,26 @@ answer:
   correct: a
   short_explainer: >
     The core CDC risk is metastability. Because unrelated clocks can sample data
-    at unsafe times, the receiving flip-flop can violate setup or hold and take
-    extra time to resolve to a stable value.
+    near an edge, the receiving flip-flop can violate setup or hold and take
+    extra, unpredictable time to resolve.
   explanation: >
-    Intel's CDC timing overview explains that asynchronous crossings can create
-    setup and hold violations at the receiving flip-flop. That can place the
-    destination register into a metastable state, which may then propagate
-    incorrect or unpredictable behavior if the crossing is not properly
-    synchronized.
+    Technion's metastability tutorial and MIT's synchronization lecture both
+    explain that asynchronous inputs can violate setup and hold at the receiving
+    flip-flop. Once that happens, the latch can enter a metastable state and may
+    not resolve before downstream logic samples it, which is why CDC structures
+    are built to quarantine and reduce that risk.
 notes:
-  - Generated from official documentation only.
+  - Reviewed against CDC references focused on ASIC and VLSI practice.
 references:
-  - title: Intel Quartus Prime Pro Edition User Guide - CDC Timing Overview
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683243/25-3/cdc-timing-overview.html
-    note: Describes CDC risk, setup/hold violations, metastability, and the need for synchronizers.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Explains how setup and hold violations cause metastability and why synchronizers are necessary at clock-domain boundaries.
+  - title: 6.2.6 Synchronization and Metastability
+    url: https://www.youtube.com/watch?v=ZPpuDMk9BOU&t=10s
+    note: MIT OpenCourseWare lecture explaining why asynchronous inputs can violate setup and hold and drive a register metastable.
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Summarizes metastability as the central CDC problem and motivates synchronizer design.
 automation:
   authoring_format: yaml
   build_target: json

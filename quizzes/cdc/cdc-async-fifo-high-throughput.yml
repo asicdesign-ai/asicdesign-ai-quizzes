@@ -1,0 +1,60 @@
+schema_version: 1
+id: cdc-async-fifo-high-throughput
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Preferred high-throughput CDC structure for multi-bit data
+prompt: >
+  What CDC structure is usually preferred when a multi-bit interface needs
+  reliable high-throughput transfer between unrelated clocks?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - asynchronous-fifo
+    - multi-bit-transfer
+    - throughput
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A dual-clock asynchronous FIFO
+  - id: b
+    text: Independent 2-FF synchronizers on every data bit
+  - id: c
+    text: A single combinational gate before the destination
+  - id: d
+    text: An assumption that the two domains are almost synchronous
+answer:
+  correct: a
+  short_explainer: >
+    An asynchronous FIFO is the standard high-throughput answer for multi-bit
+    CDC because it buffers data safely while decoupling the two clocks.
+    Handshakes work too, but they usually cost more latency and bandwidth.
+  explanation: >
+    AnySilicon notes that handshake CDC can limit bandwidth because the bus
+    cannot be updated while waiting for acknowledge, and recommends a dual-clock
+    asynchronous FIFO when that becomes a bottleneck. Technion likewise presents
+    the two-clock FIFO as the most common fast synchronizer for multi-bit
+    transfers across clock domains.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Recommends dual-clock asynchronous FIFOs for reliable higher-bandwidth multi-bit CDC.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Describes the two-clock FIFO as the common fast synchronizer for multi-bit data across domains.
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: Presents asynchronous FIFOs as a practical and flexible CDC structure for wider interfaces.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

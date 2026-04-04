@@ -1,0 +1,56 @@
+schema_version: 1
+id: cdc-third-stage-for-mtbf
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why add a third synchronizer stage
+prompt: >
+  Why might an ASIC designer choose a 3-FF synchronizer instead of a 2-FF
+  synchronizer for a single-bit CDC?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - synchronizer
+    - mtbf
+    - latency
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To give metastability another cycle to resolve and improve MTBF in high-speed or harsh conditions
+  - id: b
+    text: To make multi-bit buses coherent automatically
+  - id: c
+    text: To eliminate the need for any timing constraints
+  - id: d
+    text: To guarantee zero metastability failures
+answer:
+  correct: a
+  short_explainer: >
+    A third stage adds another full destination cycle of resolution time, which
+    can improve MTBF when clocks are very fast or reliability targets are
+    aggressive. It buys probability margin, not perfection.
+  explanation: >
+    VerilogPro notes that very high-speed designs may need three flip-flops to
+    reach the required MTBF. Technion likewise shows that extra stages can be
+    appropriate for fast clocks and extreme conditions because each added cycle
+    reduces the probability that metastability escapes, at the cost of latency.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: States that very high-speed designs may require a three flip-flop synchronizer for sufficient MTBF.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Discusses multi-flop synchronizers and when extra resolution cycles are useful for fast clocks and extreme conditions.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

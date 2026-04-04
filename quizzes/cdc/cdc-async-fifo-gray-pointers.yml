@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-async-fifo-gray-pointers
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What crosses domains in an asynchronous FIFO
+prompt: >
+  In a dual-clock asynchronous FIFO, which values are typically Gray-coded and
+  synchronized across clock domains?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - asynchronous-fifo
+    - gray-code
+    - pointers
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The read and write pointers
+  - id: b
+    text: Every data word stored in the RAM
+  - id: c
+    text: The SRAM bit cells themselves
+  - id: d
+    text: The local clock waveforms
+answer:
+  correct: a
+  short_explainer: >
+    Asynchronous FIFOs usually keep the data in memory locally and only
+    synchronize the read and write pointers across domains. Those pointers are
+    Gray-coded so only one bit changes per increment.
+  explanation: >
+    Aignacio explains that in an asynchronous FIFO the only flops that cross
+    between domains are the Gray-coded read and write pointers used for full and
+    empty detection. AnySilicon describes the same structure: a dual-port memory
+    with locally managed pointers that are encoded to Gray and synchronized
+    across the boundary.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: States that the read and write pointers are Gray-coded and synchronized between the two domains in an async FIFO.
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Describes dual-clock FIFOs with Gray-coded pointers and 2-FF synchronizers for the pointer crossing.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

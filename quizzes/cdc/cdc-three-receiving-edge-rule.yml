@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-three-receiving-edge-rule
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: The three receiving edge rule
+prompt: >
+  What practical pulse-width rule helps a single-bit open-loop CDC survive
+  fast-to-slow clock relationships?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - pulse-transfer
+    - timing-requirements
+    - open-loop
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Keep the source signal stable for at least 1.5 destination cycles, the so-called three receiving edge rule
+  - id: b
+    text: Keep the source signal stable for half of one destination cycle
+  - id: c
+    text: Make the pulse exactly one source cycle wide
+  - id: d
+    text: Force both clocks to use the same active edge
+answer:
+  correct: a
+  short_explainer: >
+    The usual rule of thumb is to hold the signal long enough to be seen across
+    three destination clock edges, which is equivalent to at least 1.5
+    destination cycles. That gives the destination a reliable chance to sample
+    the event.
+  explanation: >
+    VerilogPro cites Mark Litterick's three receiving clock edge rule for
+    open-loop single-bit CDCs. EDN states the same guidance in timing terms: if
+    the source data is stable for at least three destination edges, the event
+    can be captured safely in the second or third cycle.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Describes the three receiving clock edge requirement for open-loop single-bit CDCs.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: States that keeping the source data stable for three destination edges makes the synchronizer effective.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

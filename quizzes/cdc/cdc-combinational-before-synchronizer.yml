@@ -5,8 +5,8 @@ review_state: answered
 question_type: multiple_choice
 title: Combinational logic before a synchronizer
 prompt: >
-  Why is it unsafe to feed the first stage of a synchronizer chain directly from
-  combinational logic?
+  Why is it risky to drive a CDC synchronizer directly from combinational logic
+  instead of a source-domain register?
 code:
   language: null
   snippet: null
@@ -22,32 +22,38 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A synchronizer chain should synchronize the output of a register, not raw combinational logic
+    text: Combinational glitches can create extra asynchronous events and unsafe captures at the synchronizer input
   - id: b
     text: Combinational logic eliminates metastability before the first flip-flop
   - id: c
-    text: Combinational logic is safe if the destination clock is faster
+    text: Combinational logic is always safe when the destination clock is faster
   - id: d
     text: The only problem is extra dynamic power, not correctness
 answer:
   correct: a
   short_explainer: >
-    A synchronizer chain is intended to receive a registered source signal. If
-    combinational logic feeds the first stage, the CDC topology is no longer a
-    clean synchronizer input and can become unsafe unless the transfer is
-    redesigned or converted to a handshake.
+    Registering the source signal removes combinational glitches before the
+    crossing. Those glitches can look like extra asynchronous events, reduce
+    MTBF, and even create spurious pulses at the destination.
   explanation: >
-    Intel's CDC guidance says a synchronizer chain can only synchronize a signal
-    that comes from a register, not the output of combinational logic. Their
-    recommendation is to remove the combinational logic from the transfer, add a
-    source-domain register after it, or replace the path with an explicit
-    handshake structure.
+    VerilogPro recommends registering source signals before CDC because
+    combinational glitches effectively increase the rate of data crossing the
+    boundary and reduce synchronizer MTBF. Aignacio and EDN make the same
+    practical point: combinational logic can create short bursts or unequal path
+    delays that a destination synchronizer may sample incorrectly, so a clean
+    source-domain register is preferred.
 notes:
-  - Generated from official documentation only.
+  - Reviewed against CDC references focused on ASIC and VLSI practice.
 references:
-  - title: Intel Quartus Design Assistant Rule CDC-50011
-    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/current/da_rules/cdc_50011.htm
-    note: Explains that synchronizer chains should not be driven directly by combinational logic.
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Recommends registering source signals before CDC to eliminate combinational glitches that reduce MTBF.
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: Shows why combinational logic should be registered before a synchronizer and why raw combinational outputs are unsafe CDC sources.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Warns against combinational logic before synchronizers because synthesis and unequal path delays can create glitch propagation.
 automation:
   authoring_format: yaml
   build_target: json

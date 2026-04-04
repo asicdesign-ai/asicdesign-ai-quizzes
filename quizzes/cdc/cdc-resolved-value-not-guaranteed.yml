@@ -1,0 +1,58 @@
+schema_version: 1
+id: cdc-resolved-value-not-guaranteed
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What metastability does not guarantee about the final value
+prompt: >
+  If a receiving flip-flop goes metastable after sampling an asynchronous
+  transition, what can you safely assume about the final resolved value?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - metastability
+    - sampling
+    - resolution
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The value may resolve to either legal logic state, so you cannot assume it will match the latest source transition
+  - id: b
+    text: It is guaranteed to resolve to the newest input value after enough time
+  - id: c
+    text: It is guaranteed to oscillate forever
+  - id: d
+    text: It always resolves to logic 0 first and logic 1 later
+answer:
+  correct: a
+  short_explainer: >
+    A metastable event does not guarantee that the final logic value will match
+    the source transition you hoped to capture. The only safe assumption is that
+    the synchronizer reduces the probability of propagating an indeterminate or
+    late value.
+  explanation: >
+    MIT's synchronization lecture explains that once setup and hold are
+    violated, we cannot tell whether the register will store a 0 or a 1.
+    Technion makes the same point when describing metastability as indecision
+    between the two legal states, with eventual resolution determined by tiny
+    analog effects rather than any guaranteed preference for the newest input.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: 6.2.6 Synchronization and Metastability
+    url: https://www.youtube.com/watch?v=ZPpuDMk9BOU&t=10s
+    note: Explains that after violating setup and hold we cannot tell whether the register will store a 0 or a 1.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Describes metastability as indecision between legal states and explains that eventual resolution is not predetermined by digital intent.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

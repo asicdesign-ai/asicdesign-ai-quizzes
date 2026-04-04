@@ -1,0 +1,56 @@
+schema_version: 1
+id: cdc-handshake-acknowledge-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of acknowledge in a CDC handshake
+prompt: >
+  In a CDC request and acknowledge handshake, what does the acknowledge usually
+  tell the source domain?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - handshake
+    - acknowledge
+    - control-transfer
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The destination has safely received the request and the source may update or drop the current value
+  - id: b
+    text: The clocks are now frequency-locked
+  - id: c
+    text: Metastability has been eliminated everywhere in the design
+  - id: d
+    text: The data bus can now change every source cycle with no limit
+answer:
+  correct: a
+  short_explainer: >
+    The acknowledgment is the source-domain confirmation that the destination
+    observed the transfer. The source uses it to know when it is safe to change
+    the request or any associated data.
+  explanation: >
+    AnySilicon describes handshake CDC as sending a request into the destination
+    and synchronizing an acknowledge back to the source. VerilogPro's feedback
+    synchronizer uses the same idea: the source holds the signal until the
+    synchronized acknowledgment returns.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Explains that the acknowledge tells the source the destination received the value and the source may update it.
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Shows a feedback acknowledge synchronizer where the source waits for the returned acknowledgment before changing the signal.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

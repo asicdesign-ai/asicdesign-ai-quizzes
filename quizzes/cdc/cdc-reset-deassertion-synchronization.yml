@@ -1,0 +1,53 @@
+schema_version: 1
+id: cdc-reset-deassertion-synchronization
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Which reset edge is synchronized in each domain
+prompt: >
+  For an asynchronous reset used across multiple clock domains, which
+  transition is typically synchronized to each receiving clock domain?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - reset
+    - asynchronous-reset
+    - startup
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The deassertion or release edge
+  - id: b
+    text: The assertion edge only
+  - id: c
+    text: Both edges must always be purely combinational
+  - id: d
+    text: Neither edge needs synchronization
+answer:
+  correct: a
+  short_explainer: >
+    Designs often assert reset asynchronously but release it synchronously
+    inside each clock domain. The dangerous part is letting flops leave reset
+    near active clock edges without domain-local synchronization.
+  explanation: >
+    Technion notes that the trailing edge of reset is typically synchronized to
+    each clock domain, just like other asynchronous inputs. This avoids release
+    timing problems and inconsistent startup behavior when different parts of a
+    chip leave reset at slightly different moments.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: States that the trailing edge of reset is typically synchronized to each clock domain in a chip.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

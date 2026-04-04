@@ -1,0 +1,59 @@
+schema_version: 1
+id: cdc-mtbf-dependencies
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Main MTBF drivers in CDC
+prompt: >
+  According to standard CDC MTBF reasoning, which factors most directly increase
+  the chance of synchronization failure?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - mtbf
+    - metastability
+    - reliability
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Higher destination clock frequency and higher data toggle or crossing rate
+  - id: b
+    text: Lower destination clock frequency and lower data toggle rate
+  - id: c
+    text: Bus width alone, regardless of activity
+  - id: d
+    text: Using Gray code on a pointer
+answer:
+  correct: a
+  short_explainer: >
+    More sampling opportunities and more asynchronous transitions mean more
+    chances to hit the setup and hold danger window. That is why MTBF worsens as
+    destination frequency and crossing activity rise.
+  explanation: >
+    VerilogPro summarizes the MTBF intuition by noting that failure probability
+    scales with destination frequency and the rate of data crossing the
+    boundary. Technion and EDN derive the same result more formally using clock
+    frequency, data event rate, and the setup and hold vulnerability window.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Explains that destination frequency and boundary-crossing activity are the key MTBF drivers.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Derives metastability-entry rate from clock frequency, data event rate, and the vulnerable sampling window.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Presents the MTBF dependence on setup and hold window, clock frequency, data frequency, and resolution time.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

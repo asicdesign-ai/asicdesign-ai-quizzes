@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-meta-sync-placement
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why synchronizer stages should be placed close together
+prompt: >
+  Why should the first and second flip-flops of a CDC synchronizer be placed
+  close together in implementation?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - synchronizer
+    - physical-implementation
+    - metastability
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To keep interstage delay and skew small so the first stage gets maximum resolution time before the second stage samples
+  - id: b
+    text: To make the crossing synchronous and remove metastability completely
+  - id: c
+    text: Only to reduce dynamic power in the clock tree
+  - id: d
+    text: Only to simplify synthesis logs
+answer:
+  correct: a
+  short_explainer: >
+    The second stage is useful only if the first stage gets time to resolve
+    before it is sampled again. Long interconnect or excessive skew between the
+    stages eats into that resolution window and hurts MTBF.
+  explanation: >
+    EDN emphasizes that timing between the meta flop and sync flop still matters:
+    if they are placed too far apart, interstage delay can let metastability
+    propagate to the second stage. AnySilicon makes the same physical-design
+    recommendation and advises placing synchronizer flip-flops close together to
+    minimize clock skew and interconnect delay.
+notes:
+  - Reviewed against CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Explains why timing between meta and sync flops matters and why poor placement can let metastability escape.
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Recommends placing synchronizer flip-flops close together to minimize skew and improve reliability.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

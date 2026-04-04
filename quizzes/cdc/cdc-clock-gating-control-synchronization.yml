@@ -1,0 +1,53 @@
+schema_version: 1
+id: cdc-clock-gating-control-synchronization
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why clock-gating control signals are synchronized
+prompt: >
+  Why are clock-gating control signals often synchronized when they cross into
+  another clock domain or control clock switching?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - clock-gating
+    - control-signal
+    - glitches
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To avoid clock glitches and unsafe clock-enable transitions
+  - id: b
+    text: To increase logic depth for the gated block
+  - id: c
+    text: To turn asynchronous clocks into synchronous ones
+  - id: d
+    text: Only to reduce area
+answer:
+  correct: a
+  short_explainer: >
+    A mistimed gating or clock-switch control can create dangerous clock
+    glitches, not just late data. Synchronizing the control signal helps ensure
+    the clock tree changes state cleanly.
+  explanation: >
+    Technion explicitly calls out clock-gating signals as signals that are
+    synchronized to eliminate clock glitches when clocks are gated or when a
+    domain switches from one clock to another. That makes CDC discipline
+    relevant to clock control, not just data paths.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: States that clock-gating signals are synchronized to eliminate clock glitches during gating or clock switching.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

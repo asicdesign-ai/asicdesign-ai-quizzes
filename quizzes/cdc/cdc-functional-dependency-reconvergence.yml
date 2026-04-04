@@ -1,0 +1,58 @@
+schema_version: 1
+id: cdc-functional-dependency-reconvergence
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Reconvergence hazard for functionally related signals
+prompt: >
+  What is the CDC risk when two functionally related signals are synchronized
+  separately and later recombined?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - reconvergence
+    - multi-bit-transfer
+    - coherency
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The destination can observe a combination of values that never existed together in the source domain
+  - id: b
+    text: The two signals become automatically Gray-coded
+  - id: c
+    text: Reconvergence removes metastability
+  - id: d
+    text: The only effect is one extra cycle of latency
+answer:
+  correct: a
+  short_explainer: >
+    Separate synchronizers do not preserve relationships between related
+    signals. When those signals reconverge, the destination may see mismatched
+    combinations and act on an impossible state.
+  explanation: >
+    EDN warns that functionally dependent signals such as counters, state
+    encodings, or phase-related buses should not be transferred as independent
+    two-flop paths because their dependency can be lost in the destination
+    domain. The SemiWiki CDC verification flow also highlights static
+    re-convergence analysis because improperly reconverging CDC signals can fail
+    even when each single-bit path looks locally valid.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Explains that functionally dependent signals should not be synchronized independently because their relationship can be lost.
+  - title: Handling metastability during Clock Domain Crossing (CDC)
+    url: https://semiwiki.com/eda/337175-handling-metastability-during-clock-domain-crossing-cdc/
+    note: Recommends static CDC re-convergence analysis to catch improperly reconverging CDC signals before simulation.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

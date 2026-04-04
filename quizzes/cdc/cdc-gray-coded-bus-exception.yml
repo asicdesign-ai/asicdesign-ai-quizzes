@@ -5,8 +5,8 @@ review_state: answered
 question_type: multiple_choice
 title: When multi-bit synchronizer buses are valid
 prompt: >
-  A CDC bus made from independent synchronizer chains on multiple bits is
-  considered valid only under what condition?
+  Independent per-bit synchronizer chains on a multi-bit CDC bus are only
+  reasonable in which special case?
 code:
   language: null
   snippet: null
@@ -22,30 +22,38 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The bus transfers Gray-coded data
+    text: The bus carries a Gray-coded value such as an asynchronous FIFO pointer
   - id: b
     text: The source clock is slower than the destination clock
   - id: c
-    text: The bus width is 8 bits or less
+    text: The bus width is small enough that skew no longer matters
   - id: d
-    text: The destination path has only setup checks and no hold checks
+    text: The destination uses three synchronizer stages instead of two
 answer:
   correct: a
   short_explainer: >
-    Independent per-bit synchronizer chains are only valid for special cases
-    such as Gray-coded buses. For ordinary multi-bit data, separate
-    synchronizers do not guarantee all bits settle and are observed together.
+    Gray code changes only one bit per step, so per-bit synchronization can be
+    used for carefully designed pointer crossings. Ordinary multi-bit buses do
+    not have that property, so separate synchronizers can create incoherent
+    words.
   explanation: >
-    Intel's CDC bus rule explicitly says that a multi-bit synchronizer bus is
-    valid only when the bus transfers Gray-coded data. Otherwise, the transfer
-    should use a control or handshake scheme, because separate bit synchronizers
-    cannot guarantee coherent capture of a normal multi-bit value.
+    VerilogPro, AnySilicon, and aignacio all treat Gray coding as the key
+    special case that makes independent bit synchronization practical, most
+    notably for asynchronous FIFO pointers. Because only one bit changes per
+    increment, the destination avoids impossible intermediate codes that are
+    common with ordinary binary or functionally dependent buses.
 notes:
-  - Generated from official documentation only.
+  - Reviewed against CDC references focused on ASIC and VLSI practice.
 references:
-  - title: Intel Quartus Design Assistant Rule CDC-50008
-    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/21.3/da_rules/cdc_50008.htm
-    note: States that multi-bit synchronizer-chain CDC buses are only valid for Gray-coded data.
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Uses Gray-coded asynchronous FIFO pointers as the canonical case where missing intermediate values can be acceptable.
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Recommends Gray encoding for asynchronous FIFO pointers instead of independently synchronizing ordinary multi-bit buses.
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: Explains that Gray counters are used because only one bit changes on each increment, avoiding multi-bit CDC incoherency.
 automation:
   authoring_format: yaml
   build_target: json

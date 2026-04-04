@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-open-loop-vs-closed-loop
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: When open-loop CDC is acceptable
+prompt: >
+  When is an open-loop synchronizer acceptable instead of a closed-loop
+  handshake?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - open-loop
+    - closed-loop
+    - handshake
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When the destination does not need every intermediate value and occasional dropped samples are acceptable
+  - id: b
+    text: When every event must be observed exactly once
+  - id: c
+    text: When multi-bit bus coherency is required
+  - id: d
+    text: When the source pulse is narrower than the slowest destination period
+answer:
+  correct: a
+  short_explainer: >
+    Open-loop CDC is acceptable only when the destination can tolerate missing
+    intermediate values. If every event or update matters, you need closed-loop
+    feedback or a buffered structure such as an async FIFO.
+  explanation: >
+    VerilogPro frames the design choice around whether every source value is
+    needed in the destination domain. If not, an open-loop synchronizer can be
+    enough; if yes, a feedback acknowledge or FIFO-style solution is preferred.
+    AnySilicon makes the same distinction when recommending handshakes for
+    guaranteed delivery.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Explains that open-loop CDC is acceptable only when dropped intermediate values do not matter.
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Recommends handshake-based CDC when the source must know the destination captured the value.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

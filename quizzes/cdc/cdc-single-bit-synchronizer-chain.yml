@@ -3,10 +3,10 @@ id: cdc-single-bit-synchronizer-chain
 status: reviewed
 review_state: answered
 question_type: multiple_choice
-title: Recommended protection for a 1-bit asynchronous transfer
+title: Recommended structure for a 1-bit CDC signal
 prompt: >
-  For a 1-bit asynchronous transfer, what structure should protect the
-  destination side?
+  For a 1-bit asynchronous control or status signal, what structure should
+  protect the destination side?
 code:
   language: null
   snippet: null
@@ -32,22 +32,26 @@ choices:
 answer:
   correct: a
   short_explainer: >
-    A single-bit asynchronous signal should be protected by a synchronizer chain
-    in the destination domain. The usual guidance is two or more flip-flops so
-    the first stage can absorb metastability risk before downstream logic uses
-    the signal.
+    A single-bit asynchronous signal should be protected by a destination-domain
+    synchronizer chain. Two flip-flops is the usual baseline so the first stage
+    can absorb metastability risk before downstream logic uses the signal.
   explanation: >
-    Intel's CDC rule documentation says that a protected 1-bit asynchronous
-    transfer should feed a synchronizer chain of two or more destination-domain
-    registers, with no combinational logic between the registers. That structure
-    reduces the chance that metastability from the first stage escapes into the
-    receiving logic.
+    VerilogPro, AnySilicon, and Technion all describe the classic two-stage
+    destination-domain synchronizer for a single-bit CDC. The first flip-flop
+    may still go metastable, but the next stage gives that value an additional
+    clock period to resolve before the destination logic consumes it.
 notes:
-  - Generated from official documentation only.
+  - Reviewed against CDC references focused on ASIC and VLSI practice.
 references:
-  - title: Intel Quartus Design Assistant Rule CDC-50001
-    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/current/da_rules/cdc_50001.htm
-    note: Recommends a two-stage or longer synchronizer chain for single-bit asynchronous transfers.
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Describes the two flip-flop synchronizer as the basic single-bit CDC structure and explains why it works.
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Recommends dual flip-flop synchronizers for most single-bit control-signal crossings.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Discusses multi-flop synchronizers and how extra resolution time reduces the chance of metastability escaping.
 automation:
   authoring_format: yaml
   build_target: json

@@ -1,0 +1,57 @@
+schema_version: 1
+id: cdc-low-vt-first-stage
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why low-Vt cells are used in some synchronizers
+prompt: >
+  Why are low-threshold-voltage or dedicated synchronizer cells sometimes used
+  for the first stage of a CDC synchronizer in ASICs?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - library-cells
+    - metastability
+    - physical-implementation
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: They can reduce the metastability time constant and improve MTBF
+  - id: b
+    text: They make the crossing synchronous
+  - id: c
+    text: They remove the need for a second synchronizer stage
+  - id: d
+    text: They are chosen only for lower dynamic power
+answer:
+  correct: a
+  short_explainer: >
+    Faster or dedicated synchronizer cells can resolve metastability more
+    quickly, which improves MTBF for the same clock period. They are an
+    implementation aid, not a substitute for proper CDC architecture.
+  explanation: >
+    VerilogPro notes that synchronizers are sometimes built from fast library
+    cells with better timing characteristics to increase MTBF. EDN makes the
+    ASIC implementation point explicitly, noting that low-Vt cells can be used
+    for the meta flop because their smaller time constant shortens metastability
+    resolution time.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing Design - 3 Part Series
+    url: https://www.verilogpro.com/clock-domain-crossing-part-1/
+    note: Mentions fast or low-threshold library cells as a way to increase synchronizer MTBF.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Explains that low-threshold-voltage cells reduce the synchronizer time constant and help metastability resolve faster.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

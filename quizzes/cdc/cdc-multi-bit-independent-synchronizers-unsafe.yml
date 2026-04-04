@@ -1,0 +1,60 @@
+schema_version: 1
+id: cdc-multi-bit-independent-synchronizers-unsafe
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why ordinary multi-bit buses should not use per-bit synchronizers
+prompt: >
+  Why is a bank of independent 2-FF synchronizers usually unsafe for an
+  ordinary multi-bit bus?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: cdc
+  secondary:
+    - multi-bit-transfer
+    - coherency
+    - bus-synchronization
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Different bits can be captured in different destination cycles, breaking bus coherency
+  - id: b
+    text: Two flip-flops force all bits to align automatically
+  - id: c
+    text: It only fails when the bus is wider than 32 bits
+  - id: d
+    text: It is safe as long as the source clock is faster
+answer:
+  correct: a
+  short_explainer: >
+    Separate per-bit synchronizers do not preserve word-level coherency.
+    Different bits can arrive or settle on different cycles, producing
+    combinations that were never valid in the source domain.
+  explanation: >
+    AnySilicon, EDN, and aignacio all warn that independent bitwise
+    synchronizers are not a general solution for multi-bit data. ASIC timing
+    skew and metastability resolution differences can make bits appear in
+    different cycles, so coherent buses need Gray coding, a synchronized load or
+    enable, a handshake, or an asynchronous FIFO.
+notes:
+  - Authored from source-backed CDC references focused on ASIC and VLSI practice.
+references:
+  - title: Clock Domain Crossing (CDC)
+    url: https://anysilicon.com/clock-domain-crossing-cdc/
+    note: Explicitly advises against using dual flip-flop synchronizers on ordinary multi-bit buses.
+  - title: Get those clock domains in sync
+    url: https://www.edn.com/get-those-clock-domains-in-sync/
+    note: Explains that functionally dependent multi-bit signals should not be synchronized as independent two-flop paths.
+  - title: My two cents about CDC
+    url: https://aignacio.com/posts/hdls/cdc_lib/
+    note: Warns that multi-bit buses should not simply use 2-FF synchronizers because bits can be sampled in different cycles.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
