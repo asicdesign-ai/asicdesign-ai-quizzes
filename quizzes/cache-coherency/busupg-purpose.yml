@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-busupg-purpose
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Purpose of a BusUpg transaction
 prompt: >

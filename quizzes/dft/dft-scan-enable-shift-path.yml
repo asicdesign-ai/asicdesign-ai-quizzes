@@ -2,6 +2,7 @@ schema_version: 1
 id: dft-scan-enable-shift-path
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Meaning of scan enable high
 prompt: >

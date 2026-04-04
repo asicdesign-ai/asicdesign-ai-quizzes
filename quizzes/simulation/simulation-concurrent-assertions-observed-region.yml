@@ -2,6 +2,7 @@ schema_version: 1
 id: simulation-concurrent-assertions-observed-region
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Where concurrent assertions are evaluated
 prompt: >

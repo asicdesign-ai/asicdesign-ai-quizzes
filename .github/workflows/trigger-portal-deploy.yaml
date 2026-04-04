@@ -15,6 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Validate quiz metadata before dispatch
+        run: bash scripts/validate-quiz-metadata.sh
+
       - name: Check dispatch configuration
         id: dispatch_config
         env:

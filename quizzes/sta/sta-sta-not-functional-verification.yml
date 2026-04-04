@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-sta-not-functional-verification
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: What STA does and does not prove
 prompt: >

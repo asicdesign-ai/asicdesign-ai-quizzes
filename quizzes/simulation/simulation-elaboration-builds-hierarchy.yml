@@ -2,6 +2,7 @@ schema_version: 1
 id: simulation-elaboration-builds-hierarchy
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Elaboration builds the design hierarchy
 prompt: >

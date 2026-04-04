@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-combinational-before-synchronizer
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Combinational logic before a synchronizer
 prompt: >

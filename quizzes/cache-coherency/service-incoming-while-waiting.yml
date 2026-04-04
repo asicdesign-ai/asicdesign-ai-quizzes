@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-service-incoming-while-waiting
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why a waiting cache must still snoop incoming requests
 prompt: >

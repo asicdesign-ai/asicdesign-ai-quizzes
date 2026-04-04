@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-fast-corner-hold-risk
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Corner most likely to expose hold problems
 prompt: >

@@ -17,6 +17,7 @@ Quiz items in this repo are authored for human review first and machine ingestio
 
 All quiz YAML files should follow the same basic pattern:
 - stable metadata fields
+- explicit trust metadata
 - explicit answer structure
 - a short user-facing explanation
 - a longer explanation when useful
@@ -24,6 +25,14 @@ All quiz YAML files should follow the same basic pattern:
 For reviewed quiz items, `answer.short_explainer` is required.
 
 This field is intended for direct rendering in the website UI after the user answers a question. It should be concise, readable, and useful without requiring the user to open a longer explanation panel.
+
+## `human_verified` Rules
+
+- Required as a top-level boolean field on all quiz YAML files.
+- Use `human_verified: true` only when an admin or reviewer has manually approved the quiz item for the portal's human-verification badge.
+- Use `human_verified: false` when the item has not yet received that manual approval.
+- Reviewed quizzes may still be public when `human_verified` is `false`; the portal should label them as awaiting human review rather than hiding them.
+- Do not flip `human_verified` automatically from community votes, comments, or other runtime feedback.
 
 ## `answer.short_explainer` Rules
 
@@ -67,6 +76,12 @@ When a secondary source is used for a broad concept, add a second corroborating 
 ## Template
 
 Use `quizzes/templates/multiple-choice.template.yml` as the default starting point for new multiple-choice items.
+
+## Runtime Feedback Boundary
+
+- Keep authored quiz content and review metadata in YAML.
+- Do not store user progress, quiz results, comments, vote counts, or other community feedback in quiz YAML files.
+- Treat those signals as runtime portal data that belongs in backend services or generated portal-facing artifacts, not the authoring source.
 
 ## Preferred Outcome
 
@@ -139,5 +154,5 @@ Updated: 2026-04-04
 
 - Coverage is still thinner in `firmware` and `systemverilog` than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
 - `quizzes/verilog/` currently exists but has no quiz content. Future work should either populate it or remove the empty category if it is no longer needed.
-- This repo still lacks its own dedicated schema-validation or content-lint workflow. Validation currently happens mainly through manual checks and the downstream portal ingestion/build pipeline.
+- This repo now has a lightweight metadata-validation workflow that checks required top-level quiz fields such as `human_verified`, but deeper schema and content linting are still limited.
 - As the quiz bank grows, continue normalizing older and newer items so explanation quality, metadata consistency, and source citation depth stay aligned across directories.

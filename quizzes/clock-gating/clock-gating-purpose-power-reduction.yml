@@ -2,6 +2,7 @@ schema_version: 1
 id: clock-gating-purpose-power-reduction
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Primary purpose of clock gating
 prompt: >

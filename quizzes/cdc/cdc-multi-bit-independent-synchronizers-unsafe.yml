@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-multi-bit-independent-synchronizers-unsafe
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why ordinary multi-bit buses should not use per-bit synchronizers
 prompt: >

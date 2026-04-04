@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-functional-dependency-reconvergence
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Reconvergence hazard for functionally related signals
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: sample-quiz-id
 status: draft
 review_state: needs_answer
+human_verified: false
 question_type: multiple_choice
 title: Sample quiz title
 prompt: >

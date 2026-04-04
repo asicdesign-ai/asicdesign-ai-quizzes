@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-protocol-families
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Classic families of coherence protocols
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: dft-boundary-scan-observe-hidden-io
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Boundary scan visibility benefit
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: l2c-common-write-policy
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Common write policy for L2 and beyond
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-multicycle-vs-false-path
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: When to prefer multicycle over false path
 prompt: >

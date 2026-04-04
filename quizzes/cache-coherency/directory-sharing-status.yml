@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-directory-sharing-status
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: What a coherence directory tracks
 prompt: >

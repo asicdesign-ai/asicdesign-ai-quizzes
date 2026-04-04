@@ -2,6 +2,7 @@ schema_version: 1
 id: dft-non-scan-flop-reasons
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why some flops stay non-scan
 prompt: >

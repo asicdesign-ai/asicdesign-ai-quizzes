@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-no-finite-metastability-guarantee
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why synchronizers do not provide an absolute guarantee
 prompt: >

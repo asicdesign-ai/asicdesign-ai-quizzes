@@ -2,6 +2,7 @@ schema_version: 1
 id: simulation-misordered-temp-latch-mismatch
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Misordered temporary variable hazard
 prompt: >

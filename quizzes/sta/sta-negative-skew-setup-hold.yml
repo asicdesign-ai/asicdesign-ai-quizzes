@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-negative-skew-setup-hold
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Negative skew effect on setup and hold
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-mesi-exclusive-write-benefit
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why MESI adds the Exclusive state
 prompt: >

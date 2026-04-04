@@ -2,6 +2,7 @@ schema_version: 1
 id: l2c-bank-conflict-definition
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Bank conflicts in a banked cache
 prompt: >

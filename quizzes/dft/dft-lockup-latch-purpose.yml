@@ -2,6 +2,7 @@ schema_version: 1
 id: dft-lockup-latch-purpose
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Purpose of a lock-up latch in scan stitching
 prompt: >

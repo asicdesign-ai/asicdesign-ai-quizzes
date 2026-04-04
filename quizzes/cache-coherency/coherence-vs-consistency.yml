@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-coherence-vs-consistency
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Cache coherence versus memory consistency
 prompt: >

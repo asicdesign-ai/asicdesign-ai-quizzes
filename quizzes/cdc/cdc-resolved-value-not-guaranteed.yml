@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-resolved-value-not-guaranteed
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: What metastability does not guarantee about the final value
 prompt: >

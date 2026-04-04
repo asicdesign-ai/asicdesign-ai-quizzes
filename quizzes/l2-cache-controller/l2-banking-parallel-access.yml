@@ -2,6 +2,7 @@ schema_version: 1
 id: l2c-banking-parallel-access
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why bank an L2 cache
 prompt: >

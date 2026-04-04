@@ -2,6 +2,7 @@ schema_version: 1
 id: dft-primitive-polynomial-benefit
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why primitive polynomials are preferred in LFSR-based DFT
 prompt: >

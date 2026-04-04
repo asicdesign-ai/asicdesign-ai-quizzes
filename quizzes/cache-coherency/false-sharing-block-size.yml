@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-false-sharing-block-size
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Block size effect on false sharing
 prompt: >

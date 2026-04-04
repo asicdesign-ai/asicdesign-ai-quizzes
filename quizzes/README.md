@@ -22,11 +22,16 @@ That gives you:
 ## Required Answer Pattern
 
 All quiz YAML files should include:
+- `human_verified`
 - `answer.correct`
 - `answer.short_explainer`
 - `answer.explanation`
 
 Use `answer.short_explainer` for the short learner-facing explanation shown immediately in the website UI after answer resolution.
+
+Use `human_verified` as the manual trust flag that drives the portal badge:
+- `true` means an admin or reviewer explicitly approved the item.
+- `false` means the item is still awaiting that manual approval.
 
 ## Suggested Conventions
 
@@ -37,3 +42,4 @@ Use `answer.short_explainer` for the short learner-facing explanation shown imme
 - Keep metadata easy to map into validation or build scripts later.
 - Add `references` when an answer is backed by platform or vendor documentation.
 - Start new multiple-choice quiz items from `templates/multiple-choice.template.yml`.
+- Keep runtime feedback such as user progress, comments, and vote counts out of YAML.

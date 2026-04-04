@@ -2,6 +2,7 @@ schema_version: 1
 id: simulation-automatic-library-lookup-y
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: What triggers automatic library lookup
 prompt: >

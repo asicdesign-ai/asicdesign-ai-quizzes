@@ -2,6 +2,7 @@ schema_version: 1
 id: simulation-zero-delay-inactive-queue
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Where #0 blocking assignments go
 prompt: >

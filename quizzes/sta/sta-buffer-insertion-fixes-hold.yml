@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-buffer-insertion-fixes-hold
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Common physical fix for hold violations
 prompt: >

@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-clock-gating-control-synchronization
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why clock-gating control signals are synchronized
 prompt: >

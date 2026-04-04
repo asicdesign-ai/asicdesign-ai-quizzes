@@ -2,6 +2,7 @@ schema_version: 1
 id: sta-false-path-definition
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: What a false path means
 prompt: >

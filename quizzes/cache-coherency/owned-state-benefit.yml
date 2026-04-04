@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-owned-state-benefit
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Benefit of adding the Owned state
 prompt: >

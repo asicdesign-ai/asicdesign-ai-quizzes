@@ -2,6 +2,7 @@ schema_version: 1
 id: cdc-meta-sync-placement
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Why synchronizer stages should be placed close together
 prompt: >

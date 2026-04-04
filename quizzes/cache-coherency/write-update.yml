@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-write-update
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Behavior of a write-update protocol
 prompt: >

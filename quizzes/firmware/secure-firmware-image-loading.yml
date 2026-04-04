@@ -2,6 +2,7 @@ schema_version: 1
 id: fw-secure-image-loading-method
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Secure firmware image loading method
 prompt: >

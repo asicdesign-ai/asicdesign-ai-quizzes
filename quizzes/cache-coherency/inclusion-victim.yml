@@ -2,6 +2,7 @@ schema_version: 1
 id: cc-inclusion-victim
 status: reviewed
 review_state: answered
+human_verified: false
 question_type: multiple_choice
 title: Meaning of an inclusion victim
 prompt: >
