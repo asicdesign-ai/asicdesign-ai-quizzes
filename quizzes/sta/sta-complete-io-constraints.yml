@@ -1,0 +1,56 @@
+schema_version: 1
+id: sta-complete-io-constraints
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why I/O timing constraints matter
+prompt: >
+  Why should synchronous chip interfaces be given explicit input-delay and
+  output-delay constraints in STA?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - io-timing
+    - constraints
+    - unconstrained-paths
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: So input and output timing paths are analyzed instead of being left incomplete or unconstrained
+  - id: b
+    text: So the logic function of the design can be inferred correctly
+  - id: c
+    text: So CDC analysis is no longer required
+  - id: d
+    text: So hold violations are automatically converted into setup violations
+answer:
+  correct: a
+  short_explainer: >
+    STA can only check what you constrain. If I/O timing is not described with
+    clocks and delays, the external interface paths may be incomplete or
+    unconstrained.
+  explanation: >
+    AnySilicon recommends defining input and output delays for primary
+    interfaces, and OpenLane's summary reports explicitly call out unconstrained
+    paths as a check item. In short: missing I/O constraints leave real timing
+    behavior outside the analysis.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: The Ultimate Guide to Static Timing Analysis (STA)
+    url: https://anysilicon.com/the-ultimate-guide-to-static-timing-analysis-sta/
+    note: Recommends defining input and output delays and fully constraining the design.
+  - title: Newcomers - OpenLane Documentation
+    url: https://openlane2.readthedocs.io/en/latest/getting_started/newcomers/index.html
+    note: Lists unconstrained paths as a key item checked in timing reports.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-false-path-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What a false path means
+prompt: >
+  In STA, what does declaring a false path mean?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - false-path
+    - timing-exceptions
+    - constraints
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The path exists structurally but should never be exercised functionally
+  - id: b
+    text: The path is the shortest path in the design
+  - id: c
+    text: The path takes more than one cycle but is still captured
+  - id: d
+    text: The path is missing an output delay constraint
+answer:
+  correct: a
+  short_explainer: >
+    A false path is not just a relaxed path. It is a path that exists in the
+    netlist but is not functionally valid, so STA should not optimize or report
+    it as if it were real timing behavior.
+  explanation: >
+    OpenLane defines a false path as a timing path that exists in the circuit
+    but will never be exercised. That is why false-path constraints are much
+    stronger than multicycle constraints: they remove analysis instead of merely
+    changing the capture relationship.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Defines a false path as a timing path that exists structurally but will never be exercised.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

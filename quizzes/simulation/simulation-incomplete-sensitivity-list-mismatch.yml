@@ -1,0 +1,56 @@
+schema_version: 1
+id: simulation-incomplete-sensitivity-list-mismatch
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Incomplete sensitivity list risk
+prompt: >
+  What can happen if a combinational `always` block omits a read signal from its
+  sensitivity list?
+code:
+  language: verilog
+  snippet: |
+    always @(a) begin
+      y = a & b;
+    end
+topics:
+  primary: simulation
+  secondary:
+    - sensitivity-list
+    - rtl-vs-gate
+    - combinational-logic
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: RTL simulation can miss updates and disagree with the synthesized hardware behavior
+  - id: b
+    text: Synthesis will refuse to infer any logic from the block
+  - id: c
+    text: The simulator automatically promotes the block to `always_comb`
+  - id: d
+    text: The omission affects only clock frequency, not functionality
+answer:
+  correct: a
+  short_explainer: >
+    A missing sensitivity signal can make RTL simulation stale even though the
+    synthesized logic still behaves like the full combinational equation. That
+    mismatch is a classic pre-vs-post synthesis pitfall.
+  explanation: >
+    The Cummings mismatch paper shows that synthesis infers combinational logic
+    from the equation itself, effectively as if the sensitivity list were
+    complete. RTL simulation, however, only reevaluates on the listed signals,
+    so omitted reads can make the behavioral model wrong.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: RTL Coding Styles That Yield Simulation and Synthesis Mismatches
+    url: https://csg.csail.mit.edu/6.375/6_375_2006_www/papers/cummings-synth-mismatch-snug99.pdf
+    note: Demonstrates that incomplete sensitivity lists can create pre-synthesis and post-synthesis simulation mismatches.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

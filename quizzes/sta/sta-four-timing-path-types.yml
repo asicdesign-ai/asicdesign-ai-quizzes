@@ -1,0 +1,55 @@
+schema_version: 1
+id: sta-four-timing-path-types
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Four basic STA timing path types
+prompt: >
+  Which list matches the four common timing-path categories used in STA?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - timing-paths
+    - io-timing
+    - fundamentals
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Input-to-output, input-to-register, register-to-register, register-to-output
+  - id: b
+    text: Clock-to-clock, register-to-clock, output-to-output, input-to-input
+  - id: c
+    text: Launch-to-launch, hold-to-hold, jitter-to-jitter, skew-to-skew
+  - id: d
+    text: Macro-to-macro, floorplan-to-placement, CTS-to-route, route-to-signoff
+answer:
+  correct: a
+  short_explainer: >
+    STA classifies paths by where they start and end. The standard set is
+    input-to-output, input-to-register, register-to-register, and
+    register-to-output.
+  explanation: >
+    Both AnySilicon and OpenLane describe the same four structural timing-path
+    categories. STA applies setup, hold, min-delay, and max-delay reasoning to
+    these path classes rather than treating every path as the same kind of
+    problem.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Timing Path
+    url: https://anysilicon.com/semipedia/timing-path/
+    note: Lists the four distinct timing-path categories used in STA.
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Describes the four timing-path types seen by STA tools.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

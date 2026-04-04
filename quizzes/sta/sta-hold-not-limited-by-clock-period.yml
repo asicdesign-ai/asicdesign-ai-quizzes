@@ -1,0 +1,53 @@
+schema_version: 1
+id: sta-hold-not-limited-by-clock-period
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why hold is not clock-period limited
+prompt: >
+  Why does a basic hold check on a synchronous register-to-register path not
+  depend on the clock period?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - hold
+    - clock-period
+    - timing-fundamentals
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because hold is checked against same-cycle minimum-delay behavior right after launch, not against the next-cycle period
+  - id: b
+    text: Because hold is only checked for asynchronous inputs
+  - id: c
+    text: Because hold is automatically folded into setup timing
+  - id: d
+    text: Because hold depends only on average path delay
+answer:
+  correct: a
+  short_explainer: >
+    Hold is a same-edge race check, so it is about how soon data can disturb the
+    capture flop after launch. That is why the clock period itself is not the
+    governing term.
+  explanation: >
+    AnySilicon's STA guide explicitly notes that the hold condition uses minimum
+    path delay and that hold time does not depend on the clock period. The
+    relevant question is whether data changes too soon after the active clock
+    edge at the capture flop.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: The Ultimate Guide to Static Timing Analysis (STA)
+    url: https://anysilicon.com/the-ultimate-guide-to-static-timing-analysis-sta/
+    note: Explains that hold is checked with minimum delay and observes that hold does not depend on clock period.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

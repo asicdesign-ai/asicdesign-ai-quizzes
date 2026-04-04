@@ -1,0 +1,50 @@
+schema_version: 1
+id: sta-wns-vs-tns
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: WNS versus TNS
+prompt: >
+  What is the difference between WNS and TNS in STA reports?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - reporting
+    - wns
+    - tns
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: WNS is the single worst negative slack, while TNS is the sum of negative slack over violating paths
+  - id: b
+    text: WNS is used only for setup and TNS only for hold
+  - id: c
+    text: WNS counts violating nets, while TNS counts violating clocks
+  - id: d
+    text: WNS is wire delay and TNS is net skew
+answer:
+  correct: a
+  short_explainer: >
+    WNS tells you how bad the single worst violation is. TNS tells you how much
+    total negative slack is spread across all violating paths.
+  explanation: >
+    OpenLane's report descriptions spell out the naming: `wns.*.rpt` is worst
+    negative slack and `tns.*.rpt` is total negative slack. Engineers often use
+    WNS to gauge the hardest path and TNS to gauge the overall closure burden.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Newcomers - OpenLane Documentation
+    url: https://openlane2.readthedocs.io/en/latest/getting_started/newcomers/index.html
+    note: Defines WNS as worst negative slack and TNS as total negative slack in the generated reports.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

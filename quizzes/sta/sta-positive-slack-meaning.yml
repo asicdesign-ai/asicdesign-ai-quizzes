@@ -34,15 +34,15 @@ answer:
     Positive slack means the path meets its timing requirement and still has
     margin left. Negative slack means the requirement is missed.
   explanation: >
-    Intel's timing-analysis documentation defines slack as the margin by which a
-    requirement is met or not met. Positive slack means the requirement is
-    satisfied; negative slack indicates a violation.
+    Slack is the remaining timing margin after comparing arrival time against
+    required time. A positive value means the path still has headroom, while a
+    negative value means the setup or hold requirement is violated.
 notes:
-  - Generated from official documentation only.
+  - Revised from ASIC and VLSI timing references.
 references:
-  - title: Intel Timing Analyzer Example - Clock Analysis Equations
-    url: https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-examples/quartus/tq-clock.html
-    note: Defines positive slack as meeting a requirement with margin and negative slack as missing it.
+  - title: Lecture 13 - Timing Analysis
+    url: https://eclipse.umbc.edu/robucci/cmpeRSD/Lectures/Lecture13__TimingAnalysis/
+    note: Explains that positive slack means the timing requirement is met and negative slack means it is not.
 automation:
   authoring_format: yaml
   build_target: json

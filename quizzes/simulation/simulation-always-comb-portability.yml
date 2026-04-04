@@ -1,0 +1,56 @@
+schema_version: 1
+id: simulation-always-comb-portability
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why always_comb is safer for combinational RTL
+prompt: >
+  Why is `always_comb` generally safer than a hand-written combinational
+  sensitivity list?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: simulation
+  secondary:
+    - systemverilog
+    - always-comb
+    - portability
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It reduces simulator-dependent recomputation behavior and avoids missed-sensitivity mismatches
+  - id: b
+    text: It guarantees the logic will synthesize into fewer gates
+  - id: c
+    text: It forces the block into the NBA region
+  - id: d
+    text: It automatically inserts SDF back-annotation hooks
+answer:
+  correct: a
+  short_explainer: >
+    `always_comb` is meant to describe combinational intent directly, so it is
+    less fragile than maintaining a manual sensitivity list. That improves
+    simulation consistency and reduces a common source of RTL-vs-gate mismatch.
+  explanation: >
+    Verilator explicitly recommends `always_comb` for consistent behavior across
+    tools, and the classic Cummings mismatch paper shows why incomplete
+    sensitivity lists are dangerous in RTL simulation. Using the dedicated
+    combinational construct makes the intent clearer and more portable.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Input Languages - Verilator
+    url: https://veripool.org/guide/latest/languages.html
+    note: Recommends `always_comb` for more consistent behavior across simulators.
+  - title: RTL Coding Styles That Yield Simulation and Synthesis Mismatches
+    url: https://csg.csail.mit.edu/6.375/6_375_2006_www/papers/cummings-synth-mismatch-snug99.pdf
+    note: Shows how incomplete sensitivity lists cause RTL and post-synthesis mismatches.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

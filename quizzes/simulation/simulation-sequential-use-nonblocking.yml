@@ -1,0 +1,55 @@
+schema_version: 1
+id: simulation-sequential-use-nonblocking
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Recommended assignment style for clocked logic
+prompt: >
+  Which assignment style is recommended for clocked sequential logic in Verilog
+  to model parallel flop updates and reduce racey ordering behavior?
+code:
+  language: verilog
+  snippet: |
+    always @(posedge clk)
+      q <= d;
+topics:
+  primary: simulation
+  secondary:
+    - nonblocking
+    - sequential-logic
+    - race-avoidance
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Nonblocking assignments
+  - id: b
+    text: Blocking assignments only
+  - id: c
+    text: Continuous assignments only
+  - id: d
+    text: Either style is identical for sequential simulation
+answer:
+  correct: a
+  short_explainer: >
+    Nonblocking assignments evaluate the right-hand side first and update the
+    left-hand side later in the time slot, which matches how flops appear to
+    update in parallel on a clock edge.
+  explanation: >
+    Cummings' classic nonblocking paper makes this the first guideline for race
+    avoidance: use nonblocking assignments for sequential logic. That scheduling
+    model avoids the order-dependent behavior that blocking assignments can
+    create across multiple clocked processes.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Nonblocking Assignments in Verilog Synthesis, Coding Styles That Kill!
+    url: https://csg.csail.mit.edu/6.375/6_375_2009_www/papers/cummings-nonblocking-snug99.pdf
+    note: Recommends nonblocking assignments for modeling sequential logic and explains the race-avoidance rationale.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

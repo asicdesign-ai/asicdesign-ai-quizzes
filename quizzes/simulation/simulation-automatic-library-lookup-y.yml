@@ -1,0 +1,53 @@
+schema_version: 1
+id: simulation-automatic-library-lookup-y
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What triggers automatic library lookup
+prompt: >
+  When using an automatic module library such as Icarus Verilog's `-y`
+  mechanism, what causes a library module file to be parsed and used?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: simulation
+  secondary:
+    - libraries
+    - elaboration
+    - build-flow
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: An instantiated module is referenced but not otherwise defined, so elaboration searches the library
+  - id: b
+    text: Every file in the library directory is parsed before preprocessing
+  - id: c
+    text: Any file whose name matches the top module is always loaded
+  - id: d
+    text: A `include directive automatically imports all library modules
+answer:
+  correct: a
+  short_explainer: >
+    Automatic libraries are demand-loaded. The simulator only pulls in a
+    library module when elaboration encounters an instantiated module that is
+    still unresolved.
+  explanation: >
+    The Icarus Verilog documentation explains that `-y` directories are searched
+    during elaboration when a module definition is missing. Library modules are
+    not root candidates and are not parsed unless they are actually needed by
+    instantiated hierarchy.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Simulation Using Icarus Verilog
+    url: https://steveicarus.github.io/iverilog/usage/simulation.html
+    note: Explains that `-y` libraries are searched for unresolved instantiated modules during elaboration and that library modules are not root modules.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

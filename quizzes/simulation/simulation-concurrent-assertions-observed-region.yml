@@ -1,0 +1,54 @@
+schema_version: 1
+id: simulation-concurrent-assertions-observed-region
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Where concurrent assertions are evaluated
+prompt: >
+  In the SystemVerilog event scheduler, in which region are concurrent
+  assertions evaluated?
+code:
+  language: systemverilog
+  snippet: |
+    assert property (@(posedge clk) req |-> ##1 gnt);
+topics:
+  primary: simulation
+  secondary:
+    - assertions
+    - event-regions
+    - observed-region
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The observed region
+  - id: b
+    text: The active region
+  - id: c
+    text: The inactive region
+  - id: d
+    text: The postponed region
+answer:
+  correct: a
+  short_explainer: >
+    Concurrent assertions are evaluated in the observed region using values that
+    were sampled earlier for the time slot. That separation helps assertions act
+    like monitors instead of racing with RTL updates.
+  explanation: >
+    The Cummings event-regions paper quotes the IEEE rule directly: assertion
+    variables are sampled in the preponed region and the assertions are
+    evaluated in the observed region. This split is a core part of
+    race-avoidance semantics in SystemVerilog verification.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: SystemVerilog Event Regions, Race Avoidance & Guidelines
+    url: https://rfsoc.mit.edu/6S965/_static/F24/lectures/CummingsSNUG2006Boston_SystemVerilog_Events.pdf
+    note: States that concurrent assertion values are sampled in preponed and evaluated in observed.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,57 @@
+schema_version: 1
+id: simulation-combinational-use-blocking
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Recommended assignment style for combinational logic
+prompt: >
+  Which assignment style is recommended when modeling combinational logic inside
+  an `always` block?
+code:
+  language: verilog
+  snippet: |
+    always @* begin
+      tmp = a & b;
+      y = tmp | c;
+    end
+topics:
+  primary: simulation
+  secondary:
+    - blocking
+    - combinational-logic
+    - coding-style
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Blocking assignments
+  - id: b
+    text: Nonblocking assignments only
+  - id: c
+    text: Delayed nonblocking assignments
+  - id: d
+    text: Mixed blocking and nonblocking assignments in the same block
+answer:
+  correct: a
+  short_explainer: >
+    For combinational logic, blocking assignments let the statements execute in
+    the order they are written within a single activation. That matches the
+    intended one-pass combinational calculation more closely.
+  explanation: >
+    Cummings' coding guidelines explicitly recommend blocking assignments for
+    combinational `always` blocks. The paper also shows why using nonblocking
+    assignments in that context can create inefficient or incorrect multi-pass
+    behavior.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Nonblocking Assignments in Verilog Synthesis, Coding Styles That Kill!
+    url: https://csg.csail.mit.edu/6.375/6_375_2009_www/papers/cummings-nonblocking-snug99.pdf
+    note: Recommends blocking assignments for combinational logic and illustrates why nonblocking style is problematic there.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

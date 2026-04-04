@@ -1,0 +1,55 @@
+schema_version: 1
+id: simulation-zero-delay-inactive-queue
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Where #0 blocking assignments go
+prompt: >
+  In the Verilog or SystemVerilog event queue, where are `#0` blocking
+  assignments scheduled?
+code:
+  language: verilog
+  snippet: |
+    #0 a = b;
+topics:
+  primary: simulation
+  secondary:
+    - event-regions
+    - zero-delay
+    - scheduling
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The inactive region
+  - id: b
+    text: The observed region
+  - id: c
+    text: The postponed region
+  - id: d
+    text: The preponed region
+answer:
+  correct: a
+  short_explainer: >
+    `#0` does not mean “end of the timestep” in a magical general sense. It
+    specifically schedules a blocking assignment into the inactive region.
+  explanation: >
+    Both the Cummings nonblocking paper and the SystemVerilog event-regions
+    paper state that `#0` blocking assignments go to the inactive region. That
+    is one reason `#0` is discouraged as a race workaround in RTL coding.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Nonblocking Assignments in Verilog Synthesis, Coding Styles That Kill!
+    url: https://csg.csail.mit.edu/6.375/6_375_2009_www/papers/cummings-nonblocking-snug99.pdf
+    note: Explains that `#0` forces an assignment into the inactive events queue.
+  - title: SystemVerilog Event Regions, Race Avoidance & Guidelines
+    url: https://rfsoc.mit.edu/6S965/_static/F24/lectures/CummingsSNUG2006Boston_SystemVerilog_Events.pdf
+    note: States that the inactive region is where `#0` blocking assignments are scheduled.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

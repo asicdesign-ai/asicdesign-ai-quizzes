@@ -31,20 +31,20 @@ choices:
 answer:
   correct: a
   short_explainer: >
-    Setup uncertainty makes setup harder by shrinking required time, while hold
-    uncertainty makes hold harder by increasing the required time for the hold
-    check.
+    Clock uncertainty tightens both checks. It reduces setup margin by shrinking
+    required time and reduces hold margin by pushing the hold requirement later.
   explanation: >
-    Intel's `set_clock_uncertainty` documentation states that setup uncertainty
-    is subtracted from data required time and hold uncertainty is added to data
-    required time. That means uncertainty tightens both checks, but in opposite
-    arithmetic directions.
+    In VLSI STA flows, clock uncertainty is used as a timing margin for skew,
+    jitter, and related variation. For setup analysis the uncertainty is
+    subtracted from required time, so data must arrive earlier. For hold
+    analysis the uncertainty is added to required time, so the data must remain
+    stable longer.
 notes:
-  - Generated from official documentation only.
+  - Revised from ASIC and VLSI timing references.
 references:
-  - title: Intel Quartus Timing Analyzer - set_clock_uncertainty
-    url: https://www.intel.com/content/www/us/en/programmable/quartushelp/18.1/analyze/sta/sta_db_set_clock_uncertainty.htm
-    note: Describes how setup and hold uncertainty modify data required time.
+  - title: set_clock_uncertainty
+    url: https://vlsi.pro/set_clock_uncertainty/
+    note: Explains that setup uncertainty is subtracted from required time while hold uncertainty is added.
 automation:
   authoring_format: yaml
   build_target: json

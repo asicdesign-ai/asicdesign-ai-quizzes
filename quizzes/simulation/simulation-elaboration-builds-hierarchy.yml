@@ -1,0 +1,52 @@
+schema_version: 1
+id: simulation-elaboration-builds-hierarchy
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Elaboration builds the design hierarchy
+prompt: >
+  In a Verilog simulator build flow, what does elaboration do after parsing?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: simulation
+  secondary:
+    - elaboration
+    - hierarchy
+    - build-flow
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It chooses root modules and instantiates the design hierarchy
+  - id: b
+    text: It expands `define and `include directives
+  - id: c
+    text: It performs gate-level SDF annotation
+  - id: d
+    text: It replaces assertions with hardware monitors in silicon
+answer:
+  correct: a
+  short_explainer: >
+    Elaboration turns parsed module definitions into an actual instance tree.
+    That is the stage where tops are chosen and parameterized instances are
+    resolved into a concrete design hierarchy.
+  explanation: >
+    The Icarus Verilog simulation flow separates preprocessing and parsing from
+    elaboration. During elaboration, the simulator chooses the root modules and
+    instantiates the hierarchy so later steps can optimize or execute a
+    concrete design.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Simulation Using Icarus Verilog
+    url: https://steveicarus.github.io/iverilog/usage/simulation.html
+    note: Describes elaboration as the step that chooses root modules and instantiates the design hierarchy.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

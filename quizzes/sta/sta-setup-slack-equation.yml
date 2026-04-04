@@ -34,16 +34,15 @@ answer:
     Setup slack is computed as required time minus arrival time. If arrival is
     later than required, slack becomes negative and the path fails setup.
   explanation: >
-    Intel's timing-analysis equations define setup slack as the difference
-    between data required time and data arrival time. That expression is the
-    standard sign convention used to decide whether a setup path has positive
-    margin or a timing violation.
+    STA compares the latest actual arrival time against the required arrival
+    time at the capture point. The usual sign convention is setup slack equals
+    required time minus arrival time, so late data produces negative slack.
 notes:
-  - Generated from official documentation only.
+  - Revised from ASIC and VLSI timing references.
 references:
-  - title: Intel Timing Analyzer Example - Clock Analysis Equations
-    url: https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-examples/quartus/tq-clock.html
-    note: Gives the setup slack equation as data required time minus data arrival time.
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Shows setup slack as required arrival time minus latest actual arrival time.
 automation:
   authoring_format: yaml
   build_target: json

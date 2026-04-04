@@ -35,16 +35,16 @@ answer:
     synchronous path. The path is still timed, but the setup and related hold
     relationships are changed to match the intended extra capture cycle.
   explanation: >
-    Intel's multicycle-path documentation explains that multicycle constraints
-    modify the default setup and hold relationships on a register-to-register
-    path. That is why multicycle is different from a false path: the path
-    remains part of timing analysis instead of being ignored.
+    A multicycle path is still a real synchronous timing path, so STA keeps
+    analyzing it. What changes is the capture relationship: setup may move out
+    by N cycles and the companion hold check by N-1 cycles instead of the
+    default single-cycle relationship.
 notes:
-  - Generated from official documentation only.
+  - Revised from ASIC and VLSI timing references.
 references:
-  - title: Intel Quartus Prime Pro Edition User Guide - Multicycle Path Analysis
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683243/22-3/multicycle-path-analysis.html
-    note: States that multicycle constraints modify the default setup and hold relationships.
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Defines multicycle paths and explains how setup and hold checks are shifted.
 automation:
   authoring_format: yaml
   build_target: json

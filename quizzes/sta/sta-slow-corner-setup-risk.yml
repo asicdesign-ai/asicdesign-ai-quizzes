@@ -1,0 +1,53 @@
+schema_version: 1
+id: sta-slow-corner-setup-risk
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Corner most likely to expose setup problems
+prompt: >
+  Which IPVT corner combination is most likely to expose setup violations in
+  signoff STA?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - setup
+    - pvt-corners
+    - signoff
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Slow process, low voltage, high temperature, with maximum interconnect delay
+  - id: b
+    text: Fast process, high voltage, low temperature, with minimum interconnect delay
+  - id: c
+    text: Typical process, nominal voltage, room temperature, with nominal interconnect delay
+  - id: d
+    text: Any corner is equally likely because setup is corner independent
+answer:
+  correct: a
+  short_explainer: >
+    Setup failures show up in the slowest timing corner, where transistors and
+    interconnect behave worst for long-path delay. That is why slow, low-V,
+    hot, max-delay corners are the classic setup stress case.
+  explanation: >
+    OpenLane's timing-corner walkthrough identifies the slow-process,
+    low-voltage, high-temperature, maximum-interconnect case as the setup worst
+    case. Those conditions slow down cell and wire delays, which hurts long-path
+    timing.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Newcomers - OpenLane Documentation
+    url: https://openlane2.readthedocs.io/en/latest/getting_started/newcomers/index.html
+    note: Explains that slow, low-voltage, high-temperature, max-delay corners are the likely setup worst case.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

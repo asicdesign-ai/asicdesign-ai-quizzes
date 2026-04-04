@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-liberty-timing-arcs
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What timing arcs provide to STA
+prompt: >
+  What information do timing arcs from the technology library provide to STA?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - liberty
+    - timing-arcs
+    - cell-models
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Cell delay and sequential timing characteristics such as max or min delay, setup, hold, and clock-to-Q
+  - id: b
+    text: Only floorplan density and routing congestion
+  - id: c
+    text: Only RTL coding style information
+  - id: d
+    text: Only clock definitions, but not data-path behavior
+answer:
+  correct: a
+  short_explainer: >
+    STA gets cell timing behavior from the library, not by simulating transistor
+    waveforms at signoff. Timing arcs capture the delays and sequential
+    constraints needed to compute arrival and required times.
+  explanation: >
+    AnySilicon describes timing arcs as library parameters that define cell
+    delays across PVT corners and include sequential quantities such as setup,
+    hold, and clock-to-Q. Those library models are the core numerical inputs to
+    static timing analysis.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: The Ultimate Guide to Static Timing Analysis (STA)
+    url: https://anysilicon.com/the-ultimate-guide-to-static-timing-analysis-sta/
+    note: Explains that timing arcs in the technology library define delays and flip-flop timing characteristics used by STA.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

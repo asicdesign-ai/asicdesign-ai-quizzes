@@ -1,0 +1,51 @@
+schema_version: 1
+id: sta-min-report-is-hold
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Which report corresponds to hold analysis
+prompt: >
+  In OpenSTA or OpenLane-style report naming, which report contains constrained
+  timing paths for hold checks?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - reporting
+    - hold
+    - opensta
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: min.rpt
+  - id: b
+    text: max.rpt
+  - id: c
+    text: skew.max.rpt
+  - id: d
+    text: checks.rpt
+answer:
+  correct: a
+  short_explainer: >
+    Hold is a minimum-delay problem, so it appears in `min.rpt`. Setup is the
+    maximum-delay check and appears in `max.rpt`.
+  explanation: >
+    OpenLane's report descriptions explicitly map `min.rpt` to constrained hold
+    paths and `max.rpt` to constrained setup paths. That naming mirrors the
+    underlying min-delay versus max-delay nature of the two checks.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Newcomers - OpenLane Documentation
+    url: https://openlane2.readthedocs.io/en/latest/getting_started/newcomers/index.html
+    note: States that `min.rpt` contains constrained paths for hold checks and `max.rpt` for setup checks.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

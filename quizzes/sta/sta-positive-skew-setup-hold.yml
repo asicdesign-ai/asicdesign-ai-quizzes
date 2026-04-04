@@ -1,0 +1,55 @@
+schema_version: 1
+id: sta-positive-skew-setup-hold
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Positive skew effect on setup and hold
+prompt: >
+  If the capture clock arrives later than the launch clock for a path, what is
+  the typical timing effect of that positive skew?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - clock-skew
+    - setup
+    - hold
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It helps setup margin but makes hold more critical
+  - id: b
+    text: It hurts setup margin but helps hold
+  - id: c
+    text: It improves both setup and hold at the same time
+  - id: d
+    text: It has no effect because skew is removed from STA
+answer:
+  correct: a
+  short_explainer: >
+    A later capture edge gives data more time for setup, but it also extends
+    the hold window and makes early-arrival problems worse. Positive skew helps
+    one check and hurts the other.
+  explanation: >
+    AnySilicon's clock-skew reference says positive skew favors setup while
+    making hold more critical. The UMBC timing lecture presents the same idea:
+    positive skew increases setup slack but delays the hold cutoff point.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Clock Skew
+    url: https://anysilicon.com/semipedia/clock-skew/
+    note: States that positive skew favors setup and makes hold more critical.
+  - title: Lecture 13 - Timing Analysis
+    url: https://eclipse.umbc.edu/robucci/cmpeRSD/Lectures/Lecture13__TimingAnalysis/
+    note: Explains that positive skew increases setup slack and delays the hold cutoff.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

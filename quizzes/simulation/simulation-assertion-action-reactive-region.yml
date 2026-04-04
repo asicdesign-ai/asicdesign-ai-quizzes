@@ -1,0 +1,56 @@
+schema_version: 1
+id: simulation-assertion-action-reactive-region
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Where assertion action blocks execute
+prompt: >
+  In SystemVerilog scheduling, where do concurrent assertion pass or fail action
+  blocks execute?
+code:
+  language: systemverilog
+  snippet: |
+    ap_req_gnt:
+      assert property (@(posedge clk) req |-> ##1 gnt)
+      else $error("grant missing");
+topics:
+  primary: simulation
+  secondary:
+    - assertions
+    - event-regions
+    - reactive-region
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The reactive region
+  - id: b
+    text: The active region
+  - id: c
+    text: The preponed region
+  - id: d
+    text: The postponed region
+answer:
+  correct: a
+  short_explainer: >
+    Assertion evaluation happens in observed, but pass or fail action code is
+    scheduled later in the reactive region. That prevents assertions from
+    directly perturbing RTL evaluation while they are being checked.
+  explanation: >
+    The event-regions paper explains that concurrent assertions are monitors in
+    the observed region, while their pass or fail action blocks execute in the
+    reactive region. This keeps assertion checking separate from module RTL
+    execution in the active region.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: SystemVerilog Event Regions, Race Avoidance & Guidelines
+    url: https://rfsoc.mit.edu/6S965/_static/F24/lectures/CummingsSNUG2006Boston_SystemVerilog_Events.pdf
+    note: States that pass and fail code from concurrent assertions executes in the reactive region.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-hold-check-uses-fastest-path
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Hold checks use the fastest path
+prompt: >
+  For a register-to-register hold check, which data-path quantity is the one
+  STA must compare against the capture flop's hold requirement?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - hold
+    - min-delay
+    - reg-to-reg
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The maximum combinational delay on the path
+  - id: b
+    text: The minimum combinational delay on the path
+  - id: c
+    text: The average delay across all paths in the clock domain
+  - id: d
+    text: The clock period of the destination domain
+answer:
+  correct: b
+  short_explainer: >
+    Hold analysis is about data arriving too early, so STA checks the fastest
+    path, not the slowest one. That is why minimum delay matters for hold.
+  explanation: >
+    In a basic register-to-register hold check, the concern is whether newly
+    launched data can race into the capture flop too quickly after the same
+    clock edge. AnySilicon's STA guide states that the hold constraint uses the
+    minimum combinational delay through the data path.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: The Ultimate Guide to Static Timing Analysis (STA)
+    url: https://anysilicon.com/the-ultimate-guide-to-static-timing-analysis-sta/
+    note: States that hold constraints are checked using the minimum combinational delay.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

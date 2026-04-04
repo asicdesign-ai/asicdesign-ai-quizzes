@@ -1,0 +1,55 @@
+schema_version: 1
+id: sta-buffer-insertion-fixes-hold
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Common physical fix for hold violations
+prompt: >
+  Which physical design change is commonly used to fix a hold violation without
+  changing the logic function?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - hold-fix
+    - buffers
+    - physical-design
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Insert delay on the data path, often with buffers
+  - id: b
+    text: Declare the path false
+  - id: c
+    text: Remove the capture clock from the design
+  - id: d
+    text: Widen the data bus
+answer:
+  correct: a
+  short_explainer: >
+    Hold is an early-arrival problem, so a common fix is to slow the data path
+    slightly. Buffer insertion is a standard physical way to do that while
+    preserving the logic function.
+  explanation: >
+    The OpenLane timing-closure guide notes that buffers can be inserted to add
+    delay and fix hold violations. The UMBC lecture makes the same point with
+    the practical recommendation of slowing short paths by adding buffers.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: States that buffers can be used to insert delay on data paths to fix hold violations.
+  - title: Lecture 13 - Timing Analysis
+    url: https://eclipse.umbc.edu/robucci/cmpeRSD/Lectures/Lecture13__TimingAnalysis/
+    note: Notes that short hold-critical paths can be fixed by slowing the path with buffers.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

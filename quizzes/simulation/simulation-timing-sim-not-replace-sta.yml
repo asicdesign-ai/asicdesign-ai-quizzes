@@ -1,0 +1,56 @@
+schema_version: 1
+id: simulation-timing-sim-not-replace-sta
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Role of timing simulation versus STA
+prompt: >
+  What is the right way to think about SDF-annotated timing simulation relative
+  to STA in an ASIC flow?
+code:
+  language: systemverilog
+  snippet: |
+    initial begin
+      $sdf_annotate("design.sdf", dut);
+    end
+topics:
+  primary: simulation
+  secondary:
+    - gate-level-simulation
+    - sdf
+    - sta
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Timing simulation can help uncover or validate issues, but it is too expensive to replace STA
+  - id: b
+    text: Timing simulation makes STA unnecessary once SDF is available
+  - id: c
+    text: STA and timing simulation prove exactly the same properties
+  - id: d
+    text: Timing simulation is useful only before synthesis, not after layout
+answer:
+  correct: a
+  short_explainer: >
+    SDF-annotated simulation is useful, but it is not the main timing-closure
+    engine. STA remains the scalable signoff method, while timing simulation is
+    slower and usually more selective.
+  explanation: >
+    OpenLane's timing-closure guide says timing simulation can be helpful to
+    uncover false paths and validate them, but it cannot replace STA because it
+    is time-consuming. That captures standard ASIC practice: simulation is a
+    complement, not the primary signoff timing analysis.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: States that simulation with timing information is helpful but cannot replace STA.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

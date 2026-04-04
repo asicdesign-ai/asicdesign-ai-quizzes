@@ -1,0 +1,53 @@
+schema_version: 1
+id: sta-fast-corner-hold-risk
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Corner most likely to expose hold problems
+prompt: >
+  Which IPVT corner combination is most likely to expose hold violations in
+  signoff STA?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - hold
+    - pvt-corners
+    - signoff
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Slow process, low voltage, high temperature, with maximum interconnect delay
+  - id: b
+    text: Fast process, high voltage, low temperature, with minimum interconnect delay
+  - id: c
+    text: Typical process, nominal voltage, room temperature, with nominal interconnect delay
+  - id: d
+    text: Hold violations are independent of process, voltage, and temperature
+answer:
+  correct: b
+  short_explainer: >
+    Hold failures are early-arrival problems, so they show up in the fastest
+    corner. Fast devices, high voltage, low temperature, and minimum wire delay
+    all push data to arrive sooner.
+  explanation: >
+    OpenLane's documentation points to the fast-process, high-voltage,
+    low-temperature, minimum-interconnect case as the likely hold worst case.
+    Those are exactly the conditions that reduce path delay and make short paths
+    more dangerous.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Newcomers - OpenLane Documentation
+    url: https://openlane2.readthedocs.io/en/latest/getting_started/newcomers/index.html
+    note: Explains that fast, high-voltage, low-temperature, min-delay corners are the likely hold worst case.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

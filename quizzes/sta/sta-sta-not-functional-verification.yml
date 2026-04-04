@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-sta-not-functional-verification
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What STA does and does not prove
+prompt: >
+  What does static timing analysis verify, and what does it not verify?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - signoff
+    - timing-closure
+    - verification-boundaries
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: STA verifies timing closure across timing paths, but it does not prove logic functional correctness
+  - id: b
+    text: STA proves functional correctness, but not timing closure
+  - id: c
+    text: STA checks only power and IR-drop behavior
+  - id: d
+    text: STA replaces CDC and gate-level simulation entirely
+answer:
+  correct: a
+  short_explainer: >
+    STA is a structural timing analysis, not a functional proof. It tells you
+    whether paths meet timing under the modeled constraints and libraries, not
+    whether the RTL behavior is logically correct.
+  explanation: >
+    AnySilicon's STA guide makes this distinction explicitly: STA focuses on
+    path timing using timing arcs and constraints, and it does not check design
+    functionality. That boundary is important in real ASIC signoff because
+    timing closure and functional verification solve different problems.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: The Ultimate Guide to Static Timing Analysis (STA)
+    url: https://anysilicon.com/the-ultimate-guide-to-static-timing-analysis-sta/
+    note: States that STA focuses on timing and does not check functional correctness.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

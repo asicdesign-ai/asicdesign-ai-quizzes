@@ -1,0 +1,51 @@
+schema_version: 1
+id: simulation-mintypmax-selection
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Selecting min typ max delays
+prompt: >
+  In Icarus Verilog, what does the `-Tmin` option do when the design contains
+  `min:typ:max` delays?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: simulation
+  secondary:
+    - delays
+    - mintypmax
+    - command-line
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It selects the minimum value from each `min:typ:max` delay expression
+  - id: b
+    text: It shortens the clock period in all `always` blocks
+  - id: c
+    text: It enables minimum-delay STA reports inside the simulator
+  - id: d
+    text: It chooses the smallest top module by instance count
+answer:
+  correct: a
+  short_explainer: >
+    `-Tmin` changes which member of a `min:typ:max` triplet the simulator uses.
+    It does not run STA; it simply selects the minimum annotated value.
+  explanation: >
+    Icarus Verilog provides `-Tmin`, `-Ttyp`, and `-Tmax` to choose which value
+    from Verilog `min:typ:max` delay expressions is used. This matters when you
+    want a simulation to model best-case or worst-case delay selection.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Icarus Verilog Command Line Flags
+    url: https://steveicarus.github.io/iverilog/usage/command_line_flags.html
+    note: Documents `-Tmin`, `-Ttyp`, and `-Tmax` for selecting values from `min:typ:max` delay expressions.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

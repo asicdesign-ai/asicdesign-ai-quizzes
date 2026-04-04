@@ -1,0 +1,52 @@
+schema_version: 1
+id: sta-post-synth-ideal-clock-no-hold
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why early STA can miss hold problems
+prompt: >
+  Why can STA run immediately after synthesis show few or no hold violations
+  even though real implementation may later have hold issues?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: sta
+  secondary:
+    - hold
+    - cts
+    - ideal-clock
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because the clock is still treated as ideal, so there is no implemented skew yet to create many hold failures
+  - id: b
+    text: Because synthesis permanently fixes all hold problems by construction
+  - id: c
+    text: Because hold checks are disabled until signoff
+  - id: d
+    text: Because hold depends only on clock period, which is unchanged
+answer:
+  correct: a
+  short_explainer: >
+    Pre-CTS timing often assumes an ideal clock network. Without real clock-tree
+    skew, many hold problems do not show up until later implementation stages.
+  explanation: >
+    OpenLane explicitly notes that STA right after synthesis will not usually
+    report hold violations because the clock is considered ideal and skew is not
+    yet present. Once CTS and routing create real clock arrival differences,
+    hold issues can emerge.
+notes:
+  - Authored from source-backed ASIC and VLSI STA references.
+references:
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Explains that early STA may not report hold violations because the clock is still ideal and skew has not been introduced.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

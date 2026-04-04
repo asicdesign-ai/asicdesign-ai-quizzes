@@ -11,8 +11,9 @@ code:
   language: null
   snippet: null
 topics:
-  primary: verilog
+  primary: simulation
   secondary:
+    - verilog
     - preprocessing
     - compiler-directives
     - macros
@@ -45,7 +46,7 @@ answer:
     a later backend step in simulators that compile into an intermediate or native
     executable form.
 notes:
-  - Added from user-provided quiz prompt.
+  - Revised into the simulation topic with source-backed HDL tool-flow references.
 references:
   - title: Icarus Verilog - Simulation Using Icarus Verilog
     url: https://steveicarus.github.io/iverilog/usage/simulation.html

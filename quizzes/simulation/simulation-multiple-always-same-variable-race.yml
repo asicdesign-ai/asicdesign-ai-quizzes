@@ -1,0 +1,55 @@
+schema_version: 1
+id: simulation-multiple-always-same-variable-race
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Driving one variable from multiple always blocks
+prompt: >
+  Even if both use nonblocking assignments, what is the problem with assigning
+  the same variable from two different `always` blocks?
+code:
+  language: verilog
+  snippet: |
+    always @(posedge clk) q <= d1;
+    always @(posedge clk) q <= d2;
+topics:
+  primary: simulation
+  secondary:
+    - race-avoidance
+    - multiple-drivers
+    - nonblocking
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It is still a race condition and can disagree with synthesized hardware
+  - id: b
+    text: It is safe because nonblocking assignments serialize the updates deterministically
+  - id: c
+    text: It is safe only if both blocks trigger on the same edge
+  - id: d
+    text: It simply creates a wider register with no functional risk
+answer:
+  correct: a
+  short_explainer: >
+    Using `<=` does not rescue a bad ownership pattern. Multiple procedural
+    writers to the same variable can still produce racey simulation behavior and
+    a hardware implementation that does not match the intent.
+  explanation: >
+    Cummings calls this out directly: assigning the same variable from more
+    than one `always` block is a race condition even when both assignments are
+    nonblocking. The paper shows that synthesis may infer unexpected hardware,
+    and the RTL simulation order is not the safe abstraction people assume.
+notes:
+  - Authored from source-backed HDL simulation references.
+references:
+  - title: Nonblocking Assignments in Verilog Synthesis, Coding Styles That Kill!
+    url: https://csg.csail.mit.edu/6.375/6_375_2009_www/papers/cummings-nonblocking-snug99.pdf
+    note: States that assigning the same variable from multiple always blocks is a race condition, even with nonblocking assignments.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
