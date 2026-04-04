@@ -18,7 +18,7 @@ fi
 validation_failed=0
 
 for file_path in "${quiz_files[@]}"; do
-  match_count="$(rg -c '^human_verified: (true|false)$' "$file_path" || true)"
+  match_count="$(grep -Ec '^human_verified: (true|false)$' "$file_path" || true)"
   if [[ "$match_count" != "1" ]]; then
     echo "ERROR ${file_path} must contain exactly one top-level 'human_verified: true|false' field" >&2
     validation_failed=1
