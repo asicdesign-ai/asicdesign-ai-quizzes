@@ -3,9 +3,9 @@ id: dft-mbist-sram-integrity
 status: reviewed
 review_state: answered
 question_type: multiple_choice
-title: What MBIST checks
+title: What MBIST primarily targets
 prompt: >
-  In the cited MBIST reference, what does MBIST primarily verify?
+  In a SoC DFT strategy, what does MBIST primarily target?
 code:
   language: null
   snippet: null
@@ -21,7 +21,7 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The integrity of internal SRAM instances
+    text: Embedded memories such as SRAM arrays
   - id: b
     text: Only PLL lock behavior during scan shift
   - id: c
@@ -31,20 +31,21 @@ choices:
 answer:
   correct: a
   short_explainer: >
-    MBIST is aimed at memory structures, not generic core logic. In the cited
-    example it is explicitly described as hardware for verifying internal SRAM
-    integrity.
+    MBIST exists for memories, not general core logic. It is used because
+    embedded memories are dense, numerous, and sensitive to defects, so they
+    are usually tested with dedicated memory-test hardware.
   explanation: >
-    The Infineon MBIST note states that MBIST implements verification of the
-    integrity of internal SRAM instances and is controlled by the memory test
-    unit. This is a good example of why memory DFT is usually handled
-    differently from logic scan.
+    Electronic Design describes BIST as the methodology of choice for testing
+    embedded memories within SoCs. The article explains that a basic memory
+    BIST applies regular patterns such as march or checkerboard tests and
+    compares the memory outputs against expected responses, which is why MBIST
+    primarily targets embedded memories rather than general logic.
 notes:
-  - Authored from source-backed DFT references.
+  - Authored from broad DFT methodology references.
 references:
-  - title: "AURIX MCU: Memory Built-In-Self-Test (MBIST)"
-    url: https://community.infineon.com/t5/Knowledge-Base-Articles/AURIX-MCU-Memory-Built-In-Self-Test-MBIST/ta-p/355838
-    note: Defines MBIST as hardware that verifies the integrity of internal SRAM instances.
+  - title: Test and Diagnosis of Embedded Memory Using BIST
+    url: https://www.electronicdesign.com/home/article/21200450/test-and-diagnosis-of-embedded-memory-using-bist
+    note: Describes BIST as the methodology of choice for testing embedded memories and explains basic memory-BIST operation.
 automation:
   authoring_format: yaml
   build_target: json

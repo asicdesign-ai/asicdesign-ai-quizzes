@@ -36,20 +36,19 @@ answer:
     routing and avoid many of the skew, hold, and glitch problems that plain
     logic gating can create.
   explanation: >
-    Intel explicitly recommends using dedicated hardware rather than an AND or
-    OR gate for clock gating. Their guidance points to clock-control blocks and
-    dedicated global clock routing as the safer implementation choice because
-    they reduce skew and avoid hold-time problems created by logic delay on the
-    clock line.
+    Broad clock-gating references recommend using latch-based integrated
+    clock-gating cells instead of ad hoc combinational gating. Standard-cell
+    ICGs provide a characterized, glitch-free implementation and are designed
+    to be handled correctly by synthesis, CTS, and timing analysis.
 notes:
-  - Generated from official documentation only.
+  - Authored from broad clock-gating methodology references.
 references:
-  - title: Intel Quartus Prime Pro Edition User Guide - Use Gated Clocks
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683082/24-2/use-gated-clocks.html
-    note: Recommends dedicated clock-gating hardware instead of plain AND/OR logic on the clock.
-  - title: AMD 7 Series FPGAs Clocking Resources User Guide (UG472)
-    url: https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug472_7Series_Clocking.pdf
-    note: Documents BUFGCE and BUFHCE as dedicated enable-capable clock resources.
+  - title: "Clock Gating: Powering Down Idle Circuits"
+    url: https://www.wevolver.com/article/clock-gating
+    note: Recommends latch-based gating or library ICG cells in ASIC flows and explains that standard-cell libraries provide integrated clock-gating cells.
+  - title: The Ultimate Guide to Clock Gating
+    url: https://anysilicon.com/the-ultimate-guide-to-clock-gating/
+    note: Explains integrated clock-gating cells and why they are preferred over simple gate-level clock gating.
 automation:
   authoring_format: yaml
   build_target: json

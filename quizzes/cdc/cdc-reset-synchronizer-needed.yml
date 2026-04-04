@@ -1,0 +1,55 @@
+schema_version: 1
+id: cdc-reset-synchronizer-needed
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Recommended structure for an asynchronous reset
+prompt: >
+  When an ASIC uses an asynchronous reset, what additional structure is commonly
+  recommended so the design can leave reset safely?
+topics:
+  primary: cdc
+  secondary:
+    - asynchronous-reset
+    - metastability
+    - reset-synchronizer
+    - startup
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A reset synchronizer in each receiving clock domain
+  - id: b
+    text: A permanently gated-off test clock
+  - id: c
+    text: A combinational feedback loop on the reset net
+  - id: d
+    text: A PLL in front of every reset tree
+answer:
+  correct: a
+  short_explainer: >
+    Asynchronous reset assertion is usually easy; safe reset release is the hard
+    part. A reset synchronizer lets the design assert reset immediately but
+    deassert it in a clock-domain-safe way.
+  explanation: >
+    Cliff Cummings and Don Mills explicitly recommend a reset synchronizer for
+    ASICs that use asynchronous reset, because the real hazard is reset release
+    near active clock edges. The reset synchronizer keeps asynchronous assertion
+    while synchronizing removal through two flops so recovery-removal and
+    metastability problems are managed per receiving clock domain.
+notes:
+  - Reworked to use broad reset methodology sources instead of vendor-specific reset-sequencing guidance.
+references:
+  - title: Synchronous Resets? Asynchronous Resets? I am so confused!
+    url: https://lcdm-eng.com/papers/snug02_Resets1.pdf
+    note: Recommends a reset synchronizer for ASICs using asynchronous reset and explains why reset release is the real hazard.
+  - title: "Metastability and Synchronizers: A Tutorial"
+    url: https://webee.technion.ac.il/~ran/papers/Metastability-and-Synchronizers.IEEEDToct2011.pdf
+    note: Covers synchronizer use and the common practice of synchronizing reset release per receiving clock domain.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

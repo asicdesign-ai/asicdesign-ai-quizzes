@@ -5,8 +5,8 @@ review_state: answered
 question_type: multiple_choice
 title: Enable timing risk on a clock-gating buffer
 prompt: >
-  What can happen if the enable or select timing requirement of a dedicated
-  clock-gating buffer such as BUFGCE or BUFGCTRL is violated?
+  What can happen if the enable to a clock-gating circuit changes at the wrong
+  time relative to the clock?
 code:
   language: null
   snippet: null
@@ -14,7 +14,7 @@ topics:
   primary: clock-gating
   secondary:
     - glitch
-    - bufgce
+    - icg
     - implementation
 difficulty: intermediate
 source:
@@ -32,23 +32,24 @@ choices:
 answer:
   correct: a
   short_explainer: >
-    Even dedicated clock-control buffers have timing requirements on their
-    enable or select inputs. If those requirements are violated, the output can
-    glitch.
+    Clock-gating logic must keep the gating decision stable during the active
+    phase of the clock. If the enable changes at the wrong time, the gated
+    clock can glitch and create a short or malformed pulse.
   explanation: >
-    AMD's clocking guide states that BUFGCE and related BUFGCTRL-based clock
-    buffers require the enable or select timing requirement to be met. If it is
-    violated, glitches or short pulses can appear on the clock output, which is
-    exactly the kind of failure clock-gating circuitry must avoid.
+    Broad clock-gating references explain that simple gating is glitch-prone if
+    the enable changes while the clock is active. That is why practical
+    latch-based or integrated clock-gating cells sample the enable during the
+    inactive clock phase, so the output either passes a full clock pulse or
+    suppresses it cleanly.
 notes:
-  - Generated from official documentation only.
+  - Authored from broad clock-gating methodology references.
 references:
-  - title: AMD 7 Series FPGAs Clocking Resources User Guide (UG472)
-    url: https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug472_7Series_Clocking.pdf
-    note: States that violating BUFGCE or BUFGMUX setup requirements can result in a glitch.
-  - title: AMD UltraScale Architecture Libraries Guide - BUFGCE_DIV (UG974)
-    url: https://docs.amd.com/r/2024.1-English/ug974-vivado-ultrascale-libraries/BUFGCE_DIV
-    note: Documents AMD's enable-capable dedicated clock buffer primitive family.
+  - title: The Ultimate Guide to Clock Gating
+    url: https://anysilicon.com/the-ultimate-guide-to-clock-gating/
+    note: Shows that naive enable-controlled gating can generate glitches and explains latch-based gating as the glitch-free fix.
+  - title: "Clock Gating: Powering Down Idle Circuits"
+    url: https://www.wevolver.com/article/clock-gating
+    note: Explains why enable changes during the wrong clock phase can create glitches and why latch-based or ICG approaches are used.
 automation:
   authoring_format: yaml
   build_target: json

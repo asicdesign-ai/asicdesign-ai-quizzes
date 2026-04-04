@@ -35,19 +35,19 @@ answer:
     when a block is idle, the clock network and the registers it drives stop
     toggling, which cuts dynamic power.
   explanation: >
-    Intel and AMD documentation both describe clock gating as a way to reduce
-    dynamic power. Intel notes that gating stops both the clock network and the
-    driven registers from toggling, while AMD describes BUFGCE and BUFHCE as a
-    way to stop dynamic power consumption in the affected logic region.
+    Broad clock-gating references define the technique as selectively turning
+    off the clock to idle logic so unnecessary toggling does not occur. Because
+    the clock tree and the sequential elements it drives are major dynamic-power
+    consumers, stopping those toggles is the main reason clock gating is used.
 notes:
-  - Generated from official documentation only.
+  - Authored from broad clock-gating methodology references.
 references:
-  - title: Intel Quartus Prime Pro Edition User Guide - Use Gated Clocks
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683082/24-2/use-gated-clocks.html
-    note: Explains that gated clocks reduce power by stopping clock-network and register toggling.
-  - title: AMD 7 Series FPGAs Clocking Resources User Guide (UG472)
-    url: https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug472_7Series_Clocking.pdf
-    note: States that BUFGCE and BUFHCE can stop dynamic power consumption in gated logic regions.
+  - title: "Clock Gating: Powering Down Idle Circuits"
+    url: https://www.wevolver.com/article/clock-gating
+    note: Defines clock gating as stopping clocks to idle logic to reduce dynamic power from unnecessary toggling.
+  - title: The Ultimate Guide to Clock Gating
+    url: https://anysilicon.com/the-ultimate-guide-to-clock-gating/
+    note: Defines clock gating as turning off the clock to parts of the design when not needed to reduce dynamic power.
 automation:
   authoring_format: yaml
   build_target: json

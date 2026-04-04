@@ -53,9 +53,6 @@ references:
   - title: Arm OpenBMC and UEFI learning path
     url: https://learn.arm.com/learning-paths/servers-and-cloud-computing/openbmc-rdv3/1_introduction_openbmc/
     note: Arm describes the BMC as operating independently from the host CPU and managing early boot, power sequencing, and secure firmware update mechanisms.
-  - title: Intel FPGA PAC N3000 Secure Remote System Update
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683709/current/secure-remote-system-update.html
-    note: Intel documents a BMC root-of-trust flow where controller firmware authenticates images before they are committed.
   - title: Microsoft Project Cerberus
     url: https://learn.microsoft.com/en-us/azure/security/fundamentals/project-cerberus
     note: Microsoft documents a hardware root-of-trust used to validate platform firmware integrity across host, BMC, SoC, and peripherals.

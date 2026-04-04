@@ -1,0 +1,54 @@
+schema_version: 1
+id: dft-lockup-latch-vs-buffers
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why buffers are a weaker fix than a lock-up latch
+prompt: >
+  For an inter-domain scan-chain hold problem, why is simply adding delay
+  buffers usually less robust than inserting a lock-up latch?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - advanced
+    - scan-chain
+    - lockup-latch
+    - pvt
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Buffer delay varies across PVT and RC corners, so the hold fix is less robust across signoff conditions
+  - id: b
+    text: Buffers cannot legally be placed on a scan path
+  - id: c
+    text: Buffers automatically reduce aliasing in scan compression
+  - id: d
+    text: Buffers convert a stuck-at test into a transition-delay test
+answer:
+  correct: a
+  short_explainer: >
+    Buffers can hide a hold problem in one corner and reopen it in another. A
+    lock-up latch gives a more structural fix for scan transfers across skewed
+    clocks.
+  explanation: >
+    The AnySilicon article explicitly notes that buffer-based fixes can fail
+    across PVT and RC corners because the added delay varies with conditions.
+    A lock-up latch removes much of that sensitivity, so it is the more robust
+    way to protect a scan-chain transfer when clock latencies differ strongly.
+notes:
+  - Authored from broad DFT methodology references.
+references:
+  - title: "Lock-Up Latch: Implication on Timing"
+    url: https://anysilicon.com/lock-latch-implication-timing/
+    note: Compares buffer insertion against a lock-up latch and explains why the latch is more robust across corners.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

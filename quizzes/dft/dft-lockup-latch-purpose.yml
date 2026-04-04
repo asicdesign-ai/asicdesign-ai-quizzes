@@ -1,0 +1,55 @@
+schema_version: 1
+id: dft-lockup-latch-purpose
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of a lock-up latch in scan stitching
+prompt: >
+  When a scan chain crosses between clock domains or between scan elements with
+  significant clock skew, why is a lock-up latch commonly inserted?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - advanced
+    - scan-chain
+    - lockup-latch
+    - shift-timing
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To prevent shift-mode hold violations caused by clock skew or latency differences
+  - id: b
+    text: To increase the number of capture pulses available for at-speed test
+  - id: c
+    text: To replace the JTAG TAP controller during scan access
+  - id: d
+    text: To compress scan outputs directly into a MISR
+answer:
+  correct: a
+  short_explainer: >
+    A lock-up latch is a scan-timing aid. It absorbs the skew or latency
+    difference between adjacent scan elements so shifted data does not violate
+    hold when the chain crosses domains or badly aligned clocks.
+  explanation: >
+    AnySilicon's lock-up-latch timing discussion shows that when a scan chain
+    crosses between functional domains with significant clock-latency
+    differences, setup is often relaxed but hold becomes critical. Inserting a
+    lock-up latch between the scan elements makes that transfer much more robust
+    by protecting the shift path from inter-domain skew.
+notes:
+  - Authored from broad DFT methodology references.
+references:
+  - title: "Lock-Up Latch: Implication on Timing"
+    url: https://anysilicon.com/lock-latch-implication-timing/
+    note: Explains that hold becomes critical when a scan chain crosses skewed domains and shows lock-up latches as the robust fix.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,55 @@
+schema_version: 1
+id: dft-primitive-polynomial-benefit
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why primitive polynomials are preferred in LFSR-based DFT
+prompt: >
+  In LFSR-based LBIST or signature analysis, why are primitive polynomials
+  often preferred over non-primitive ones?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - advanced
+    - lbist
+    - lfsr
+    - aliasing
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: They provide better sequence properties and more desirable aliasing behavior
+  - id: b
+    text: They eliminate all X sources without masking logic
+  - id: c
+    text: They remove the need for scan chains in LBIST
+  - id: d
+    text: They guarantee zero-area DFT logic
+answer:
+  correct: a
+  short_explainer: >
+    Primitive polynomials are favored because they give better LFSR sequence
+    behavior than non-primitive choices. In response analysis, that improves
+    how quickly aliasing probability converges to its steady-state value.
+  explanation: >
+    VLSI Tutorials' response-analyzer discussion notes that aliasing
+    probability for primitive-polynomial LFSRs converges faster than for
+    non-primitive ones. In practice, primitive polynomials are favored because
+    they give the long-sequence pseudo-random behavior used by LFSR-based
+    pattern generators and signature analyzers in LBIST-style DFT.
+notes:
+  - Authored from broad DFT methodology references.
+references:
+  - title: Response Analyzer
+    url: https://vlsitutorials.com/lbist-response-analyzer/
+    note: Explains aliasing probability behavior and notes that primitive polynomials converge faster than non-primitive ones.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

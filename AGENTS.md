@@ -54,6 +54,16 @@ When an answer depends on platform practice, security reasoning, or implementati
 
 Use official documentation and primary sources whenever possible.
 
+For broad methodology quizzes, prefer sources that generalize across ASIC or VLSI practice such as standards, textbooks, university material, widely used technical tutorials, or broad industry references.
+
+Do not base a general-methodology quiz primarily on a single patent, vendor app note, product page, or EDA-tool-specific white paper.
+
+Patents may be cited for history or for questions that are explicitly about that patented technique, but they should not be the sole basis for a general quiz concept.
+
+Vendor-specific or tool-specific sources are acceptable when the quiz itself is explicitly about that vendor, tool, primitive, or feature. Otherwise, rewrite the question to be general or replace the source set with broader methodology references.
+
+When a secondary source is used for a broad concept, add a second corroborating source when practical.
+
 ## Template
 
 Use `quizzes/templates/multiple-choice.template.yml` as the default starting point for new multiple-choice items.
@@ -105,7 +115,7 @@ Updated: 2026-04-04
   - `systemverilog`: 1
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
-- `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and advanced divider-test structures.
+- `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and scan-chain hold or lock-up-latch practice.
 - `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
 - `quizzes/sta/` now holds a reviewed STA set covering slack, path classes, PVT corners, skew, multicycle versus false-path intent, WNS/TNS, I/O constraints, and common hold-fix practice.
 - `quizzes/simulation/` now holds a reviewed simulation set covering preprocessing, elaboration, min/typ/max delays, blocking versus nonblocking assignments, event regions, assertion scheduling, RTL-vs-gate mismatches, and timing-simulation limits.
@@ -121,9 +131,9 @@ Updated: 2026-04-04
   - Kroft, *Lockup-Free Instruction Fetch/Prefetch Cache Organization*
   - gem5 classic cache documentation as supporting systems documentation
 - Recent quiz-bank expansions also rely on source sets from VerilogPro, AnySilicon, OpenLane, Verilator, Icarus Verilog, Cliff Cummings papers, and university timing/metastability lecture material.
-- Recent DFT expansion relies on VLSI Tutorials DFT pages, the cited at-speed divider patent, Cadence DFT white papers, and Infineon MBIST material.
+- Recent DFT expansion relies on VLSI Tutorials DFT pages, AnySilicon lock-up-latch coverage, and broad embedded-memory BIST references.
 - A GitHub Actions workflow now exists in this repo to trigger a portal rebuild when `quizzes/**` changes land on `main`, but that hop depends on the dispatch token described above.
-- For new researched quizzes, keep preserving per-item `references` sections and avoid adding claims that are not supported by a trustworthy source.
+- For new researched quizzes, keep preserving per-item `references` sections, avoid adding claims that are not supported by a trustworthy source, and prefer broadly applicable methodology sources over narrow vendor or patent references unless the quiz is intentionally vendor-specific.
 
 ## Still Missing / Open Gaps
 

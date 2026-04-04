@@ -5,8 +5,8 @@ review_state: answered
 question_type: multiple_choice
 title: Why source-side clock gating saves more
 prompt: >
-  Why is gating a clock near the source often preferred over gating it deeper in
-  the fanout tree?
+  Why does gating a clock nearer the source often save more power than gating
+  it deeper in the fanout tree?
 code:
   language: null
   snippet: null
@@ -36,16 +36,19 @@ answer:
     the endpoints. That usually gives better power savings than gating farther
     downstream.
   explanation: >
-    Intel's recommended clock-gating method says to gate at the source whenever
-    possible because the clock network contributes to switching power
-    consumption. Source-side gating disables a larger portion of the network,
-    which is why it can save more power than gating later in the tree.
+    Broad clock-gating references point out that the clock network itself is a
+    large dynamic-power consumer. If gating is done nearer the source, a larger
+    portion of the driven clock-tree capacitance is shut off, so the root clock
+    sees less effective load and the power savings are larger.
 notes:
-  - Generated from official documentation only.
+  - Authored from broad clock-gating methodology references.
 references:
-  - title: Intel Quartus Prime Pro Edition User Guide - Recommended Clock-Gating Methods
-    url: https://www.intel.com/content/www/us/en/docs/programmable/683082/22-2/recommended-clock-gating-methods.html
-    note: Recommends source-side clock gating because the clock network itself contributes to switching power.
+  - title: "Clock Gating: Powering Down Idle Circuits"
+    url: https://www.wevolver.com/article/clock-gating
+    note: Explains that clock networks are a large source of dynamic power and that gating off sections of the clock tree reduces effective capacitance load.
+  - title: The Ultimate Guide to Clock Gating
+    url: https://anysilicon.com/the-ultimate-guide-to-clock-gating/
+    note: Describes clock gating as turning off the clock to parts of the design to reduce dynamic switching activity.
 automation:
   authoring_format: yaml
   build_target: json

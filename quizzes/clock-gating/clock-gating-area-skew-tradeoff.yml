@@ -1,0 +1,56 @@
+schema_version: 1
+id: clock-gating-area-skew-tradeoff
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Tradeoff introduced by clock gating
+prompt: >
+  Besides power savings, what tradeoff often comes with broader use of clock
+  gating?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: clock-gating
+  secondary:
+    - tradeoff
+    - skew
+    - area
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Extra area and additional clock-skew or timing-management complexity
+  - id: b
+    text: The design automatically becomes asynchronous
+  - id: c
+    text: Setup and hold timing are no longer checked
+  - id: d
+    text: The design can no longer use registers
+answer:
+  correct: a
+  short_explainer: >
+    Clock gating saves dynamic power, but it is not free. The gating cells add
+    some area and they become part of the clock path, so skew and timing
+    management need extra care.
+  explanation: >
+    General clock-gating references note that gating cells add physical logic
+    in the clock path, which can introduce skew and timing-management work for
+    CTS and STA. They also add some area, even though the area cost is usually
+    small compared with the power benefit when gating is used well.
+notes:
+  - Authored from broad clock-gating methodology references.
+references:
+  - title: The Ultimate Guide to Clock Gating
+    url: https://anysilicon.com/the-ultimate-guide-to-clock-gating/
+    note: Explains that clock-gating cells introduce clock skew and area overhead that must be managed during CTS and timing closure.
+  - title: "Clock Gating: Powering Down Idle Circuits"
+    url: https://www.wevolver.com/article/clock-gating
+    note: Summarizes the main advantages and challenges of clock gating, including skew, verification complexity, and modest area overhead.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
