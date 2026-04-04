@@ -15,15 +15,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Dispatch portal rebuild
+      - name: Check dispatch configuration
+        id: dispatch_config
         env:
           PORTAL_REPO_DISPATCH_TOKEN: ${{ secrets.PORTAL_REPO_DISPATCH_TOKEN }}
         run: |
           if [ -z "$PORTAL_REPO_DISPATCH_TOKEN" ]; then
-            echo "PORTAL_REPO_DISPATCH_TOKEN is required to trigger the portal workflow." >&2
-            exit 1
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping portal rebuild dispatch because PORTAL_REPO_DISPATCH_TOKEN is not configured."
+            exit 0
           fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
 
+      - name: Dispatch portal rebuild
+        if: steps.dispatch_config.outputs.enabled == 'true'
+        env:
+          PORTAL_REPO_DISPATCH_TOKEN: ${{ secrets.PORTAL_REPO_DISPATCH_TOKEN }}
+        run: |
           curl --fail --show-error --silent \
             -X POST \
             -H "Accept: application/vnd.github+json" \
