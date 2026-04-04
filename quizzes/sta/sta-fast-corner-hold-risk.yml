@@ -5,7 +5,7 @@ review_state: answered
 question_type: multiple_choice
 title: Corner most likely to expose hold problems
 prompt: >
-  Which IPVT corner combination is most likely to expose hold violations in
+  Which PVT corner combination is most likely to expose hold violations in
   signoff STA?
 code:
   language: null
