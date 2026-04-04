@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-occ-two-capture-pulses-atspeed
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: OCC behavior for at-speed test
+prompt: >
+  During at-speed testing, how many capture pulses does a basic on-chip clock
+  controller (OCC) generate?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - occ
+    - at-speed
+    - transition-fault
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: One pulse
+  - id: b
+    text: Two pulses
+  - id: c
+    text: Four pulses
+  - id: d
+    text: It never generates capture pulses at-speed
+answer:
+  correct: b
+  short_explainer: >
+    A basic OCC generates two capture pulses for at-speed testing. Those pulses
+    are intended to run at the functional clock rate needed for delay-oriented
+    tests.
+  explanation: >
+    The OCC tutorial explicitly says that in at-speed testing the OCC generates
+    two capture pulses at the functional clock frequency. This is why OCC logic
+    is widely used in scan-friendly at-speed test flows.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: On-chip Clock Controller
+    url: https://vlsitutorials.com/scan-on-chip-clock-controller/
+    note: States that the OCC generates two capture pulses in at-speed testing.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

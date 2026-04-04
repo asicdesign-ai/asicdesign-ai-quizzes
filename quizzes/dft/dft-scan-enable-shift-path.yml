@@ -1,0 +1,51 @@
+schema_version: 1
+id: dft-scan-enable-shift-path
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of scan enable high
+prompt: >
+  During scan test, what happens when scan enable (`SE`) is asserted high?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - scan
+    - scan-enable
+    - shift
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The SI-to-Q shift path is activated so scan data can be shifted serially
+  - id: b
+    text: The flops capture functional data from combinational logic
+  - id: c
+    text: The OCC automatically generates at-speed pulses
+  - id: d
+    text: The TAP controller resets to Test-Logic-Reset
+answer:
+  correct: a
+  short_explainer: >
+    `SE=1` puts scan flops into shift behavior so test data can be loaded and
+    unloaded serially. Functional capture happens when `SE` is deasserted.
+  explanation: >
+    The scan tutorial explains that with `SE=1`, the SI-to-Q path is active and
+    the required values are shifted through the scan chain from scan input to
+    scan output. Once the pattern is loaded, `SE` is lowered to capture
+    functional response.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: Explains that `SE=1` activates the SI-to-Q path for scan shifting.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

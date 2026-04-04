@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-jtag-tap-signals
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Mandatory JTAG TAP signals
+prompt: >
+  Which set lists the four mandatory IEEE JTAG TAP signals?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - jtag
+    - tap
+    - boundary-scan
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: TDI, TDO, TCK, and TMS
+  - id: b
+    text: TDI, TDO, TRST, and TCK
+  - id: c
+    text: TMS, TRST, SE, and SI
+  - id: d
+    text: SI, SO, CAPCLK, and SHCLK
+answer:
+  correct: a
+  short_explainer: >
+    The mandatory TAP signals are `TDI`, `TDO`, `TCK`, and `TMS`. `TRST` is a
+    common optional reset signal, but it is not one of the four mandatory TAP
+    signals.
+  explanation: >
+    The cited TAP tutorial lists four mandatory TAP signals and one optional
+    `TRST` signal. This distinction matters because many JTAG flows rely only on
+    the four mandatory pins and use a TMS-based reset sequence instead of a
+    dedicated reset pin.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: TAP and TAP Controller
+    url: https://vlsitutorials.com/jtag-test-access-port-and-tap-controller/
+    note: Lists TDI, TDO, TCK, and TMS as mandatory TAP signals and TRST as optional.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

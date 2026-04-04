@@ -1,0 +1,53 @@
+schema_version: 1
+id: dft-lbist-major-components
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Major blocks in LBIST
+prompt: >
+  Which three major blocks are identified as the basic components of an on-chip
+  LBIST architecture?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - lbist
+    - bist
+    - architecture
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: BIST controller, test pattern generator, and response analyzer
+  - id: b
+    text: PLL, OCC, and clock mux
+  - id: c
+    text: Boundary scan register, TAP controller, and instruction decoder
+  - id: d
+    text: Decompressor, compactor, and lockup latch
+answer:
+  correct: a
+  short_explainer: >
+    A basic LBIST architecture needs control logic, pattern generation, and
+    response compaction or analysis. Those roles are commonly described as the
+    BIST controller, TPG, and RA.
+  explanation: >
+    The LBIST tutorial lists the three major components as the BIST controller,
+    test pattern generator, and response analyzer. The same article then
+    explains how an LFSR can serve as the TPG and a MISR-like structure can
+    analyze compressed response.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Logic Built In Self Test (LBIST)
+    url: https://vlsitutorials.com/logic-built-in-self-test-lbist/
+    note: Lists the BIST controller, TPG, and RA as the three major components of LBIST.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

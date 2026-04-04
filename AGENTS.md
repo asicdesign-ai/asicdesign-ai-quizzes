@@ -65,7 +65,7 @@ Over time, this repository should become a clean, automation-friendly quiz bank 
 ## Topic Taxonomy
 
 - Do not use `quizzes/vlsi/` as a generic catch-all topic anymore.
-- New quizzes should go into dedicated lanes such as `cdc`, `sta`, `clock-gating`, `simulation`, `systemverilog`, `cache-coherency`, `l2-cache-controller`, or another specific domain.
+- New quizzes should go into dedicated lanes such as `cdc`, `dft`, `sta`, `clock-gating`, `simulation`, `systemverilog`, `cache-coherency`, `l2-cache-controller`, or another specific domain.
 - If a question spans multiple areas, choose the best learner-facing primary lane and use `topics.secondary` to capture the cross-domain tags.
 
 ## Portal Publish Hop
@@ -92,11 +92,12 @@ Quiz content does not become visible on `https://asicdesign.ai` from this repo a
 
 Updated: 2026-04-04
 
-- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
+- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
 - Current reviewed counts by directory are:
   - `cache-coherency`: 30
   - `cdc`: 21
   - `clock-gating`: 5
+  - `dft`: 20
   - `l2-cache-controller`: 10
   - `firmware`: 1
   - `simulation`: 16
@@ -104,6 +105,7 @@ Updated: 2026-04-04
   - `systemverilog`: 1
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
+- `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and advanced divider-test structures.
 - `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
 - `quizzes/sta/` now holds a reviewed STA set covering slack, path classes, PVT corners, skew, multicycle versus false-path intent, WNS/TNS, I/O constraints, and common hold-fix practice.
 - `quizzes/simulation/` now holds a reviewed simulation set covering preprocessing, elaboration, min/typ/max delays, blocking versus nonblocking assignments, event regions, assertion scheduling, RTL-vs-gate mismatches, and timing-simulation limits.
@@ -119,6 +121,7 @@ Updated: 2026-04-04
   - Kroft, *Lockup-Free Instruction Fetch/Prefetch Cache Organization*
   - gem5 classic cache documentation as supporting systems documentation
 - Recent quiz-bank expansions also rely on source sets from VerilogPro, AnySilicon, OpenLane, Verilator, Icarus Verilog, Cliff Cummings papers, and university timing/metastability lecture material.
+- Recent DFT expansion relies on VLSI Tutorials DFT pages, the cited at-speed divider patent, Cadence DFT white papers, and Infineon MBIST material.
 - A GitHub Actions workflow now exists in this repo to trigger a portal rebuild when `quizzes/**` changes land on `main`, but that hop depends on the dispatch token described above.
 - For new researched quizzes, keep preserving per-item `references` sections and avoid adding claims that are not supported by a trustworthy source.
 

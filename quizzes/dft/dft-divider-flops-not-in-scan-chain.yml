@@ -1,0 +1,54 @@
+schema_version: 1
+id: dft-divider-flops-not-in-scan-chain
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why divider flops are often not scanned
+prompt: >
+  Why does the cited at-speed test patent say clock-divider flip-flops are often
+  not simply included in a normal scan chain?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - advanced
+    - clock-divider
+    - at-speed
+    - patent
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Including the divider flops in the scan chain can disturb the desired scan operation
+  - id: b
+    text: Divider flops cannot be clocked in silicon at all
+  - id: c
+    text: Divider logic is already fully covered by boundary scan
+  - id: d
+    text: Divider flops can only be tested by MBIST
+answer:
+  correct: a
+  short_explainer: >
+    Divider logic is tricky because the divider state is part of clock
+    generation itself. The patent calls out that simply placing those flops in a
+    normal scan chain can interfere with the intended scan behavior.
+  explanation: >
+    The patent explicitly says it is generally not possible to include the clock
+    divider flip-flops themselves in a scan chain without disturbing the desired
+    scan operation. That limitation is one reason dedicated divider-test
+    structures are proposed for better at-speed fault coverage.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: US8898527B2 - At-speed scan testing of clock divider logic in a clock module of an integrated circuit
+    url: https://patents.google.com/patent/US8898527B2/en
+    note: Explains that divider flip-flops often cannot be included in a normal scan chain without disturbing scan operation.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

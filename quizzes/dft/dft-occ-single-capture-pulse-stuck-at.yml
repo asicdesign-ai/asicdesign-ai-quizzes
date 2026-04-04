@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-occ-single-capture-pulse-stuck-at
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: OCC behavior for stuck-at test
+prompt: >
+  During stuck-at testing, how many capture pulses does a basic on-chip clock
+  controller (OCC) generate?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - occ
+    - stuck-at
+    - clocking
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: One capture pulse
+  - id: b
+    text: Two capture pulses
+  - id: c
+    text: Three capture pulses
+  - id: d
+    text: A free-running functional clock burst
+answer:
+  correct: a
+  short_explainer: >
+    A basic OCC generates one capture pulse for stuck-at testing. Two at-speed
+    capture pulses are typically used for transition or delay-style testing
+    instead.
+  explanation: >
+    The OCC tutorial states that in stuck-at testing the OCC ensures that only
+    one clock pulse is generated in the capture phase. This distinguishes
+    stuck-at capture behavior from at-speed capture behavior.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: On-chip Clock Controller
+    url: https://vlsitutorials.com/scan-on-chip-clock-controller/
+    note: States that the OCC generates one clock pulse in stuck-at testing.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

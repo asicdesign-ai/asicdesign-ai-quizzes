@@ -1,0 +1,55 @@
+schema_version: 1
+id: dft-unified-compression-lbist-shared-resources
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What unified compression and LBIST can share
+prompt: >
+  In Cadence's unified compression-plus-LBIST architecture, which DFT resources
+  are explicitly described as shareable between scan compression and LBIST?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - advanced
+    - lbist
+    - test-compression
+    - physically-aware-dft
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The decompressor, MISR-style compressor, and masking logic
+  - id: b
+    text: Only the TAP controller and instruction register
+  - id: c
+    text: Only boundary scan cells and package pins
+  - id: d
+    text: Only clock tree synthesis buffers
+answer:
+  correct: a
+  short_explainer: >
+    The unified architecture works by reusing major DFT resources rather than
+    duplicating them for compression and LBIST. That sharing is what enables the
+    cited area and wirelength savings.
+  explanation: >
+    Cadence's white paper says unified compression can reuse the elastic
+    decompressor as the LBIST PRPG and spreader, reuse the MISR-based
+    compressor as the LBIST MISR, and reuse the compression masking logic as the
+    LBIST mask. The same paper reports area and scan-wirelength savings from
+    that shared architecture.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Unified Compression and LBIST in a Physically Aware Environment
+    url: https://login.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/digital-design-signoff/unified-physically-aware-compression-wp.pdf
+    note: Describes sharing the decompressor, MISR compressor, and masking resources between scan compression and LBIST.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

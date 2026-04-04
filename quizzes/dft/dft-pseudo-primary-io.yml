@@ -1,0 +1,50 @@
+schema_version: 1
+id: dft-pseudo-primary-io
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Pseudo primary inputs and outputs in scan
+prompt: >
+  In scan-based ATPG, how are the scan flop terminals typically viewed?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - scan
+    - atpg
+    - pseudo-primary-io
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Scan flop D acts like a pseudo primary input and Q acts like a pseudo primary output
+  - id: b
+    text: Scan flop Q is a pseudo clock and D is a pseudo reset
+  - id: c
+    text: Both D and Q are treated as boundary-scan pins only
+  - id: d
+    text: Both D and Q are ignored once scan insertion is complete
+answer:
+  correct: a
+  short_explainer: >
+    Scan effectively exposes flop state to test tools. ATPG can treat the flop
+    inputs and outputs as if they were extra controllable and observable ports.
+  explanation: >
+    The DFT tutorial states that scan flop outputs act as pseudo primary outputs
+    and scan flop inputs act as pseudo primary inputs. This is the key reason
+    scan makes sequential logic much easier for ATPG to handle.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: Describes scan flop Q as pseudo primary output and D as pseudo primary input for testing.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

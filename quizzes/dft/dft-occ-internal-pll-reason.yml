@@ -1,0 +1,54 @@
+schema_version: 1
+id: dft-occ-internal-pll-reason
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why OCC uses internal clocking for at-speed
+prompt: >
+  Why is an on-chip clock controller (OCC) commonly used for at-speed scan
+  testing instead of simply driving high-speed capture pulses through chip I/O
+  pads?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - occ
+    - at-speed
+    - pll
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: I/O pads have frequency limits, while the OCC can use an internal PLL clock to create at-speed pulses
+  - id: b
+    text: OCC is required only because scan chains cannot shift without it
+  - id: c
+    text: OCC removes the need for scan enable control
+  - id: d
+    text: I/O pads can only carry analog clocks, not digital clocks
+answer:
+  correct: a
+  short_explainer: >
+    At-speed capture pulses often need to run at true functional frequency.
+    OCC logic solves the pad-frequency limitation by generating test clocks
+    from internal clocking resources such as a PLL.
+  explanation: >
+    The OCC tutorial explains that at-speed testing needs two capture pulses at
+    the functional frequency, but chip I/O pads may not support that frequency
+    reliably. The OCC therefore uses internal PLL-based clocking to generate the
+    required test pulses on chip.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: On-chip Clock Controller
+    url: https://vlsitutorials.com/scan-on-chip-clock-controller/
+    note: Explains that OCC avoids I/O pad frequency limits by using internal PLL clocking for at-speed pulses.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

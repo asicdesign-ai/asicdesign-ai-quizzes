@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-boundary-scan-observe-hidden-io
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Boundary scan visibility benefit
+prompt: >
+  What is a key benefit of adding boundary scan cells around a chip's I/O?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - boundary-scan
+    - jtag
+    - io-test
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It allows chip inputs and outputs to be controlled and observed through the scan chain even when board access is limited
+  - id: b
+    text: It replaces all internal scan chains in the core
+  - id: c
+    text: It guarantees every delay fault is detectable without ATPG
+  - id: d
+    text: It removes the need for an instruction register in JTAG
+answer:
+  correct: a
+  short_explainer: >
+    Boundary scan makes external pins much easier to drive and observe during
+    board or chip-level test. That extra visibility is especially valuable when
+    direct physical probing or top-level access is limited.
+  explanation: >
+    The cited boundary-scan material explains that boundary scan registers sit
+    at device I/O and allow those signals to be controlled or observed through
+    the scan mechanism. This is one of the core reasons JTAG boundary scan is so
+    useful for interconnect and access-limited test scenarios.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Data Registers
+    url: https://vlsitutorials.com/jtag-data-registers/
+    note: Explains that boundary scan cells let engineers control and observe device I/O even when pins are not exposed at the board top level.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

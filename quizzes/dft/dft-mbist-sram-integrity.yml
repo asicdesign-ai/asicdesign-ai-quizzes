@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-mbist-sram-integrity
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: What MBIST checks
+prompt: >
+  In the cited MBIST reference, what does MBIST primarily verify?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - mbist
+    - memory-test
+    - sram
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The integrity of internal SRAM instances
+  - id: b
+    text: Only PLL lock behavior during scan shift
+  - id: c
+    text: Only JTAG instruction decoding
+  - id: d
+    text: Only inter-chip boundary-scan links
+answer:
+  correct: a
+  short_explainer: >
+    MBIST is aimed at memory structures, not generic core logic. In the cited
+    example it is explicitly described as hardware for verifying internal SRAM
+    integrity.
+  explanation: >
+    The Infineon MBIST note states that MBIST implements verification of the
+    integrity of internal SRAM instances and is controlled by the memory test
+    unit. This is a good example of why memory DFT is usually handled
+    differently from logic scan.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: "AURIX MCU: Memory Built-In-Self-Test (MBIST)"
+    url: https://community.infineon.com/t5/Knowledge-Base-Articles/AURIX-MCU-Memory-Built-In-Self-Test-MBIST/ta-p/355838
+    note: Defines MBIST as hardware that verifies the integrity of internal SRAM instances.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

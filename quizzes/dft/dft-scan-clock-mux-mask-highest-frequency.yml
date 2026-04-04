@@ -1,0 +1,53 @@
+schema_version: 1
+id: dft-scan-clock-mux-mask-highest-frequency
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Handling a functionally controlled clock mux in scan mode
+prompt: >
+  In a scan-friendly clocking architecture, what should be done to a clock mux
+  whose functional select is driven by logic that toggles during scan?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - scan-clocking
+    - clock-mux
+    - at-speed
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Mask the functional select in scan mode and force the highest-frequency testable clock choice
+  - id: b
+    text: Leave the functional select uncontrolled because scan ignores muxes
+  - id: c
+    text: Convert the mux into a scan chain automatically
+  - id: d
+    text: Disable the mux output entirely during scan capture
+answer:
+  correct: a
+  short_explainer: >
+    If the mux select comes from scanned logic, it can toggle unpredictably in
+    test mode. A scan-friendly clock architecture masks that control and forces
+    the intended highest-frequency path for at-speed testing.
+  explanation: >
+    The cited scan-clocking tutorial states that a functionally controlled clock
+    mux must be masked in scan mode so that the highest relevant frequency is
+    propagated for at-speed testing. Otherwise the mux output can become
+    unpredictable because the FSM driving the select is itself being scanned.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Scan Clocking Architecture
+    url: https://vlsitutorials.com/dft-scan-clocking-architecture/
+    note: Explains that a functionally controlled clock mux should be masked in scan mode to force the highest-frequency path.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

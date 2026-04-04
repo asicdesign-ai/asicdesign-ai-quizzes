@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-non-scan-flop-reasons
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Why some flops stay non-scan
+prompt: >
+  After a scan insertion flow, which flops are most likely to remain regular
+  non-scan flops?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - scan
+    - scan-insertion
+    - dft-drc
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Flops intentionally excluded by the user or flops that fail DFT DRC requirements
+  - id: b
+    text: All flops clocked by the fastest domain
+  - id: c
+    text: Only flops that belong to ATPG pattern memory
+  - id: d
+    text: Every flop that has a synchronous reset
+answer:
+  correct: a
+  short_explainer: >
+    Not every flop automatically becomes scan. User exclusions and DFT rule
+    violations are common reasons a flop is left as a regular non-scan element.
+  explanation: >
+    The DFT tutorial notes two typical cases: flops deliberately excluded by the
+    designer and flops that do not satisfy the DFT DRC requirements for scan
+    insertion. Those elements may need special treatment or may remain outside
+    the scan fabric.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: Explains that user-excluded flops and DFT DRC violations are common reasons for non-scan flops.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

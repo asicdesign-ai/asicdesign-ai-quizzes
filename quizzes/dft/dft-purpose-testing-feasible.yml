@@ -1,0 +1,52 @@
+schema_version: 1
+id: dft-purpose-testing-feasible
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Purpose of DFT
+prompt: >
+  What is the main purpose of design-for-testability (DFT) logic in a digital
+  chip?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - basics
+    - testability
+    - manufacturing-test
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To add design techniques that make manufacturing test feasible
+  - id: b
+    text: To eliminate the need for ATPG and ATE completely
+  - id: c
+    text: To replace functional verification and STA
+  - id: d
+    text: To prevent all silicon defects from occurring
+answer:
+  correct: a
+  short_explainer: >
+    DFT is about improving controllability and observability so faults can be
+    detected efficiently in silicon test. It helps test happen; it does not
+    replace design verification or remove defects from manufacturing.
+  explanation: >
+    The cited DFT tutorial defines DFT as the addition of logic and design
+    techniques that make testing feasible. In practice, DFT improves how easily
+    internal states can be set up and observed during manufacturing test.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: Defines DFT as design techniques that make testing feasible in silicon.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,53 @@
+schema_version: 1
+id: dft-misr-aliasing-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Meaning of aliasing in response analysis
+prompt: >
+  In signature-based response analysis such as MISR compaction, what does
+  aliasing mean?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - lbist
+    - misr
+    - aliasing
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A faulty response produces the same signature as the fault-free gold signature
+  - id: b
+    text: Two scan chains share the same scan-enable signal
+  - id: c
+    text: A scan chain is longer than the MISR width
+  - id: d
+    text: A boundary-scan register and scan chain use the same TCK pin
+answer:
+  correct: a
+  short_explainer: >
+    Aliasing is the bad case where a faulty output compresses to the same final
+    signature as a good output. When that happens, the fault can escape
+    detection.
+  explanation: >
+    The response-analyzer tutorial defines aliasing as the case where the
+    signature from a faulty output matches the gold signature from the good
+    circuit. This is why low probability of aliasing is a key requirement for a
+    good response analyzer.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Response Analyzer
+    url: https://vlsitutorials.com/lbist-response-analyzer/
+    note: Defines aliasing as a faulty response producing the same signature as the gold signature.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

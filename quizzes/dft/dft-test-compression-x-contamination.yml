@@ -1,0 +1,53 @@
+schema_version: 1
+id: dft-test-compression-x-contamination
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: X contamination in XOR-based compaction
+prompt: >
+  What is the main observability problem when one scan chain feeding an XOR-based
+  spatial compactor contains an `X` value?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - test-compression
+    - x-masking
+    - compactor
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The `X` can block observability of the corresponding bit from another chain compacted into the same output channel
+  - id: b
+    text: The compactor automatically converts the `X` into a useful random fill value
+  - id: c
+    text: The decompressor stops working for all scan chains
+  - id: d
+    text: The fault is always guaranteed to become visible at the tester
+answer:
+  correct: a
+  short_explainer: >
+    XOR compaction is efficient, but unknown values are dangerous because one
+    `X` can spoil visibility for another chain sharing the same output channel.
+    That is why masking logic is often added.
+  explanation: >
+    The test-compression tutorial explains that when multiple scan chains are
+    XOR-compacted, an `X` captured in one chain can block the corresponding bit
+    from another chain. The same article then motivates mask-controller logic as
+    a practical way to deal with this `X` contamination problem.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: Test Compression
+    url: https://vlsitutorials.com/test-compression-edt/
+    note: Explains X contamination in XOR compactors and why masking logic is used.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

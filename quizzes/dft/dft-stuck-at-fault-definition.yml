@@ -1,0 +1,50 @@
+schema_version: 1
+id: dft-stuck-at-fault-definition
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Stuck-at fault model
+prompt: >
+  In the common stuck-at fault model, what does a stuck-at-1 fault represent?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - fault-models
+    - stuck-at
+    - atpg
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A circuit node is permanently shorted to VDD
+  - id: b
+    text: A clock pulse is missing during capture
+  - id: c
+    text: A scan chain is disconnected at shift time
+  - id: d
+    text: A path has a slow-to-fall transition delay
+answer:
+  correct: a
+  short_explainer: >
+    A stuck-at-1 fault models a node permanently tied high. Its complement,
+    stuck-at-0, models a node permanently tied to ground.
+  explanation: >
+    The cited DFT reference explains that stuck-at faults model permanent shorts
+    of a node to VDD or GND. ATPG tools generate patterns that can sensitize and
+    observe those modeled faults at many possible locations in the circuit.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: Defines stuck-at-1 as a node shorted to VDD and stuck-at-0 as a node shorted to GND.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

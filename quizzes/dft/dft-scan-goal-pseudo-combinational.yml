@@ -1,0 +1,53 @@
+schema_version: 1
+id: dft-scan-goal-pseudo-combinational
+status: reviewed
+review_state: answered
+question_type: multiple_choice
+title: Goal of scan insertion
+prompt: >
+  What is the main testing goal of scan insertion in a sequential design?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: dft
+  secondary:
+    - scan
+    - scan-insertion
+    - controllability
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: To make the sequential circuit behave like an easier-to-test combinational circuit during test
+  - id: b
+    text: To remove all flops from the functional design
+  - id: c
+    text: To guarantee zero aliasing in signature analysis
+  - id: d
+    text: To replace boundary scan and JTAG access
+answer:
+  correct: a
+  short_explainer: >
+    Scan insertion improves controllability and observability by turning flop
+    state into something test tools can load and unload more directly. That
+    makes sequential logic look much more like pseudo-combinational logic during
+    test.
+  explanation: >
+    The DFT tutorial explicitly says the goal of scan insertion is to make a
+    difficult-to-test sequential circuit behave like an easier-to-test
+    combinational circuit during testing. This is why scan is such a standard
+    companion to ATPG.
+notes:
+  - Authored from source-backed DFT references.
+references:
+  - title: DFT, Scan and ATPG
+    url: https://vlsitutorials.com/dft-scan-and-atpg/
+    note: States that scan insertion aims to make a sequential circuit behave like an easier-to-test combinational circuit during testing.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
