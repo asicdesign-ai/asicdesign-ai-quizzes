@@ -62,6 +62,12 @@ Use `quizzes/templates/multiple-choice.template.yml` as the default starting poi
 
 Over time, this repository should become a clean, automation-friendly quiz bank with a consistent authoring pattern that is easy to review, ingest, and render in `asicdesign-ai-portal`.
 
+## Topic Taxonomy
+
+- Do not use `quizzes/vlsi/` as a generic catch-all topic anymore.
+- New quizzes should go into dedicated lanes such as `cdc`, `sta`, `clock-gating`, `simulation`, `systemverilog`, `cache-coherency`, `l2-cache-controller`, or another specific domain.
+- If a question spans multiple areas, choose the best learner-facing primary lane and use `topics.secondary` to capture the cross-domain tags.
+
 ## Portal Publish Hop
 
 Quiz content does not become visible on `https://asicdesign.ai` from this repo alone. There is a second hop through the portal repository that must succeed.
@@ -86,22 +92,22 @@ Quiz content does not become visible on `https://asicdesign.ai` from this repo a
 
 Updated: 2026-04-04
 
-- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, `quizzes/systemverilog`, and `quizzes/vlsi`.
+- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
 - Current reviewed counts by directory are:
   - `cache-coherency`: 30
-  - `cdc`: 20
+  - `cdc`: 21
   - `clock-gating`: 5
   - `l2-cache-controller`: 10
   - `firmware`: 1
   - `simulation`: 16
-  - `sta`: 20
+  - `sta`: 21
   - `systemverilog`: 1
-  - `vlsi`: 2
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
 - `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
 - `quizzes/sta/` now holds a reviewed STA set covering slack, path classes, PVT corners, skew, multicycle versus false-path intent, WNS/TNS, I/O constraints, and common hold-fix practice.
 - `quizzes/simulation/` now holds a reviewed simulation set covering preprocessing, elaboration, min/typ/max delays, blocking versus nonblocking assignments, event regions, assertion scheduling, RTL-vs-gate mismatches, and timing-simulation limits.
+- The old generic `vlsi` quiz lane has been retired; its remaining reviewed items were folded into dedicated domain lanes.
 - The current trusted source set used in recent research-backed items includes:
   - Sorin, Hill, and Wood, *A Primer on Memory Consistency and Cache Coherence*
   - MIT 6.823 lecture and handout material
@@ -118,7 +124,7 @@ Updated: 2026-04-04
 
 ## Still Missing / Open Gaps
 
-- Coverage is still thinner in `firmware`, `systemverilog`, and `vlsi` than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
+- Coverage is still thinner in `firmware` and `systemverilog` than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
 - `quizzes/verilog/` currently exists but has no quiz content. Future work should either populate it or remove the empty category if it is no longer needed.
 - This repo still lacks its own dedicated schema-validation or content-lint workflow. Validation currently happens mainly through manual checks and the downstream portal ingestion/build pipeline.
 - As the quiz bank grows, continue normalizing older and newer items so explanation quality, metadata consistency, and source citation depth stay aligned across directories.

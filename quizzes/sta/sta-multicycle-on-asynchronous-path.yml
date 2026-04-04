@@ -3,20 +3,20 @@ id: sta-multicycle-on-asynchronous-path
 status: reviewed
 review_state: answered
 question_type: multiple_choice
-title: STA check behavior for asynchronous path with multicycle constraint
+title: Multicycle keeps a path in STA
 prompt: >
-  Will STA (static timing analysis) perform a timing check on an asynchronous path
-  when a `set_multicycle_path` constraint is defined for it?
+  If a `set_multicycle_path` constraint is applied to a path, does STA still
+  perform a timing check on that path?
 code:
   language: null
   snippet: null
 topics:
-  primary: vlsi
+  primary: sta
   secondary:
-    - sta
-    - timing-constraints
-    - asynchronous-paths
     - multicycle-path
+    - timing-constraints
+    - timing-exceptions
+    - setup-hold
     - sdc
 difficulty: intermediate
 source:
@@ -43,12 +43,14 @@ answer:
     STA to relax or shift the capture relationship by a defined number of cycles, so
     the path remains part of timing analysis. That means the tool still computes
     propagation delay and compares it against the modified setup and hold
-    requirements. By contrast, a false-path style exception removes normal timing
-    checks, while `set_max_delay` is another way to constrain a path directly in
-    absolute time, not the only way to analyze an asynchronous or unusual path.
+    requirements. By contrast, a false-path exception removes the path from normal
+    timing analysis.
 notes:
   - Correct answer provided by user as choice 3.
-references: []
+references:
+  - title: Achieving Timing Closure
+    url: https://openlane2.readthedocs.io/en/latest/usage/timing_closure/index.html
+    note: Explains that multicycle paths remain timed and that the setup and hold relationships are shifted rather than disabled.
 automation:
   authoring_format: yaml
   build_target: json

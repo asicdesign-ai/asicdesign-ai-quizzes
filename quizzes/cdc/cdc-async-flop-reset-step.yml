@@ -5,9 +5,9 @@ review_state: answered
 question_type: multiple_choice
 title: Step before asserting reset for asynchronous flops
 prompt: >
-  In VLSI design, what is the most important step before asserting reset for asynchronous flops?
+  What is the most important step before asserting reset for asynchronous flops?
 topics:
-  primary: vlsi
+  primary: cdc
   secondary:
     - asynchronous-reset
     - metastability
