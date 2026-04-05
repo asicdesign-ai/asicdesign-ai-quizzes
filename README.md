@@ -1,47 +1,53 @@
 # asicdesign-ai-quizzes
 
-Structured quiz content repository for the `asicdesign.ai` ecosystem.
+Editable YAML source-of-truth for quiz content used by the `asicdesign.ai`
+portal.
 
-## Overview
+## What lives here
 
-This repository stores quiz content and related metadata for ASIC, RTL, verification, digital design, and VLSI learning experiences.
+This repository stores quiz items as authored YAML, grouped by learner-facing
+topic. The portal builds normalized frontend data from this repo, but the quiz
+content itself is edited here.
 
-It is intended to act as the source repository for question banks used by `asicdesign-ai-portal` and other future learning surfaces.
+## Repository layout
 
-## Purpose
+- `quizzes/<topic>/` - one YAML file per quiz item
+- `quizzes/templates/` - starter templates for new quiz authoring
+- `scripts/validate-quiz-metadata.sh` - lightweight local metadata validation
 
-This repo exists to keep quiz content separate from the portal application code.
+Use `quizzes/templates/multiple-choice.template.yml` as the default starting
+point for a new multiple-choice quiz.
 
-Its responsibilities may include:
-- storing raw and curated question banks
-- organizing quizzes by topic, format, difficulty, or audience
-- supporting reusable quiz content for multiple portal experiences
-- enabling future validation, tagging, conversion, and generation workflows
+## Authoring model
 
-## Relationship to Other Repositories
+- keep one quiz per YAML file
+- use stable `id` values and descriptive filenames
+- write `answer.short_explainer` for immediate learner feedback
+- add `references` when the answer depends on research, tool behavior, or
+  design methodology
 
-- `asicdesign-ai-portal`: presentation layer that can consume and render quiz content from this repo
-- other repositories in the ecosystem may contribute source material, references, or supporting content
+## How content reaches the portal
 
-## Content Direction
+This repo does not publish directly to `https://asicdesign.ai` on its own.
 
-Initial quiz coverage may include:
-- ASIC fundamentals
-- RTL and HDL concepts
-- digital logic and design
-- verification basics
-- VLSI terminology and workflows
+The normal flow is:
 
-Over time, the repository may expand to support:
-- multiple quiz formats
-- explanations and answer rationales
-- topic tagging and difficulty levels
-- portal-ready structured data
+1. update reviewed quiz YAML in this repo
+2. validate it locally
+3. merge it here
+4. let the portal repo regenerate its quiz artifacts and deploy
 
-## Status
+The portal-side generated outputs live in `asicdesign-ai-portal`, not here.
 
-Early-stage content repository for quiz banks and related learning assets.
+## Local validation
 
-## Notes
+Run:
 
-The exact file structure and quiz schema may evolve as the portal and quiz experience take shape.
+`bash scripts/validate-quiz-metadata.sh`
+
+This checks required quiz metadata before you open a PR.
+
+## Contributing
+
+See `CONTRIBUTING.md` for the detailed contribution rules, review expectations,
+field guidance, and license note.
