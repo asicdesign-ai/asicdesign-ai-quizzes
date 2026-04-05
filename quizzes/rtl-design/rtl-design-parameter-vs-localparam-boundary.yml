@@ -32,15 +32,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: An internal derived constant like pointer width that should track another parameter automatically
-  - id: b
-    text: A top-level configuration value the module user is expected to override
-  - id: c
-    text: Any value used inside an `always_ff` block
-  - id: d
     text: A reset literal because parameters cannot hold numbers
+  - id: b
+    text: An internal derived constant like pointer width that should track another parameter automatically
+  - id: c
+    text: A top-level configuration value the module user is expected to override
+  - id: d
+    text: Any value used inside an `always_ff` block
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Use `localparam` for internal constants that should not be overridden from
     outside the module. Derived values like `PTR_W` are classic examples.

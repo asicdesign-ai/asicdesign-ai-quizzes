@@ -32,15 +32,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: When related fields travel together and named access is clearer than repeated manual slicing
-  - id: b
     text: Only when the structure must synthesize into block RAM
+  - id: b
+    text: Because packed structs always reduce total wire count
   - id: c
     text: Only when each field is driven by a different clock domain
   - id: d
-    text: Because packed structs always reduce total wire count
+    text: When related fields travel together and named access is clearer than repeated manual slicing
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Packed structs are helpful when a bus naturally consists of named fields
     that move together. They reduce indexing mistakes and make the intent of the

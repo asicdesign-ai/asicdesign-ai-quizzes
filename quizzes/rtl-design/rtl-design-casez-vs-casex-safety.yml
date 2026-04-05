@@ -33,15 +33,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: "`casex` treats X and Z bits as wildcards, so unknowns in real signals can be hidden and match the wrong branch"
-  - id: b
-    text: "`casex` is unsynthesizable, while `casez` is always synthesizable"
-  - id: c
     text: "`casex` forces priority logic, while `casez` forces parallel logic"
-  - id: d
+  - id: b
+    text: "`casex` treats X and Z bits as wildcards, so unknowns in real signals can be hidden and match the wrong branch"
+  - id: c
     text: "`casex` is only legal inside testbenches"
+  - id: d
+    text: "`casex` is unsynthesizable, while `casez` is always synthesizable"
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     `casex` can mask real unknowns because it treats X bits as don't-cares
     during matching. That makes it easier to hide bugs and harder to trust the

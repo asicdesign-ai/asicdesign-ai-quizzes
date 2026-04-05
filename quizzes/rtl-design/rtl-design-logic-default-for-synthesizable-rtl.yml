@@ -36,15 +36,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It works well for most single-driver RTL without forcing the old `wire` versus `reg` split
+    text: It can only be used inside `always_ff` blocks
   - id: b
     text: It automatically resolves multiple procedural and continuous drivers safely
   - id: c
-    text: It guarantees the signal synthesizes into fewer gates
+    text: It works well for most single-driver RTL without forcing the old `wire` versus `reg` split
   - id: d
-    text: It can only be used inside `always_ff` blocks
+    text: It guarantees the signal synthesizes into fewer gates
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     `logic` is a good default for most single-driver RTL because it removes the
     old Verilog habit of choosing `reg` for procedural assignments and `wire`

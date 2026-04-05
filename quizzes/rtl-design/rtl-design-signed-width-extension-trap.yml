@@ -28,15 +28,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The addition is performed at the operand width first, so overflow can be lost before assignment into the wider destination
-  - id: b
     text: Signed addition is illegal unless both operands are declared as integers
-  - id: c
-    text: A 9-bit destination always truncates an 8-bit signed expression
-  - id: d
+  - id: b
     text: The code only fails if `a` and `b` are both zero
+  - id: c
+    text: The addition is performed at the operand width first, so overflow can be lost before assignment into the wider destination
+  - id: d
+    text: A 9-bit destination always truncates an 8-bit signed expression
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     A wider destination does not automatically widen the arithmetic itself. If
     the expression is evaluated at 8-bit width, the extra carry or sign-related

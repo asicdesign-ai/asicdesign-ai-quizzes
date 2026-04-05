@@ -28,15 +28,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The block still leaves `y` unassigned on some paths, so the code does not describe pure combinational intent
-  - id: b
     text: "`always_comb` is only legal for arithmetic operators, not `if` statements"
+  - id: b
+    text: The block still leaves `y` unassigned on some paths, so the code does not describe pure combinational intent
   - id: c
     text: "`always_comb` requires nonblocking assignments for all outputs"
   - id: d
     text: The block is guaranteed to synthesize into a mux with no storage because `always_comb` forbids latches
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     `always_comb` helps express combinational intent, but it does not invent the
     missing assignment for you. If `y` is not assigned on every path, the code

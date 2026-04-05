@@ -27,15 +27,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: When level-sensitive storage is intentional and the code should state that intent clearly
-  - id: b
     text: Whenever a combinational block is missing an `else`
+  - id: b
+    text: For any block that uses nonblocking assignments
   - id: c
     text: Whenever the design needs lower power than a flop-based implementation
   - id: d
-    text: For any block that uses nonblocking assignments
+    text: When level-sensitive storage is intentional and the code should state that intent clearly
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     `always_latch` is for intentional latch modeling, not for accidental
     incomplete combinational code. If the storage element is meant to be

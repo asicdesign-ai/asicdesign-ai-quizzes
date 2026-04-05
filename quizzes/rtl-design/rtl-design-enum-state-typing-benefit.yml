@@ -31,15 +31,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: They make state intent clearer and reduce the chance of confusing raw numbers during coding and debug
-  - id: b
     text: They guarantee one-hot encoding in all tools
-  - id: c
-    text: They remove the need for reset logic in FSMs
-  - id: d
+  - id: b
     text: They force synthesis to use fewer flops than binary encoding
+  - id: c
+    text: They make state intent clearer and reduce the chance of confusing raw numbers during coding and debug
+  - id: d
+    text: They remove the need for reset logic in FSMs
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Typed enums make the state machine easier to read, review, and debug because
     the code carries symbolic state meaning instead of anonymous bit patterns.

@@ -97,6 +97,7 @@ Reason:
 - All new items should default to `human_verified: false`.
 - Wrong choices should be plausible enough to feel like real interview distractors.
 - Include a few hard separator questions in the overall set.
+- Correct-answer positions should be balanced fairly across each authored batch. Avoid obvious answer-key patterns such as all-`a` or heavily front-loaded correct choices.
 
 ### Explanation rules
 
@@ -279,6 +280,7 @@ Difficulty policy:
 - Batch 1 was completed with 15 `rtl-design` coding and SystemVerilog-intent questions.
 - A temporary interface/modport question was dropped during execution to keep Batch 1 aligned with the planned 15-question count.
 - `quizzes/systemverilog/` is now empty after the reset-value item was moved and should be revisited later as a taxonomy cleanup task.
+- Batch 1 answer positions were later rebalanced after review because the initial authored set was too heavily skewed toward `a` as the correct choice.
 
 ## QA Requirements
 
@@ -290,6 +292,7 @@ Each completed batch should include:
 - short-explainer quality pass
 - long-explainer quality pass
 - consistency pass on terminology, difficulty, and distractor quality
+- answer-key distribution check to avoid obvious correct-choice patterns
 - plan update in this file
 
 ## Update Rule
