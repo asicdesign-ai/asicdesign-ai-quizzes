@@ -1,0 +1,63 @@
+schema_version: 1
+id: rtl-design-always-latch-explicit-intent
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When `always_latch` is the right choice
+prompt: >
+  When is `always_latch` the right SystemVerilog construct to use?
+code:
+  language: systemverilog
+  snippet: |
+    always_latch begin
+      if (en)
+        q <= d;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - systemverilog
+    - always-latch
+    - latches
+    - coding-intent
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When level-sensitive storage is intentional and the code should state that intent clearly
+  - id: b
+    text: Whenever a combinational block is missing an `else`
+  - id: c
+    text: Whenever the design needs lower power than a flop-based implementation
+  - id: d
+    text: For any block that uses nonblocking assignments
+answer:
+  correct: a
+  short_explainer: >
+    `always_latch` is for intentional latch modeling, not for accidental
+    incomplete combinational code. If the storage element is meant to be
+    level-sensitive, saying so directly makes the code easier to review.
+  explanation: >
+    Most ASIC interviewers treat accidental latch inference as a warning sign,
+    so this question often checks whether the candidate can separate "latch as a
+    bug" from "latch as a deliberate design choice." If the architecture really
+    needs level-sensitive storage, `always_latch` is the clean way to describe
+    it because the code states that intent up front.
+
+    The wrong mental model is "I can use `always_latch` after I accidentally
+    omitted an else branch." That only papers over the real problem. The better
+    model is: use `always_latch` when the hardware is genuinely a latch, and use
+    `always_comb` or `always_ff` when the hardware intent is combinational or
+    edge-triggered. Strong RTL teams care about that distinction because review
+    quality depends on intent being obvious.
+notes:
+  - Uses an interview-style distinction between intentional and accidental latch usage.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

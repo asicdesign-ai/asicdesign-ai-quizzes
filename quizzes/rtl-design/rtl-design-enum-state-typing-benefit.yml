@@ -1,0 +1,65 @@
+schema_version: 1
+id: rtl-design-enum-state-typing-benefit
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why typed enums improve FSM code
+prompt: >
+  Why do typed enums usually make FSM code better than using raw numeric state
+  encodings everywhere?
+code:
+  language: systemverilog
+  snippet: |
+    typedef enum logic [1:0] {
+      IDLE,
+      BUSY,
+      DONE
+    } state_t;
+
+    state_t state, next_state;
+topics:
+  primary: rtl-design
+  secondary:
+    - enums
+    - fsm
+    - state-encoding
+    - readability
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: They make state intent clearer and reduce the chance of confusing raw numbers during coding and debug
+  - id: b
+    text: They guarantee one-hot encoding in all tools
+  - id: c
+    text: They remove the need for reset logic in FSMs
+  - id: d
+    text: They force synthesis to use fewer flops than binary encoding
+answer:
+  correct: a
+  short_explainer: >
+    Typed enums make the state machine easier to read, review, and debug because
+    the code carries symbolic state meaning instead of anonymous bit patterns.
+  explanation: >
+    Interviewers often ask this because strong RTL authors think beyond "will it
+    synthesize?" and care about how the next engineer will read the code.
+    Typed enums help by turning the state space into named design intent. That
+    improves next-state logic readability, waveform interpretation, and review
+    quality because `BUSY` communicates more than `2'b01`.
+
+    The subtle but important point is that enums do not eliminate state-encoding
+    tradeoffs. One-hot, binary, and Gray-style choices still exist. What enums
+    improve is code clarity and type discipline. So the strong answer is not
+    "enums make better hardware automatically," but "enums make the FSM intent
+    safer and easier to maintain."
+notes:
+  - Authored as a readability-and-maintainability interview question rather than an encoding theory question.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

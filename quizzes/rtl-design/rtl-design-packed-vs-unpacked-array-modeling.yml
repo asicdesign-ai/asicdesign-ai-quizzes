@@ -1,0 +1,61 @@
+schema_version: 1
+id: rtl-design-packed-vs-unpacked-array-modeling
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Packed vector versus unpacked array modeling
+prompt: >
+  You need to model an 8-entry storage structure where each entry is 32 bits
+  wide. Which declaration best matches that intent?
+code:
+  language: systemverilog
+  snippet: |
+    // Choose the declaration that most directly means:
+    // "8 elements, each 32 bits wide"
+topics:
+  primary: rtl-design
+  secondary:
+    - systemverilog
+    - arrays
+    - packed
+    - unpacked
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: logic [31:0] mem [0:7];
+  - id: b
+    text: logic [0:7][31:0] mem;
+  - id: c
+    text: logic [255:0] mem;
+  - id: d
+    text: integer mem [31:0];
+answer:
+  correct: a
+  short_explainer: >
+    `logic [31:0] mem [0:7];` reads most directly as 8 unpacked elements, each
+    containing a 32-bit packed word. That is the clearest model for a small
+    memory-like structure.
+  explanation: >
+    This question checks whether the candidate can read declaration shape and
+    map it to hardware intent. Packed dimensions describe the bit layout of one
+    value, while unpacked dimensions describe collections of values. So for
+    "eight words, each thirty-two bits wide," the most direct expression is a
+    32-bit packed element with an 8-entry unpacked array around it.
+
+    Could you represent the same total number of bits in other ways? Yes, but
+    that is not the point. A flat 256-bit vector is usually worse for indexing
+    clarity, and a two-dimensional packed declaration reads more like one larger
+    composite value than a memory-like collection. In interviews, the best
+    answer is the one that matches both hardware intent and readability.
+notes:
+  - Chosen to teach declaration intent rather than raw syntax memorization.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

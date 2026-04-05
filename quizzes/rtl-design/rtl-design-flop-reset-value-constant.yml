@@ -1,10 +1,10 @@
 schema_version: 1
-id: sv-flop-reset-value
+id: rtl-design-flop-reset-value-constant
 status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Invalid `rst_val` source in always_ff reset code
+title: Invalid reset-value source in `always_ff` reset code
 prompt: >
   In the SystemVerilog code below, what should `rst_val` not be set to if the
   reset value is meant to be a true constant?
@@ -17,15 +17,16 @@ code:
         else
              q[2:0] <= d[2:0];
 topics:
-  primary: systemverilog
+  primary: rtl-design
   secondary:
+    - systemverilog
     - reset
     - always_ff
     - sequential-logic
     - flop-coding-style
 difficulty: intermediate
 source:
-  platform: linkedin
+  platform: manual
   import_kind: manual_completion
 choices:
   - id: a
@@ -43,12 +44,20 @@ answer:
     flop is still a signal, not a constant reset value, so it is the wrong pattern
     for `rst_val` here.
   explanation: >
-    For reset coding, `rst_val` should ideally resolve to a constant reset value.
-    A stable Q output from another register or flop is still a signal, not a true
-    reset constant, and can undermine clean reset intent or inference. A literal or
-    `localparam` is the safer pattern.
+    This question is really about whether the reset path expresses a constant
+    architectural intent or quietly depends on another piece of sequential
+    logic. A reset value should normally be a true constant, such as a literal
+    or a `localparam`, so that the register comes out of reset with a well-defined
+    value that does not depend on another flop's state.
+
+    Using the Q output of another register as `rst_val` is risky because that
+    signal is still just a runtime value, not a reset constant. Even if it looks
+    stable in a waveform, it does not carry the same clean reset meaning and can
+    complicate inference and review. Interviewers often use this kind of example
+    to see whether the candidate distinguishes "stable signal" from "true
+    constant reset intent."
 notes:
-  - This item was initially imported as a draft stem and later completed with choices.
+  - Moved from the legacy systemverilog lane into rtl-design during Batch 1 execution.
 references: []
 automation:
   authoring_format: yaml

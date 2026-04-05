@@ -1,0 +1,67 @@
+schema_version: 1
+id: rtl-design-packed-struct-bus-bundling
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When a packed struct beats manual bit slicing
+prompt: >
+  When is a packed struct usually better than manually slicing one flat bus all
+  over the design?
+code:
+  language: systemverilog
+  snippet: |
+    typedef struct packed {
+      logic [31:0] addr;
+      logic [31:0] data;
+      logic        valid;
+      logic        write;
+    } req_t;
+
+    req_t req;
+topics:
+  primary: rtl-design
+  secondary:
+    - packed-struct
+    - bus-bundling
+    - readability
+    - interfaces
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When related fields travel together and named access is clearer than repeated manual slicing
+  - id: b
+    text: Only when the structure must synthesize into block RAM
+  - id: c
+    text: Only when each field is driven by a different clock domain
+  - id: d
+    text: Because packed structs always reduce total wire count
+answer:
+  correct: a
+  short_explainer: >
+    Packed structs are helpful when a bus naturally consists of named fields
+    that move together. They reduce indexing mistakes and make the intent of the
+    interface easier to follow.
+  explanation: >
+    A packed struct is often the cleanest way to express a protocol fragment or
+    internal bus because it keeps semantically related fields bundled while still
+    preserving a packed bit-level layout. That means you can access `req.addr`
+    or `req.valid` directly instead of scattering numeric slice boundaries
+    across the codebase.
+
+    The important nuance is that packed structs are mainly a readability and
+    maintenance improvement, not a magical hardware optimization. If a flat bus
+    is already simple, either style can be acceptable. But once field meaning
+    matters in multiple places, named packed fields usually win the review and
+    debug battle. That is the interview answer most teams want to hear.
+notes:
+  - Keeps the focus on maintainable RTL for bus-like structures.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

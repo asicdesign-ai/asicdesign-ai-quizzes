@@ -1,0 +1,62 @@
+schema_version: 1
+id: rtl-design-signed-width-extension-trap
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why a wider destination can still lose arithmetic information
+prompt: >
+  In the code below, why can `sum` still lose information even though `sum` is
+  9 bits wide?
+code:
+  language: systemverilog
+  snippet: |
+    logic signed [7:0] a, b;
+    logic signed [8:0] sum;
+
+    assign sum = a + b;
+topics:
+  primary: rtl-design
+  secondary:
+    - arithmetic
+    - signed
+    - width-extension
+    - interview-trap
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The addition is performed at the operand width first, so overflow can be lost before assignment into the wider destination
+  - id: b
+    text: Signed addition is illegal unless both operands are declared as integers
+  - id: c
+    text: A 9-bit destination always truncates an 8-bit signed expression
+  - id: d
+    text: The code only fails if `a` and `b` are both zero
+answer:
+  correct: a
+  short_explainer: >
+    A wider destination does not automatically widen the arithmetic itself. If
+    the expression is evaluated at 8-bit width, the extra carry or sign-related
+    information can already be gone before `sum` receives the result.
+  explanation: >
+    This is a classic separator question because many candidates focus on the
+    destination width and forget to reason about expression width. The real
+    issue is where the arithmetic happens. If `a + b` is evaluated using the
+    operand widths, the computation may overflow at 8 bits. Assigning that
+    already-truncated result into a 9-bit signal does not restore the lost bit.
+
+    The usual fix is to widen the operands before the addition, for example by
+    sign-extending each one to 9 bits and then adding. The key interview lesson
+    is that width bugs often come from expression sizing, not just from the
+    declaration of the final signal. Strong RTL authors learn to inspect both.
+notes:
+  - Intentionally written as a harder arithmetic-sizing interview question.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

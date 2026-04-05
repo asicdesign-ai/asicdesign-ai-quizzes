@@ -1,0 +1,68 @@
+schema_version: 1
+id: rtl-design-always-ff-contract
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What `always_ff` protects in clocked RTL
+prompt: >
+  What is the main design benefit of writing a flip-flop process with
+  `always_ff` instead of a plain `always` block?
+code:
+  language: systemverilog
+  snippet: |
+    logic q;
+
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        q <= 1'b0;
+      else
+        q <= d;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - systemverilog
+    - always-ff
+    - sequential-logic
+    - coding-style
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It declares flip-flop intent and helps tools catch illegal or misleading sequential coding patterns
+  - id: b
+    text: It guarantees asynchronous reset deassertion is automatically synchronized
+  - id: c
+    text: It forces all nonblocking assignments to become blocking assignments after synthesis
+  - id: d
+    text: It makes the design immune to multiple procedural drivers on the same variable
+answer:
+  correct: a
+  short_explainer: >
+    `always_ff` is an intent declaration. It tells readers and tools that the
+    block is meant to model edge-triggered storage, so non-flop-like patterns
+    are easier to detect during review and linting.
+  explanation: >
+    A plain `always` block is very permissive, which means it can hide coding
+    mistakes that still parse but do not communicate clean intent. `always_ff`
+    is tighter: it says this process is meant to describe flip-flop behavior.
+    That helps catch issues such as confusing event controls, accidental
+    multiple-process writes to the same variable, or sequential logic that no
+    longer reads like a real register update path.
+
+    The subtle point interviewers look for is that `always_ff` does not
+    magically fix reset strategy or eliminate all bad code by itself. Its value
+    is that it makes intent explicit and pushes the codebase toward clearer,
+    more reviewable register modeling. In strong RTL teams, that clarity matters
+    as much as the syntax.
+notes:
+  - Written to test intent-based SystemVerilog coding rather than simulator scheduling trivia.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

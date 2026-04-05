@@ -99,10 +99,17 @@ Use `quizzes/templates/multiple-choice.template.yml` as the default starting poi
 
 Over time, this repository should become a clean, automation-friendly quiz bank with a consistent authoring pattern that is easy to review, ingest, and render in `asicdesign-ai-portal`.
 
+## Future Planning File
+
+- `QUIZ_FUTURE_PLAN.md` is the working execution plan for upcoming quiz-bank additions, migrations, and backlog changes.
+- Consult `QUIZ_FUTURE_PLAN.md` before starting substantial new quiz authoring or topic-expansion work.
+- After finishing any meaningful work in this repo that changes quiz scope, planned topics, completed batches, or lane decisions, update `QUIZ_FUTURE_PLAN.md` in the same change.
+- Treat `QUIZ_FUTURE_PLAN.md` as the canonical place to record what is done, what remains, and what should happen next.
+
 ## Topic Taxonomy
 
 - Do not use `quizzes/vlsi/` as a generic catch-all topic anymore.
-- New quizzes should go into dedicated lanes such as `cdc`, `dft`, `sta`, `clock-gating`, `simulation`, `systemverilog`, `cache-coherency`, `l2-cache-controller`, or another specific domain.
+- New quizzes should go into dedicated lanes such as `cdc`, `dft`, `sta`, `clock-gating`, `simulation`, `rtl-design`, `synthesis`, `cache-coherency`, `l2-cache-controller`, or another specific domain.
 - If a question spans multiple areas, choose the best learner-facing primary lane and use `topics.secondary` to capture the cross-domain tags.
 
 ## Portal Publish Hop
@@ -127,9 +134,9 @@ Quiz content does not become visible on `https://asicdesign.ai` from this repo a
 
 ## Current Progress Snapshot
 
-Updated: 2026-04-05
+Updated: 2026-04-06
 
-- The repository currently contains reviewed quiz content under `quizzes/amba`, `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
+- The repository currently contains reviewed quiz content under `quizzes/amba`, `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/rtl-design`, `quizzes/simulation`, and `quizzes/sta`.
 - Current reviewed counts by directory are:
   - `amba`: 20
   - `cache-coherency`: 30
@@ -138,14 +145,15 @@ Updated: 2026-04-05
   - `dft`: 20
   - `l2-cache-controller`: 10
   - `firmware`: 1
+  - `rtl-design`: 15
   - `simulation`: 16
   - `sta`: 21
-  - `systemverilog`: 1
 - `quizzes/amba/` now holds a reviewed AMBA set covering AXI handshakes and channels, burst types, AXI4-Lite limits, AHB transfer phasing and signaling, and APB operating states and revision features.
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
 - `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and scan-chain hold or lock-up-latch practice.
 - `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
+- `quizzes/rtl-design/` now holds the first reviewed Batch 1 RTL-interview set covering SystemVerilog coding intent, latch inference, case-style intent, array or struct modeling, arithmetic width traps, generate usage, assertion basics, and reset-value coding practice.
 - `quizzes/sta/` now holds a reviewed STA set covering slack, path classes, PVT corners, skew, multicycle versus false-path intent, WNS/TNS, I/O constraints, and common hold-fix practice.
 - `quizzes/simulation/` now holds a reviewed simulation set covering preprocessing, elaboration, min/typ/max delays, blocking versus nonblocking assignments, event regions, assertion scheduling, RTL-vs-gate mismatches, and timing-simulation limits.
 - The old generic `vlsi` quiz lane has been retired; its remaining reviewed items were folded into dedicated domain lanes.
@@ -167,7 +175,8 @@ Updated: 2026-04-05
 
 ## Still Missing / Open Gaps
 
-- Coverage is still thinner in `firmware` and `systemverilog` than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
+- Coverage is still thinner in `firmware` and the not-yet-created `synthesis` lane than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
+- `quizzes/systemverilog/` is now empty after the initial RTL-lane migration. Future work should either retire the empty category or keep it only as a temporary legacy path.
 - `quizzes/verilog/` currently exists but has no quiz content. Future work should either populate it or remove the empty category if it is no longer needed.
 - This repo now has a lightweight metadata-validation workflow that checks required top-level quiz fields such as `human_verified`, but deeper schema and content linting are still limited.
 - As the quiz bank grows, continue normalizing older and newer items so explanation quality, metadata consistency, and source citation depth stay aligned across directories.

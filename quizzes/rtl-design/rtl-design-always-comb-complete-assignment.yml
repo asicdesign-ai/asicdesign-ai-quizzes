@@ -1,0 +1,64 @@
+schema_version: 1
+id: rtl-design-always-comb-complete-assignment
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why `always_comb` still needs complete assignments
+prompt: >
+  In the code below, what is still wrong even though the block uses
+  `always_comb`?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (sel)
+        y = a;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - systemverilog
+    - always-comb
+    - combinational-logic
+    - latch-inference
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The block still leaves `y` unassigned on some paths, so the code does not describe pure combinational intent
+  - id: b
+    text: "`always_comb` is only legal for arithmetic operators, not `if` statements"
+  - id: c
+    text: "`always_comb` requires nonblocking assignments for all outputs"
+  - id: d
+    text: The block is guaranteed to synthesize into a mux with no storage because `always_comb` forbids latches
+answer:
+  correct: a
+  short_explainer: >
+    `always_comb` helps express combinational intent, but it does not invent the
+    missing assignment for you. If `y` is not assigned on every path, the code
+    is still incomplete and may imply latch-like behavior or a lint violation.
+  explanation: >
+    This is a common interview trap because candidates remember that
+    `always_comb` is safer than an old handwritten sensitivity list and then
+    over-extend that benefit. The real advantage of `always_comb` is intent: it
+    says "this block is combinational." But combinational logic still requires
+    a fully defined output for every condition.
+
+    In the snippet above, `y` gets a value only when `sel` is true. If `sel` is
+    false, the code leaves `y` unspecified inside the block, which means the RTL
+    intent is incomplete. A cleaner fix is to give `y` a default assignment or
+    write the missing `else` branch explicitly. That is the interview answer:
+    `always_comb` improves structure, but complete assignment coverage is still
+    your job.
+notes:
+  - Intentionally distinct from the simulation lane item about sensitivity-list portability.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

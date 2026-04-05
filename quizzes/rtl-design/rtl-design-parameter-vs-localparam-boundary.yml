@@ -1,0 +1,66 @@
+schema_version: 1
+id: rtl-design-parameter-vs-localparam-boundary
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Choosing `parameter` versus `localparam`
+prompt: >
+  Which value should usually be written as a `localparam` instead of a
+  `parameter` in reusable RTL?
+code:
+  language: systemverilog
+  snippet: |
+    module fifo #(
+      parameter int DEPTH = 16
+    ) (
+      input  logic clk,
+      input  logic rst_n
+    );
+      localparam int PTR_W = $clog2(DEPTH);
+    endmodule
+topics:
+  primary: rtl-design
+  secondary:
+    - parameter
+    - localparam
+    - reusable-rtl
+    - module-api
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: An internal derived constant like pointer width that should track another parameter automatically
+  - id: b
+    text: A top-level configuration value the module user is expected to override
+  - id: c
+    text: Any value used inside an `always_ff` block
+  - id: d
+    text: A reset literal because parameters cannot hold numbers
+answer:
+  correct: a
+  short_explainer: >
+    Use `localparam` for internal constants that should not be overridden from
+    outside the module. Derived values like `PTR_W` are classic examples.
+  explanation: >
+    This question is really about module interface hygiene. A `parameter` is
+    part of the configuration surface of the module, which means downstream
+    users may reasonably expect to override it. A `localparam` is different: it
+    communicates that the value is internal and derived, not part of the public
+    tuning interface.
+
+    In the FIFO example, depth is a real external knob, but pointer width should
+    simply follow from depth. Exposing both as overrideable parameters creates
+    room for inconsistent settings and unnecessary review burden. The clean
+    answer in interviews is: override what the module user should choose, and
+    lock down internal derivations with `localparam`.
+notes:
+  - Uses reusable-module API design as the teaching angle.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

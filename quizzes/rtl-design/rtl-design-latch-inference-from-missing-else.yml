@@ -1,0 +1,62 @@
+schema_version: 1
+id: rtl-design-latch-inference-from-missing-else
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Missing-else pattern that infers storage
+prompt: >
+  Which statement best explains why the code below is dangerous in synthesizable
+  RTL?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (en)
+        q = d;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - latch-inference
+    - combinational-logic
+    - coding-review
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "`q` must remember its previous value when `en` is low, which implies storage rather than pure combinational logic"
+  - id: b
+    text: The code is illegal because `always_comb` forbids `if` statements entirely
+  - id: c
+    text: The missing `else` forces synthesis to optimize `q` away
+  - id: d
+    text: The block creates an asynchronous reset path automatically
+answer:
+  correct: a
+  short_explainer: >
+    If `en` is low, the block does not assign `q`, so `q` must somehow retain
+    its old value. That is storage behavior, not combinational behavior.
+  explanation: >
+    This is one of the fastest code-review checks in RTL interviews: if an
+    output is not assigned on every path of a combinational block, the design is
+    no longer purely combinational. The hardware needs some way to preserve the
+    previous value, which points toward latch inference or a combinational-intent
+    violation.
+
+    The best fix depends on the intended hardware. If the block was meant to be
+    combinational, add a default assignment or a complete set of branches. If
+    the storage was intentional, rewrite the code so the latch or flop intent is
+    explicit instead of leaving reviewers to guess. The interview-ready answer is
+    that incomplete assignment coverage is not just a style issue; it changes the
+    implied hardware.
+notes:
+  - Keeps the teaching point on RTL hardware intent rather than simulator event ordering.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,70 @@
+schema_version: 1
+id: rtl-design-casez-vs-casex-safety
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why `casex` is riskier than `casez`
+prompt: >
+  Why is `casex` usually considered more dangerous than `casez` in
+  synthesizable RTL?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      casez (req)
+        4'b1???: grant = 4'b1000;
+        4'b01??: grant = 4'b0100;
+        4'b001?: grant = 4'b0010;
+        4'b0001: grant = 4'b0001;
+        default: grant = 4'b0000;
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - casez
+    - casex
+    - x-propagation
+    - coding-review
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "`casex` treats X and Z bits as wildcards, so unknowns in real signals can be hidden and match the wrong branch"
+  - id: b
+    text: "`casex` is unsynthesizable, while `casez` is always synthesizable"
+  - id: c
+    text: "`casex` forces priority logic, while `casez` forces parallel logic"
+  - id: d
+    text: "`casex` is only legal inside testbenches"
+answer:
+  correct: a
+  short_explainer: >
+    `casex` can mask real unknowns because it treats X bits as don't-cares
+    during matching. That makes it easier to hide bugs and harder to trust the
+    decode behavior during bring-up and debug.
+  explanation: >
+    Interviewers like this question because it separates surface-level syntax
+    knowledge from debug awareness. `casez` is already a wildcard construct, but
+    it mainly treats high-impedance-style bits as flexible in matching. `casex`
+    goes further by also treating unknown X values as don't-cares. That sounds
+    convenient until a real bug injects an X into the decode path and the case
+    statement silently picks a branch that should not have matched.
+
+    In ASIC flows, hiding X behavior is dangerous because it weakens debug and
+    can make RTL look cleaner than the real design state deserves. That is why
+    many teams strongly prefer `casez` or explicit masking over `casex`. The
+    interview-ready point is not just "one keyword is frowned upon," but "X
+    values often carry bug information, so treating them as harmless wildcards is
+    risky."
+notes:
+  - Intentionally authored as one of the harder separator questions in Batch 1.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,67 @@
+schema_version: 1
+id: rtl-design-unique-vs-priority-case
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Choosing `unique case` versus `priority case`
+prompt: >
+  In a decode block, when is `unique case` usually the better choice than
+  `priority case`?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      unique case (opcode)
+        3'b000: y = a;
+        3'b001: y = b;
+        3'b010: y = c;
+        default: y = '0;
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - unique-case
+    - priority-case
+    - decode-logic
+    - coding-style
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When the cases are intended to be mutually exclusive and no priority chain is part of the design intent
+  - id: b
+    text: Whenever the decode must preserve first-match-wins behavior across overlapping cases
+  - id: c
+    text: Only when the block is inside `always_ff`
+  - id: d
+    text: Only when the case items contain wildcard bits
+answer:
+  correct: a
+  short_explainer: >
+    `unique case` fits a real decode: one legal match at a time, with no
+    intentional priority ordering between branches. `priority case` is for a
+    different hardware intent.
+  explanation: >
+    This question is really about whether the candidate can read hardware intent
+    from coding style. A decode block usually wants parallel interpretation of
+    mutually exclusive encodings. In that situation, `unique case` communicates
+    exactly the right idea: the cases should not overlap, and the implementation
+    should not depend on priority ordering.
+
+    `priority case` is useful when first-match-wins behavior is actually part of
+    the design, such as a priority encoder or a control path that intentionally
+    chooses the earliest matching condition. The best interview answer is not
+    "one keyword is always better," but "choose the keyword that matches the
+    hardware intent." For a clean opcode decode, that usually means `unique`.
+notes:
+  - Written as an intent-and-hardware question rather than a parser trivia question.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

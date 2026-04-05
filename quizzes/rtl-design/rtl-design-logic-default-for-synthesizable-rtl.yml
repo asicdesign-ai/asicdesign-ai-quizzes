@@ -1,0 +1,75 @@
+schema_version: 1
+id: rtl-design-logic-default-for-synthesizable-rtl
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why `logic` is the default for most single-driver RTL signals
+prompt: >
+  In modern SystemVerilog RTL, why is `logic` usually the best default choice
+  for a signal that is driven in exactly one place?
+code:
+  language: systemverilog
+  snippet: |
+    module example (
+      input  logic clk,
+      input  logic a,
+      input  logic b,
+      output logic y,
+      output logic q
+    );
+      always_comb y = a & b;
+
+      always_ff @(posedge clk)
+        q <= y;
+    endmodule
+topics:
+  primary: rtl-design
+  secondary:
+    - systemverilog
+    - data-types
+    - coding-style
+    - single-driver
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It works well for most single-driver RTL without forcing the old `wire` versus `reg` split
+  - id: b
+    text: It automatically resolves multiple procedural and continuous drivers safely
+  - id: c
+    text: It guarantees the signal synthesizes into fewer gates
+  - id: d
+    text: It can only be used inside `always_ff` blocks
+answer:
+  correct: a
+  short_explainer: >
+    `logic` is a good default for most single-driver RTL because it removes the
+    old Verilog habit of choosing `reg` for procedural assignments and `wire`
+    for everything else. You still need real net types for special cases like
+    resolved or multiply driven connections.
+  explanation: >
+    In interview settings, this question is usually testing whether the
+    candidate understands intent rather than memorizing legacy syntax. In
+    SystemVerilog, `logic` is a variable type that fits most synthesizable RTL
+    signals driven from one source, whether that source is combinational or
+    sequential code. That makes code reviews cleaner because the declaration is
+    no longer tied to the old Verilog distinction between "assigned in an always
+    block" and "assigned by a net."
+
+    The important limit is that `logic` is not a magic replacement for every
+    net behavior. If a signal truly needs multiple drivers, tri-state semantics,
+    or resolved net behavior, a net type is still the right tool. So the
+    interview-ready answer is not "always use logic," but rather "use logic by
+    default for single-driver RTL, and switch to a net only when the hardware
+    intent really requires it."
+notes:
+  - Authored as a SystemVerilog-first coding-style question for the rtl-design lane.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

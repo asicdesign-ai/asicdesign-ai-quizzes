@@ -1,0 +1,65 @@
+schema_version: 1
+id: rtl-design-generate-loop-parameterization
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When a `generate for` loop is the right tool
+prompt: >
+  In synthesizable RTL, when is a `generate for` loop the right choice?
+code:
+  language: systemverilog
+  snippet: |
+    genvar i;
+    generate
+      for (i = 0; i < N; i++) begin : g_ff
+        always_ff @(posedge clk)
+          q[i] <= d[i];
+      end
+    endgenerate
+topics:
+  primary: rtl-design
+  secondary:
+    - generate
+    - parameterization
+    - elaboration
+    - structural-rtl
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When hardware structure should be replicated at elaboration time based on parameters or constant bounds
+  - id: b
+    text: When the design must choose a different loop count at runtime based on data
+  - id: c
+    text: When you need to delay execution until after reset deassertion
+  - id: d
+    text: Only when synthesis cannot understand an ordinary procedural `for` loop
+answer:
+  correct: a
+  short_explainer: >
+    A generate loop is for structural replication known at elaboration time. It
+    creates repeated hardware instances; it is not a runtime loop.
+  explanation: >
+    The central interview distinction is elaboration-time structure versus
+    runtime behavior. A `generate for` loop is resolved before simulation or
+    synthesis moves into normal execution semantics. That makes it ideal for
+    building repeated hardware based on constants or parameters, such as lanes,
+    bit slices, or replicated registers.
+
+    Candidates sometimes confuse generate loops with software-style iteration.
+    But hardware is not "looping" at runtime here; the loop is just a compact
+    way to stamp out multiple copies of a structure. Procedural loops still have
+    their place inside combinational or sequential logic, but they serve a
+    different purpose. The interview-ready answer is that generate builds
+    topology, not runtime control flow.
+notes:
+  - Emphasizes elaboration-time structure because that is the core interview distinction.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
