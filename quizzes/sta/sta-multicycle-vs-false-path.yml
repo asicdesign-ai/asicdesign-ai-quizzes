@@ -4,11 +4,11 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: When to prefer multicycle over false path
+title: Synchronous Path Relaxation
 prompt: >
   If a synchronous path is real and still must be timed, but the data is
-  intentionally allowed more than one cycle to arrive, which exception is
-  preferred over `set_false_path`?
+  intentionally allowed more than one cycle to arrive, which exception should
+  be used instead of `set_false_path`?
 code:
   language: null
   snippet: null
