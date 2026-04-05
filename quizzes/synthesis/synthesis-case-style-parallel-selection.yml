@@ -1,0 +1,64 @@
+schema_version: 1
+id: synthesis-case-style-parallel-selection
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When a case statement maps cleanly to parallel selection
+prompt: >
+  When does a well-structured `case` statement usually synthesize more cleanly
+  than a long chain of conditionals?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      unique case (sel)
+        2'd0: y = d0;
+        2'd1: y = d1;
+        2'd2: y = d2;
+        default: y = d3;
+      endcase
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - case
+    - parallel-selection
+    - muxing
+    - logic-depth
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When the selection is naturally encoded and mutually exclusive, so the tool can treat it more like parallel choice than a priority ladder
+  - id: b
+    text: Only when the case items contain `x` bits
+  - id: c
+    text: Only when the output is a register instead of combinational logic
+  - id: d
+    text: Never, because `case` and `if` always produce identical depth regardless of intent
+answer:
+  correct: a
+  short_explainer: >
+    A clean `case` on a mutually exclusive select value often matches a mux-like
+    hardware structure directly. That can be easier to optimize than a priority
+    chain.
+  explanation: >
+    If the select space is encoded and only one branch should apply at a time, a
+    well-written `case` usually communicates that structure clearly. The tool
+    then has a better opportunity to map the logic as parallel selection instead
+    of preserving unnecessary priority relationships.
+
+    The deeper lesson is that synthesis results improve when the RTL structure
+    reflects the actual hardware intent rather than merely producing the right
+    functional result.
+notes:
+  - Focuses on intent clarity rather than keyword superstition.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

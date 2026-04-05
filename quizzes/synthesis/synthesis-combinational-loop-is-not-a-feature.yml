@@ -1,0 +1,58 @@
+schema_version: 1
+id: synthesis-combinational-loop-is-not-a-feature
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why a combinational loop is a design bug in ordinary RTL
+prompt: >
+  Why is a combinational loop usually treated as a design bug rather than a
+  legitimate optimization in ordinary synthesizable RTL?
+code:
+  language: systemverilog
+  snippet: |
+    assign a = ~b;
+    assign b = en ? a : in_data;
+topics:
+  primary: synthesis
+  secondary:
+    - combinational-loop
+    - lint
+    - synthesis-basics
+    - timing
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because ordinary synthesis and timing analysis expect acyclic combinational logic, while a loop can create unstable or ill-defined behavior
+  - id: b
+    text: Because loops are fine in combinational logic but only illegal in sequential logic
+  - id: c
+    text: Because combinational loops always synthesize into memories
+  - id: d
+    text: Because loops are automatically converted into safe synchronous feedback by the tool
+answer:
+  correct: a
+  short_explainer: >
+    A combinational loop breaks the normal assumption that logic settles through
+    an acyclic path. That can lead to unstable behavior and unusable timing
+    analysis.
+  explanation: >
+    Mainstream synthesis and STA flows are built around directed combinational
+    cones between sequential elements. A combinational loop violates that model
+    because the output of logic feeds back into itself without a register to
+    break the path.
+
+    Special structures like intentional ring oscillators are separate cases with
+    special handling. In ordinary RTL design, a combinational loop is almost
+    always something to remove, not something to rely on.
+notes:
+  - Distinguishes ordinary RTL from unusual analog-style exceptions.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

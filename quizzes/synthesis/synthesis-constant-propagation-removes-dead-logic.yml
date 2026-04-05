@@ -1,0 +1,59 @@
+schema_version: 1
+id: synthesis-constant-propagation-removes-dead-logic
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What constant propagation removes from the netlist
+prompt: >
+  Which kind of RTL logic is most likely to disappear entirely because of
+  constant propagation during synthesis?
+code:
+  language: systemverilog
+  snippet: |
+    localparam bit USE_PARITY = 1'b0;
+
+    assign parity = ^data;
+    assign y = USE_PARITY ? parity : 1'b0;
+topics:
+  primary: synthesis
+  secondary:
+    - constant-propagation
+    - optimization
+    - dead-logic
+    - netlist
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Only register declarations, because combinational logic cannot be simplified away
+  - id: b
+    text: Only reset logic, because parameters do not affect synthesis
+  - id: c
+    text: Only comments and unused whitespace
+  - id: d
+    text: Logic whose outputs are forced by compile-time constants so the result never depends on the original computation
+answer:
+  correct: d
+  short_explainer: >
+    If a constant decides the result up front, synthesis can often prove that
+    the underlying logic does not matter and remove it from the netlist.
+  explanation: >
+    Constant propagation is one of the most useful early optimizations in
+    synthesis. When the tool can see that a signal or parameter has a fixed
+    value, it may simplify conditionals, remove unused branches, and delete
+    logic whose result can no longer influence any observable output.
+
+    In the example above, `USE_PARITY` is always zero, so the parity calculation
+    is no longer needed to determine `y`. That makes the parity tree likely to
+    be removed.
+notes:
+  - Teaches why written RTL and synthesized gates are often not one-to-one.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

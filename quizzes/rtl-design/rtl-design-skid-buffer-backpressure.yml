@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-skid-buffer-backpressure
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why a skid buffer helps with late backpressure
+prompt: >
+  Why is a skid buffer useful when downstream backpressure can arrive too late
+  to stop the current transfer combinationally?
+code:
+  language: systemverilog
+  snippet: |
+    if (in_valid && in_ready && !out_ready)
+      skid_valid_next = 1'b1;
+
+    if (skid_valid)
+      out_data = skid_data;
+    else
+      out_data = in_data;
+topics:
+  primary: rtl-design
+  secondary:
+    - skid-buffer
+    - backpressure
+    - valid-ready
+    - buffering
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It converts the whole interface into an asynchronous FIFO
+  - id: b
+    text: It guarantees that upstream and downstream always run at the same rate
+  - id: c
+    text: It captures the in-flight beat that would otherwise be lost when stall information arrives too late
+  - id: d
+    text: It eliminates the need for any ready signal in the protocol
+answer:
+  correct: c
+  short_explainer: >
+    A skid buffer catches the beat that is already in motion when a stall arrives
+    too late to stop it cleanly. That preserves data without forcing an unsafe
+    long combinational ready path.
+  explanation: |
+    A skid buffer is a small educational example of how timing and protocol
+    design interact. If a stage waits for a late-arriving `ready` signal, the
+    timing path can become painful. If it ignores the stall, data can be lost.
+    The skid buffer solves that by giving the interface one small emergency
+    parking spot for the transfer already underway.
+
+    ```mermaid
+    flowchart LR
+      SRC[Source] --> MUX{skid valid?}
+      MUX --> DST[Destination]
+      SKID[Skid register] --> MUX
+      SRC --> SKID
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'in_valid', wave:'011...'},
+      {name:'out_ready', wave:'10.1..'},
+      {name:'skid_valid', wave:'0.10..'},
+      {name:'transfer_kept', wave:'01.1..'}
+    ]}
+    ```
+notes:
+  - Teaches the purpose of the skid entry rather than a vendor-specific implementation.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

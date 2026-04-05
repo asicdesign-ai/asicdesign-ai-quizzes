@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-valid-ready-bubble-propagation
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Bubble propagation in a valid-ready pipeline
+prompt: >
+  In a three-stage valid-ready pipeline, what happens when one stage has no
+  valid data and no downstream stall is present?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        s1_valid <= 1'b0;
+      else if (s1_ready)
+        s1_valid <= in_valid;
+    end
+
+    assign s1_ready = s2_ready || !s2_valid;
+topics:
+  primary: rtl-design
+  secondary:
+    - valid-ready
+    - bubbles
+    - pipelining
+    - throughput
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The bubble moves downstream one stage per cycle, temporarily reducing occupancy until new valid data fills it
+  - id: b
+    text: The bubble stays permanently in the original stage unless the pipe is reset
+  - id: c
+    text: The bubble forces all later stages to keep replaying their old data
+  - id: d
+    text: The valid-ready protocol automatically inserts new data even if the source is idle
+answer:
+  correct: a
+  short_explainer: >
+    A bubble is just an empty slot. If the pipe is otherwise free to move, that
+    empty slot propagates forward stage by stage until new data fills it.
+  explanation: |
+    In a well-behaved valid-ready pipeline, `valid=0` means the stage holds no
+    meaningful item. If downstream is ready, the empty slot advances exactly the
+    same way real data would advance. That is why bubbles reduce occupancy and
+    can reduce throughput until the source injects fresh data.
+
+    ```mermaid
+    flowchart LR
+      S1[Stage 1] --> S2[Stage 2]
+      S2 --> S3[Stage 3]
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'s1_valid', wave:'1.0...'},
+      {name:'s2_valid', wave:'11.0..'},
+      {name:'s3_valid', wave:'111.0.'}
+    ]}
+    ```
+
+    This is useful because it turns pipeline behavior into occupancy thinking.
+    Data items and empty slots both move through the pipe, and throughput
+    depends on how often those empty slots appear.
+notes:
+  - Teaches empty-slot movement without drifting into protocol formalism.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

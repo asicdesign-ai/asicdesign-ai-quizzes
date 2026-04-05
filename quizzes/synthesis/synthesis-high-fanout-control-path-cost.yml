@@ -1,0 +1,56 @@
+schema_version: 1
+id: synthesis-high-fanout-control-path-cost
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why one control bit can become a timing bottleneck
+prompt: >
+  Why can a single control signal become a critical timing path after synthesis
+  even when the Boolean logic behind it looks simple?
+code:
+  language: systemverilog
+  snippet: |
+    if (global_en)
+      q_bank[i] <= d_bank[i];
+topics:
+  primary: synthesis
+  secondary:
+    - fanout
+    - control-path
+    - timing
+    - enable
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because control signals are always implemented as asynchronous clocks
+  - id: b
+    text: Because driving many loads and long routes can make one small-looking signal expensive in delay and buffering
+  - id: c
+    text: Because synthesis converts every control bit into a multiplier
+  - id: d
+    text: Because control logic is never optimized by mainstream synthesis tools
+answer:
+  correct: b
+  short_explainer: >
+    Timing cost is not only about logic depth. A control net that must reach
+    many loads can become slow because of fanout, buffering, and routing.
+  explanation: >
+    Designers often think first about gates, but large-fanout signals are also
+    a wiring problem. One enable or select bit may have to reach many registers
+    or muxes, and that physical distribution adds load, buffering stages, and
+    route delay.
+
+    That is why a seemingly simple control bit can still appear in critical-path
+    reports. The logic expression may be tiny, but the network it drives is not.
+notes:
+  - Emphasizes fanout cost as a structural timing issue.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -47,19 +47,18 @@ answer:
     during matching. That makes it easier to hide bugs and harder to trust the
     decode behavior during bring-up and debug.
   explanation: >
-    Interviewers like this question because it separates surface-level syntax
-    knowledge from debug awareness. `casez` is already a wildcard construct, but
-    it mainly treats high-impedance-style bits as flexible in matching. `casex`
-    goes further by also treating unknown X values as don't-cares. That sounds
-    convenient until a real bug injects an X into the decode path and the case
-    statement silently picks a branch that should not have matched.
+    This question separates surface-level syntax knowledge from debug awareness.
+    `casez` is already a wildcard construct, but it mainly treats
+    high-impedance-style bits as flexible in matching. `casex` goes further by
+    also treating unknown X values as don't-cares. That sounds convenient until
+    a real bug injects an X into the decode path and the case statement silently
+    picks a branch that should not have matched.
 
     In ASIC flows, hiding X behavior is dangerous because it weakens debug and
     can make RTL look cleaner than the real design state deserves. That is why
     many teams strongly prefer `casez` or explicit masking over `casex`. The
-    interview-ready point is not just "one keyword is frowned upon," but "X
-    values often carry bug information, so treating them as harmless wildcards is
-    risky."
+    key point is not just "one keyword is frowned upon," but "X values often
+    carry bug information, so treating them as harmless wildcards is risky."
 notes:
   - Intentionally authored as one of the harder separator questions in Batch 1.
 references: []

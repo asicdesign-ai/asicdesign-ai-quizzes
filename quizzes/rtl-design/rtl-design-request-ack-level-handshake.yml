@@ -1,0 +1,87 @@
+schema_version: 1
+id: rtl-design-request-ack-level-handshake
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why a level request and acknowledge can be safer than a pulse
+prompt: >
+  In a variable-latency control path, why is a level-based request/acknowledge
+  handshake often safer than sending a one-cycle pulse?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        req <= 1'b0;
+      else if (start)
+        req <= 1'b1;
+      else if (ack)
+        req <= 1'b0;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - request-acknowledge
+    - handshake
+    - control-logic
+    - pulses
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A level handshake always completes in one cycle, unlike a pulse handshake
+  - id: b
+    text: The request stays asserted until it is observed, so it is less likely to be missed when the receiver responds after an unknown number of cycles
+  - id: c
+    text: A level handshake removes the need for any state machine on the receiver side
+  - id: d
+    text: Pulses are unsynthesizable in ordinary RTL, so only level protocols can be implemented
+answer:
+  correct: b
+  short_explainer: >
+    A level request persists until the other side acknowledges it, so the
+    receiver does not need to catch a narrow one-cycle event at exactly the
+    right time.
+  explanation: |
+    A one-cycle pulse works well only when the receiver is guaranteed to sample
+    it at the right moment. In a variable-latency path, that guarantee may not
+    exist. A level handshake is more robust because the request stays active
+    until the receiver accepts it and raises the acknowledgement.
+
+    ```mermaid
+    flowchart LR
+      SRC[Requester] -->|req| DST[Receiver]
+      DST -->|ack| SRC
+    ```
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> WAIT_ACK: start
+      WAIT_ACK --> WAIT_ACK: !ack
+      WAIT_ACK --> IDLE: ack
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'start', wave:'010...'},
+      {name:'req', wave:'0.1110'},
+      {name:'ack', wave:'0...10.'}
+    ]}
+    ```
+
+    Pulses still have valid uses, especially inside tightly controlled local
+    logic. The main teaching point is that persistent request state is often the
+    safer choice when acknowledgement timing is not fixed in advance.
+notes:
+  - Keeps the focus on observability and robustness, not CDC-specific design.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

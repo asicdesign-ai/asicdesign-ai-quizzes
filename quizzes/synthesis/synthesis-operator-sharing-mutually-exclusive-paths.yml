@@ -1,0 +1,62 @@
+schema_version: 1
+id: synthesis-operator-sharing-mutually-exclusive-paths
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Sharing operators across mutually exclusive paths
+prompt: >
+  When can two operations safely share the same arithmetic hardware after
+  synthesis?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (mode == ADD)
+        y = a + b;
+      else
+        y = c + d;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - operator-sharing
+    - arithmetic
+    - optimization
+    - multiplexing
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Only when the two operations use different bit widths
+  - id: b
+    text: When the operations are never needed at the same time, so one unit plus input selection can serve both behaviors correctly
+  - id: c
+    text: Only when both operations are multiplication
+  - id: d
+    text: Never, because sharing arithmetic changes the mathematical result
+answer:
+  correct: b
+  short_explainer: >
+    If the operations are mutually exclusive, one shared unit can often be used
+    with muxing around it. The trade is usually extra selection logic versus
+    reduced duplicated arithmetic.
+  explanation: >
+    Sharing is legal when the design semantics never require both operations to
+    happen independently in the same cycle. In that case, the tool can often
+    select the right inputs, run one arithmetic block, and deliver the correct
+    output without duplicating the operator.
+
+    Whether that is a good trade depends on the relative cost of the operator
+    and the surrounding muxing. The principle is still general: mutual
+    exclusivity is what creates the opportunity for safe sharing.
+notes:
+  - Keeps the focus on legality first and benefit second.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

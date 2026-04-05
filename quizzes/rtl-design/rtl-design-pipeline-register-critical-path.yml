@@ -1,0 +1,75 @@
+schema_version: 1
+id: rtl-design-pipeline-register-critical-path
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Register placement for a shorter critical path
+prompt: >
+  A datapath computes two partial sums, compares them, and then applies one
+  more logic stage before driving the output. If one extra cycle of latency is
+  acceptable, where is the most useful place to insert a pipeline register?
+code:
+  language: systemverilog
+  snippet: |
+    logic [15:0] sum0, sum1, max_sum;
+
+    always_comb begin
+      sum0    = a + b;
+      sum1    = c + d;
+      max_sum = (sum0 > sum1) ? sum0 : sum1;
+      y       = max_sum ^ mask;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - pipelining
+    - critical-path
+    - timing
+    - datapath
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: After the output port only, because output registers always shorten the entire internal path automatically
+  - id: b
+    text: On the asynchronous reset path, because reset logic is usually the true critical path
+  - id: c
+    text: Between the add stage and the compare or select stage, so the long combinational chain is split into two shorter stages
+  - id: d
+    text: Inside the XOR operator, because every wide bitwise operator can be pipelined internally by RTL syntax
+answer:
+  correct: c
+  short_explainer: >
+    The useful cut is between major logic stages, not after everything is
+    already done. Registering the partial sums splits one long path into two
+    shorter paths and usually gives timing relief at the best point.
+  explanation: |
+    The original path is "add, compare, select, XOR" all in one cycle. If you
+    can spend one more cycle of latency, the most effective place to cut the
+    path is between these logic groups, for example after the adders and before
+    the compare or select stage.
+
+    ```mermaid
+    flowchart LR
+      A1[a+b] --> R1[(reg)]
+      A2[c+d] --> R1
+      R1 --> CMP[compare/select]
+      CMP --> XOR[xor mask]
+      XOR --> Y[y]
+    ```
+
+    A register added only at the final output does not break the long internal
+    combinational chain before it. The main lesson is that pipelining is most
+    effective when it divides the expensive logic cone into smaller chunks with
+    roughly balanced delay.
+notes:
+  - Focuses on structural timing reasoning rather than tool-specific retiming behavior.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

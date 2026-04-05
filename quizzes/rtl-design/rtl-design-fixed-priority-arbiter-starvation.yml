@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-fixed-priority-arbiter-starvation
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When fixed-priority arbitration is still a good choice
+prompt: >
+  A fixed-priority arbiter can starve low-priority requesters. When is it still
+  a reasonable design choice?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      grant = '0;
+      if      (req[3]) grant[3] = 1'b1;
+      else if (req[2]) grant[2] = 1'b1;
+      else if (req[1]) grant[1] = 1'b1;
+      else if (req[0]) grant[0] = 1'b1;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - arbitration
+    - fixed-priority
+    - starvation
+    - control-logic
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When fairness is mandatory and every client must receive identical service
+  - id: b
+    text: When some traffic is intentionally latency-critical and the starvation risk is understood and acceptable
+  - id: c
+    text: Only when the requests are asynchronous to the local clock
+  - id: d
+    text: Only when the arbiter output feeds a FIFO
+answer:
+  correct: b
+  short_explainer: >
+    Fixed-priority arbitration is still useful when the system truly wants one
+    class of traffic to win first and the starvation tradeoff is acceptable.
+    Simplicity and low latency can be the right design choice.
+  explanation: |
+    Not every shared resource needs fairness above all else. Some systems have
+    urgent traffic, such as a response path or a real-time service, that should
+    be preferred explicitly. A fixed-priority arbiter expresses that policy with
+    very little logic.
+
+    ```mermaid
+    flowchart LR
+      R3[High-priority req] --> ARB[Fixed-priority arbiter]
+      R2[req] --> ARB
+      R1[req] --> ARB
+      R0[Low-priority req] --> ARB
+      ARB --> G[Grant]
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p....'},
+      {name:'req_hi', wave:'11110'},
+      {name:'req_lo', wave:'11111'},
+      {name:'grant_hi', wave:'11110'},
+      {name:'grant_lo', wave:'00001'}
+    ]}
+    ```
+notes:
+  - Keeps the teaching point on policy tradeoffs rather than claiming one arbiter is universally best.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

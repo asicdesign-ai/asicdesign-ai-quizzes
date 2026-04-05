@@ -1,0 +1,62 @@
+schema_version: 1
+id: synthesis-enable-check-vs-data-mux
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Register enable check versus explicit data mux
+prompt: >
+  For a flop update, what is usually true about these two RTL styles?
+code:
+  language: systemverilog
+  snippet: |
+    // style 1
+    always_ff @(posedge clk)
+      if (en) q <= d;
+
+    // style 2
+    always_ff @(posedge clk)
+      q <= en ? d : q;
+topics:
+  primary: synthesis
+  secondary:
+    - enable
+    - mux
+    - flops
+    - rtl-style
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Style 1 always creates an enable pin while style 2 is always unsynthesizable
+  - id: b
+    text: Both describe the same next-state intent for the register, and many tools can map them similarly even if the internal implementation choice may differ
+  - id: c
+    text: Style 2 always removes the old value feedback path from the netlist
+  - id: d
+    text: The two styles produce different cycle-level behavior whenever `en` is low
+answer:
+  correct: b
+  short_explainer: >
+    Both styles say "hold `q` when `en` is low and load `d` when `en` is high."
+    Synthesis may map them to similar hardware, though the chosen cells and
+    optimizations can vary by library and tool.
+  explanation: >
+    From a state-update point of view, the two snippets express the same rule:
+    keep the current value unless the enable is active. That means they often
+    synthesize to very similar hardware, especially in mainstream RTL flows.
+
+    The nuance is that library support and optimization choices can still
+    influence the exact implementation. So it is fair to say the styles are
+    functionally equivalent in intent, while also acknowledging that the final
+    mapped structure is tool and library dependent.
+notes:
+  - Briefly acknowledges multiple acceptable styles without turning into a style debate.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

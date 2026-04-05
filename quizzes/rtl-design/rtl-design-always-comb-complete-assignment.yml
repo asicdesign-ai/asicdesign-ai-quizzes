@@ -42,7 +42,7 @@ answer:
     missing assignment for you. If `y` is not assigned on every path, the code
     is still incomplete and may imply latch-like behavior or a lint violation.
   explanation: >
-    This is a common interview trap because candidates remember that
+    This is a common misunderstanding because people remember that
     `always_comb` is safer than an old handwritten sensitivity list and then
     over-extend that benefit. The real advantage of `always_comb` is intent: it
     says "this block is combinational." But combinational logic still requires
@@ -51,9 +51,8 @@ answer:
     In the snippet above, `y` gets a value only when `sel` is true. If `sel` is
     false, the code leaves `y` unspecified inside the block, which means the RTL
     intent is incomplete. A cleaner fix is to give `y` a default assignment or
-    write the missing `else` branch explicitly. That is the interview answer:
-    `always_comb` improves structure, but complete assignment coverage is still
-    your job.
+    write the missing `else` branch explicitly. `always_comb` improves
+    structure, but complete assignment coverage is still your job.
 notes:
   - Intentionally distinct from the simulation lane item about sensitivity-list portability.
 references: []

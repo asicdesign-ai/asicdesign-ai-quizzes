@@ -54,8 +54,8 @@ answer:
     In the FIFO example, depth is a real external knob, but pointer width should
     simply follow from depth. Exposing both as overrideable parameters creates
     room for inconsistent settings and unnecessary review burden. The clean
-    answer in interviews is: override what the module user should choose, and
-    lock down internal derivations with `localparam`.
+    rule is: override what the module user should choose, and lock down
+    internal derivations with `localparam`.
 notes:
   - Uses reusable-module API design as the teaching angle.
 references: []

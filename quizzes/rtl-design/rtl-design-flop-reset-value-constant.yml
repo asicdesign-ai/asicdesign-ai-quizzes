@@ -53,9 +53,8 @@ answer:
     Using the Q output of another register as `rst_val` is risky because that
     signal is still just a runtime value, not a reset constant. Even if it looks
     stable in a waveform, it does not carry the same clean reset meaning and can
-    complicate inference and review. Interviewers often use this kind of example
-    to see whether the candidate distinguishes "stable signal" from "true
-    constant reset intent."
+    complicate inference and review. The key distinction is "stable signal"
+    versus "true constant reset intent."
 notes:
   - Moved from the legacy systemverilog lane into rtl-design during Batch 1 execution.
 references: []

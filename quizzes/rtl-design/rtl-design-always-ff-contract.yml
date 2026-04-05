@@ -53,11 +53,10 @@ answer:
     multiple-process writes to the same variable, or sequential logic that no
     longer reads like a real register update path.
 
-    The subtle point interviewers look for is that `always_ff` does not
-    magically fix reset strategy or eliminate all bad code by itself. Its value
-    is that it makes intent explicit and pushes the codebase toward clearer,
-    more reviewable register modeling. In strong RTL teams, that clarity matters
-    as much as the syntax.
+    The subtle point is that `always_ff` does not magically fix reset strategy
+    or eliminate all bad code by itself. Its value is that it makes intent
+    explicit and pushes the codebase toward clearer, more reviewable register
+    modeling. In strong RTL teams, that clarity matters as much as the syntax.
 notes:
   - Written to test intent-based SystemVerilog coding rather than simulator scheduling trivia.
 references: []

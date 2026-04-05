@@ -1,0 +1,59 @@
+schema_version: 1
+id: synthesis-bitwidth-trimming-benefit
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why trimming unnecessary bit width helps synthesis
+prompt: >
+  Why does reducing unnecessary bit width often improve both area and timing in
+  synthesized logic?
+code:
+  language: systemverilog
+  snippet: |
+    logic [31:0] count;
+    logic [31:0] limit;
+
+    assign hit = (count == limit);
+topics:
+  primary: synthesis
+  secondary:
+    - bitwidth
+    - area
+    - timing
+    - arithmetic
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because narrower signals force the tool to use only one-hot encoding
+  - id: b
+    text: Because bit width matters only for simulation, not for synthesized hardware
+  - id: c
+    text: Because fewer bits usually mean smaller arithmetic, smaller comparators, less fanout, and less routing burden
+  - id: d
+    text: Because synthesis turns every narrow signal into a constant
+answer:
+  correct: c
+  short_explainer: >
+    Unused extra bits still cost hardware. Narrower signals often mean smaller
+    logic cones and lighter routing, which can help both area and timing.
+  explanation: >
+    Every unnecessary bit can show up repeatedly in adders, comparators, muxes,
+    registers, and routes. That means width discipline is not just a style
+    concern. It directly affects how much logic the tool must build and how much
+    load the design must move around.
+
+    The improvement is especially noticeable in structures that scale with
+    width, such as arithmetic and equality comparison. This is why right-sizing
+    counters, indices, and internal datapath fields is such a practical habit.
+notes:
+  - Uses comparator cost as an easy-to-visualize width example.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

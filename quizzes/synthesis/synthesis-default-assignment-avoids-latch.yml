@@ -1,0 +1,60 @@
+schema_version: 1
+id: synthesis-default-assignment-avoids-latch
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why default assignments often fix latch inference
+prompt: >
+  Why does this pattern often prevent unintended latch inference in
+  combinational RTL?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      y = '0;
+      if (en)
+        y = a;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - default-assignment
+    - latch-inference
+    - combinational-logic
+    - coding-style
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because synthesis ignores all assignments that appear before an `if`
+  - id: b
+    text: Because `y` receives a defined value on every path, so the hardware no longer needs storage to preserve an old value
+  - id: c
+    text: Because a default assignment forces the tool to build a dedicated reset tree
+  - id: d
+    text: Because only constants can be synthesized inside `always_comb`
+answer:
+  correct: b
+  short_explainer: >
+    The default assignment covers the path where `en` is low, so `y` is defined
+    on every evaluation of the block. That removes the need for latch-like
+    storage.
+  explanation: >
+    The default assignment is a simple way to make the combinational intent
+    complete before any conditions are applied. If `en` is false, `y` keeps the
+    default value. If `en` is true, the later branch overrides it.
+
+    This pattern is popular because it is compact, readable, and synthesis
+    friendly. It also scales well when more branches are added later, since the
+    default path is already explicit.
+notes:
+  - Focuses on full assignment coverage as the main synthesis idea.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

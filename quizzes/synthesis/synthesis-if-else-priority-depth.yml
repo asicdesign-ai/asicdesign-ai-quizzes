@@ -1,0 +1,60 @@
+schema_version: 1
+id: synthesis-if-else-priority-depth
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why long if-else chains can deepen logic
+prompt: >
+  Why can a long `if` or `else if` chain synthesize into deeper logic than many
+  people expect?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (c0)      y = d0;
+      else if (c1) y = d1;
+      else if (c2) y = d2;
+      else         y = d3;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - if-else
+    - priority
+    - logic-depth
+    - coding-style
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because `if` statements are simulated sequentially but synthesized as memories
+  - id: b
+    text: Because only arithmetic operators create real gate depth
+  - id: c
+    text: Because synthesis must preserve source file line order as physical placement order
+  - id: d
+    text: Because the chain often implies priority selection, so later choices sit behind earlier condition checks
+answer:
+  correct: d
+  short_explainer: >
+    A long `if` chain often means first-match priority. Preserving that behavior
+    can create a deeper decision structure than a truly parallel decode.
+  explanation: >
+    The important word is priority. If `c0` wins over `c1`, and `c1` wins over
+    `c2`, the hardware has to preserve that ordering. That usually means later
+    options depend on more earlier checks, which can increase logic depth.
+
+    This does not mean `if` is bad. It means the code shape should match the
+    intended hardware. If the conditions are truly mutually exclusive, a more
+    parallel structure may be easier for the tool to optimize.
+notes:
+  - Connects control semantics to resulting logic structure.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

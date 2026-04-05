@@ -1,0 +1,58 @@
+schema_version: 1
+id: synthesis-comparator-decoder-logic-growth
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why wide compare and decode logic gets expensive quickly
+prompt: >
+  Why do very wide comparators and decoders often become more expensive than
+  beginners expect after synthesis?
+code:
+  language: systemverilog
+  snippet: |
+    assign hit = (addr == 48'h1234_5678_9abc);
+topics:
+  primary: synthesis
+  secondary:
+    - comparator
+    - decoder
+    - logic-growth
+    - timing
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because synthesis replaces every comparator with a microcoded state machine
+  - id: b
+    text: Because wide decode logic is always stored in ROMs, not gates
+  - id: c
+    text: Because comparators depend only on the least-significant bits for final timing
+  - id: d
+    text: Because matching or decoding many bits requires broader logic trees and often drives many consumers, so both logic depth and fanout can grow
+answer:
+  correct: d
+  short_explainer: >
+    Wide compare and decode logic touches many input bits and often fans out to
+    many destinations. That combination can make both area and timing worse than
+    a small example suggests.
+  explanation: >
+    A wide equality check is not "just one operation" in hardware. It is built
+    from many bit comparisons that must be combined into a final decision. Large
+    decoders behave similarly: more inputs mean more logic structure and often
+    more control distribution.
+
+    Cost rises not only because the Boolean expression is wider, but also
+    because the result may feed many places. That is why designers often look
+    for hierarchy, predecode, or smaller local compares instead of one giant
+    flat decision point.
+notes:
+  - One of the harder synthesis questions in the wave because it mixes depth and fanout intuition.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

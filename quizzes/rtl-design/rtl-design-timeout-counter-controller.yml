@@ -1,0 +1,86 @@
+schema_version: 1
+id: rtl-design-timeout-counter-controller
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Timeout counter interaction with a controller FSM
+prompt: >
+  A controller waits for an external response while in `BUSY`. How should a
+  timeout counter normally interact with the FSM?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        timeout_cnt <= '0;
+      else if (state != BUSY)
+        timeout_cnt <= '0;
+      else if (progress_seen)
+        timeout_cnt <= '0;
+      else
+        timeout_cnt <= timeout_cnt + 1'b1;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - timeout
+    - fsm
+    - counters
+    - controller
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Keep counting across all states, because resetting on state changes hides timeout bugs
+  - id: b
+    text: Let the timeout counter free-run continuously and ignore whether the block is busy or idle
+  - id: c
+    text: Reset the counter on idle, on entry to a new transaction, and on meaningful progress so timeout reflects lack of forward movement
+  - id: d
+    text: Use combinational logic only, because timeout counters should not be stateful
+answer:
+  correct: c
+  short_explainer: >
+    A timeout should measure stalled progress, not wall-clock time across
+    unrelated states. Resetting the counter when the block is idle or makes
+    progress keeps the timeout meaning clean.
+  explanation: |
+    A timeout counter is useful only if it represents the right thing. In most
+    controllers, the right thing is "how long have we been stuck waiting?" That
+    means the counter should run only while the block is in the waiting state
+    and should reset whenever a new transaction starts or forward progress is
+    observed.
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> BUSY: start
+      BUSY --> DONE: response
+      BUSY --> ERROR: timeout
+      DONE --> IDLE: done_seen
+      ERROR --> IDLE: clear
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p......'},
+      {name:'state', wave:'x.===..', data:['IDLE','BUSY','BUSY','BUSY']},
+      {name:'progress_seen', wave:'0..10..'},
+      {name:'timeout_cnt', wave:'x.12.12', data:['0','1','2','0','1','2']},
+      {name:'timeout', wave:'0.....1'}
+    ]}
+    ```
+
+    If progress resets the counter, the timeout now means "no forward movement
+    for too long," which is much more useful than a blind cycle counter.
+notes:
+  - Ties counters to controller meaning instead of treating them as standalone timers.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

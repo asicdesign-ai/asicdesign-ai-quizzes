@@ -1,0 +1,89 @@
+schema_version: 1
+id: rtl-design-busy-idle-done-controller-fsm
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: A simple idle-busy-done controller FSM
+prompt: >
+  A controller waits in `IDLE`, starts work on `start`, raises `done` when the
+  operation completes, and must keep `done` visible until the upstream side
+  consumes it. Which FSM structure is the simplest correct fit?
+code:
+  language: systemverilog
+  snippet: |
+    typedef enum logic [1:0] {IDLE, BUSY, DONE} state_t;
+
+    always_comb begin
+      next_state = state;
+      done_o = 1'b0;
+      unique case (state)
+        IDLE: if (start) next_state = BUSY;
+        BUSY: if (op_complete) next_state = DONE;
+        DONE: begin
+          done_o = 1'b1;
+          if (done_seen) next_state = IDLE;
+        end
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - fsm
+    - controller
+    - done-pulse
+    - control-logic
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Stay only in `BUSY` and assert `done` combinationally from `op_complete`, because dedicated done state is never useful
+  - id: b
+    text: Use a latch for `done` and remove the FSM entirely, because handshakes are optional once completion is known
+  - id: c
+    text: Use explicit `IDLE`, `BUSY`, and `DONE` states so completion stays visible until the consumer acknowledges it
+  - id: d
+    text: Add a separate state for every possible completion cycle, because a three-state controller cannot model variable latency
+answer:
+  correct: c
+  short_explainer: >
+    An explicit `DONE` state cleanly separates "work completed" from "result
+    consumed." That makes the completion indication stable until the next block
+    acknowledges it.
+  explanation: |
+    The tricky part is not starting work. It is handling the completion signal
+    in a way that the rest of the system can observe reliably. A dedicated
+    `DONE` state is often the simplest solution because it gives `done_o` a
+    stable state-based meaning instead of a narrow pulse.
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> BUSY: start
+      BUSY --> DONE: op_complete
+      DONE --> IDLE: done_seen
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p......'},
+      {name:'start', wave:'010....'},
+      {name:'op_complete', wave:'00010..'},
+      {name:'done_o', wave:'000.110'},
+      {name:'done_seen', wave:'0000.10'}
+    ]}
+    ```
+
+    If the surrounding block only needed a local one-cycle pulse, other designs
+    might be fine. For a reusable controller boundary, an explicit `DONE` state
+    is usually easier to review and integrate.
+notes:
+  - Uses a small controller because the main lesson is state partitioning.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

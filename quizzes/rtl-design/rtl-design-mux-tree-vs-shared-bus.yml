@@ -1,0 +1,77 @@
+schema_version: 1
+id: rtl-design-mux-tree-vs-shared-bus
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Mux tree versus shared bus selection
+prompt: >
+  Several producers can send one word at a time to a consumer. When is a mux
+  tree usually the better structure than one wide shared bus driven by
+  centralized select logic?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      unique case (sel)
+        2'd0: y = src0;
+        2'd1: y = src1;
+        2'd2: y = src2;
+        default: y = src3;
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - mux
+    - shared-bus
+    - interconnect
+    - timing
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When the number of sources is modest and localized selection is simpler than distributing a wide centrally controlled bus everywhere
+  - id: b
+    text: Only when all producers are in different clock domains
+  - id: c
+    text: Only when the bus must support tri-state signals inside standard-cell logic
+  - id: d
+    text: Never, because a shared bus is always shallower and lower fanout
+answer:
+  correct: a
+  short_explainer: >
+    A mux tree is often the cleaner choice when a few known sources feed one
+    sink. It localizes selection and can reduce the wiring and control burden of
+    a big centrally managed bus.
+  explanation: |
+    A shared bus sounds simple, but in real RTL it can collect wide data and
+    control wiring into one place. That central point may grow awkward as the
+    block scales. If the number of sources is small and fixed, a mux tree often
+    expresses the intended selection more directly.
+
+    ```mermaid
+    flowchart LR
+      S0[src0] --> M0
+      S1[src1] --> M0
+      S2[src2] --> M1
+      S3[src3] --> M1
+      M0[Mux] --> M2[Mux]
+      M1[Mux] --> M2
+      M2 --> Y[y]
+    ```
+
+    This is not a universal rule. A shared interconnect can still make sense in
+    larger fabrics. The key lesson is to think about select distribution, data
+    wiring, and modularity together rather than assuming one wide bus is always
+    the simplest hardware.
+notes:
+  - Compares structural organization choices rather than protocol policy.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

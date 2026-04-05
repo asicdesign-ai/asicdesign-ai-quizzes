@@ -46,16 +46,16 @@ answer:
     intentional priority ordering between branches. `priority case` is for a
     different hardware intent.
   explanation: >
-    This question is really about whether the candidate can read hardware intent
+    This question is really about whether the learner can read hardware intent
     from coding style. A decode block usually wants parallel interpretation of
-    mutually exclusive encodings. In that situation, `unique case` communicates
-    exactly the right idea: the cases should not overlap, and the implementation
-    should not depend on priority ordering.
+    mutually exclusive encodings. In that situation, `unique case`
+    communicates exactly the right idea: the cases should not overlap, and the
+    implementation should not depend on priority ordering.
 
     `priority case` is useful when first-match-wins behavior is actually part of
     the design, such as a priority encoder or a control path that intentionally
-    chooses the earliest matching condition. The best interview answer is not
-    "one keyword is always better," but "choose the keyword that matches the
+    chooses the earliest matching condition. The right mindset is not "one
+    keyword is always better," but "choose the keyword that matches the
     hardware intent." For a clean opcode decode, that usually means `unique`.
 notes:
   - Written as an intent-and-hardware question rather than a parser trivia question.

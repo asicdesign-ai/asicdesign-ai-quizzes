@@ -40,8 +40,8 @@ answer:
     containing a 32-bit packed word. That is the clearest model for a small
     memory-like structure.
   explanation: >
-    This question checks whether the candidate can read declaration shape and
-    map it to hardware intent. Packed dimensions describe the bit layout of one
+    This question checks whether the learner can read declaration shape and map
+    it to hardware intent. Packed dimensions describe the bit layout of one
     value, while unpacked dimensions describe collections of values. So for
     "eight words, each thirty-two bits wide," the most direct expression is a
     32-bit packed element with an 8-entry unpacked array around it.
@@ -49,8 +49,8 @@ answer:
     Could you represent the same total number of bits in other ways? Yes, but
     that is not the point. A flat 256-bit vector is usually worse for indexing
     clarity, and a two-dimensional packed declaration reads more like one larger
-    composite value than a memory-like collection. In interviews, the best
-    answer is the one that matches both hardware intent and readability.
+    composite value than a memory-like collection. The best answer is the one
+    that matches both hardware intent and readability.
 notes:
   - Chosen to teach declaration intent rather than raw syntax memorization.
 references: []

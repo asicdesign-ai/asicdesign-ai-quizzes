@@ -1,0 +1,85 @@
+schema_version: 1
+id: rtl-design-register-slice-valid-ready
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What a valid-ready register slice changes
+prompt: >
+  What is the main behavior change when a one-stage register slice is inserted
+  into a valid-ready pipeline?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        out_valid <= 1'b0;
+      else if (out_ready || !out_valid) begin
+        out_valid <= in_valid;
+        out_data  <= in_data;
+      end
+    end
+
+    assign in_ready = out_ready || !out_valid;
+topics:
+  primary: rtl-design
+  secondary:
+    - valid-ready
+    - register-slice
+    - pipelining
+    - flow-control
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It removes backpressure completely because ready can no longer propagate upstream
+  - id: b
+    text: It adds a pipeline stage that can improve timing and decouple stages, usually at the cost of one cycle of forward latency
+  - id: c
+    text: It guarantees zero bubbles in every stall scenario
+  - id: d
+    text: It converts a level handshake into a pulse protocol automatically
+answer:
+  correct: b
+  short_explainer: >
+    A register slice usually adds one cycle of forward latency, but it can
+    break a long combinational path and make the interface easier to close
+    timing on. It decouples neighboring stages rather than removing handshake
+    behavior.
+  explanation: |
+    A valid-ready register slice is a small pipeline stage. Its educational
+    value is that it shows the classic latency-versus-timing tradeoff: the data
+    path becomes easier to close because the long combinational path is cut, but
+    the data usually reaches the next stage one cycle later.
+
+    ```mermaid
+    flowchart LR
+      SRC[Source] --> RS[Register Slice]
+      RS --> DST[Destination]
+      DST -->|ready| RS
+      RS -->|ready| SRC
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p....'},
+      {name:'in_valid', wave:'01...'},
+      {name:'in_ready', wave:'1.0.1'},
+      {name:'out_valid', wave:'0.1..'},
+      {name:'out_ready', wave:'1..01'}
+    ]}
+    ```
+
+    The key lesson is not that register slices are always correct, but that they
+    are a common structural tool for improving timing while preserving the basic
+    handshake contract.
+notes:
+  - Focuses on timing and decoupling rather than protocol trivia.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

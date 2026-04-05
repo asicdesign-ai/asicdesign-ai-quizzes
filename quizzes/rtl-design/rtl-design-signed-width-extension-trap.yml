@@ -21,7 +21,7 @@ topics:
     - arithmetic
     - signed
     - width-extension
-    - interview-trap
+    - expression-sizing
 difficulty: advanced
 source:
   platform: manual
@@ -42,18 +42,18 @@ answer:
     the expression is evaluated at 8-bit width, the extra carry or sign-related
     information can already be gone before `sum` receives the result.
   explanation: >
-    This is a classic separator question because many candidates focus on the
+    This is a classic separator question because many learners focus on the
     destination width and forget to reason about expression width. The real
     issue is where the arithmetic happens. If `a + b` is evaluated using the
     operand widths, the computation may overflow at 8 bits. Assigning that
     already-truncated result into a 9-bit signal does not restore the lost bit.
 
     The usual fix is to widen the operands before the addition, for example by
-    sign-extending each one to 9 bits and then adding. The key interview lesson
-    is that width bugs often come from expression sizing, not just from the
-    declaration of the final signal. Strong RTL authors learn to inspect both.
+    sign-extending each one to 9 bits and then adding. The key lesson is that
+    width bugs often come from expression sizing, not just from the declaration
+    of the final signal. Strong RTL authors learn to inspect both.
 notes:
-  - Intentionally written as a harder arithmetic-sizing interview question.
+  - Intentionally written as a harder arithmetic-sizing question.
 references: []
 automation:
   authoring_format: yaml

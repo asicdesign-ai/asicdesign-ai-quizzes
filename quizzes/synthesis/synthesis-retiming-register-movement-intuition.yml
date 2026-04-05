@@ -1,0 +1,57 @@
+schema_version: 1
+id: synthesis-retiming-register-movement-intuition
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What retiming can improve without changing cycle behavior
+prompt: >
+  What is the main idea behind retiming in synthesis?
+code:
+  language: systemverilog
+  snippet: |
+    // Conceptual path:
+    // reg -> long combinational logic -> reg
+topics:
+  primary: synthesis
+  secondary:
+    - retiming
+    - timing
+    - registers
+    - optimization
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Move registers across combinational logic to rebalance stage delays while preserving the cycle-level behavior at the design boundaries
+  - id: b
+    text: Remove all registers from the design and rely on combinational logic instead
+  - id: c
+    text: Convert every asynchronous reset into a synchronous reset automatically
+  - id: d
+    text: Change the algorithm so fewer operations occur per transaction
+answer:
+  correct: a
+  short_explainer: >
+    Retiming tries to place registers at better points in the logic so timing is
+    easier to meet, while the cycle-level interface behavior stays equivalent.
+  explanation: >
+    The intuition behind retiming is that a bad pipeline cut can create one very
+    long stage and one very short stage. If the registers can legally move
+    across nearby combinational logic, the tool may rebalance those delays and
+    improve the clock period.
+
+    Retiming is not a magic rewrite of the architecture, and it does not remove
+    the need for good RTL structure. But it can improve timing when the logic
+    already has a legal opportunity to shift register placement without changing
+    what the design does from cycle to cycle at its boundaries.
+notes:
+  - Keeps the idea at intuition level rather than tool-switch specifics.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

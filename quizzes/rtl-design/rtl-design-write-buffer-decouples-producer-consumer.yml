@@ -1,0 +1,82 @@
+schema_version: 1
+id: rtl-design-write-buffer-decouples-producer-consumer
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why a write buffer boosts throughput
+prompt: >
+  Why can a small write buffer improve throughput even when the producer logic
+  itself is unchanged?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        buf_valid <= 1'b0;
+      else if (push && !buf_valid) begin
+        buf_valid <= 1'b1;
+        buf_data  <= write_data;
+      end else if (pop)
+        buf_valid <= 1'b0;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - write-buffer
+    - buffering
+    - throughput
+    - decoupling
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It guarantees that memory writes finish in one cycle
+  - id: b
+    text: It removes the need for flow control, because the buffer can absorb unlimited traffic
+  - id: c
+    text: It makes the producer combinational instead of sequential
+  - id: d
+    text: It lets the producer hand off a write quickly and continue, while the slower consumer drains the queued write later
+answer:
+  correct: d
+  short_explainer: >
+    A write buffer decouples producer progress from consumer service time. Once
+    a write is queued, the producer can often move on before the downstream side
+    finishes the actual operation.
+  explanation: |
+    The core idea is decoupling. Without a write buffer, the producer may have
+    to wait for the consumer or memory system to accept each write fully. With a
+    buffer in between, the producer can enqueue work and continue, while the
+    downstream side drains the queue at its own pace.
+
+    ```mermaid
+    flowchart LR
+      PROD[Producer] --> WB[Write buffer]
+      WB --> MEM[Memory or sink]
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p......'},
+      {name:'push', wave:'01010..'},
+      {name:'pop', wave:'0001.0.'},
+      {name:'buf_valid', wave:'0.1=10.', data:['1','2']},
+      {name:'producer_busy', wave:'01.0...'}
+    ]}
+    ```
+
+    A buffer does not create bandwidth out of nowhere. If the sink stays slower
+    than the source for long enough, the buffer fills and backpressure returns.
+    The teaching point is that small queues often improve average throughput by
+    smoothing short-term mismatches.
+notes:
+  - Frames buffering as a throughput smoother rather than a protocol feature.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

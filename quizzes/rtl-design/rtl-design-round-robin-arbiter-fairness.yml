@@ -1,0 +1,70 @@
+schema_version: 1
+id: rtl-design-round-robin-arbiter-fairness
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why round-robin arbitration improves fairness
+prompt: >
+  What is the main fairness benefit of a round-robin arbiter compared with a
+  fixed-priority arbiter?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        last_grant <= '0;
+      else if (grant_valid)
+        last_grant <= grant_idx;
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - arbitration
+    - round-robin
+    - fairness
+    - resource-sharing
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It rotates service priority so a continuously requesting low-index client is less likely to block everyone else forever
+  - id: b
+    text: It removes the need for any grant tracking state
+  - id: c
+    text: It guarantees the lowest-latency grant for the highest-priority requester on every cycle
+  - id: d
+    text: It works only when there are exactly two requesters
+answer:
+  correct: a
+  short_explainer: >
+    Round-robin improves fairness by moving the starting priority after each
+    grant. That reduces the risk that one always-active requester starves the
+    others indefinitely.
+  explanation: |
+    A fixed-priority arbiter is simple, but if the highest-priority requester
+    never stops asking, lower-priority requesters may wait far too long. A
+    round-robin arbiter changes the starting point after each successful grant,
+    so each active requester gets a turn over time.
+
+    ```mermaid
+    flowchart LR
+      REQ[Requests] --> ARB[Round-robin arbiter]
+      PTR[Last grant pointer] --> ARB
+      ARB --> GNT[Grant]
+      GNT --> PTR
+    ```
+
+    The key teaching point is that fairness usually costs some extra tracking
+    state and slightly more logic. That tradeoff is often worth it for shared
+    resources that many clients use repeatedly.
+notes:
+  - Focuses on fairness rather than implementation micro-optimizations.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

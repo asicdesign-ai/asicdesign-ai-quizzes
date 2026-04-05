@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-pulse-stretcher-minimum-width
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Making a short request pulse visible for longer
+prompt: >
+  What is a common RTL way to guarantee that a request pulse remains asserted
+  for at least a minimum number of cycles?
+code:
+  language: systemverilog
+  snippet: |
+    if (start)
+      hold_cnt <= 2'd3;
+    else if (hold_cnt != 0)
+      hold_cnt <= hold_cnt - 1'b1;
+
+    assign pulse_out = (hold_cnt != 0);
+topics:
+  primary: rtl-design
+  secondary:
+    - pulse-stretcher
+    - control-logic
+    - counters
+    - timing
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Sample the pulse only on every other clock edge
+  - id: b
+    text: Invert the pulse before it reaches the destination
+  - id: c
+    text: Duplicate the same pulse onto two wires
+  - id: d
+    text: Load a counter or hold flag when the pulse arrives and keep the output high until that state expires
+answer:
+  correct: d
+  short_explainer: >
+    A pulse stretcher usually stores the event and holds the output high for a
+    programmed number of cycles. A small counter or hold register is a common
+    way to do that.
+  explanation: |
+    The key idea is simple: once the short input pulse arrives, the design
+    should remember that event in state rather than relying on the original
+    pulse width. A counter-based approach is common because it makes the minimum
+    hold time explicit.
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> HOLD: start
+      HOLD --> HOLD: hold_cnt > 1
+      HOLD --> IDLE: hold_cnt == 1
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'start', wave:'010...'},
+      {name:'hold_cnt!=0', wave:'0.1110'},
+      {name:'pulse_out', wave:'0.1110'}
+    ]}
+    ```
+
+    This pattern appears in many control designs because narrow pulses are easy
+    to miss, while a held request is easier for downstream logic to observe.
+notes:
+  - Teaches the state-holding concept rather than a special-case implementation.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-credit-counter-flow-control
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: How a credit counter enforces flow control
+prompt: >
+  How does a credit counter provide flow control without requiring a separate
+  acknowledgement for every individual transfer?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        credits <= INIT_CREDITS;
+      else begin
+        if (send && !credit_return) credits <= credits - 1'b1;
+        else if (!send && credit_return) credits <= credits + 1'b1;
+      end
+    end
+
+    assign can_send = (credits != 0);
+topics:
+  primary: rtl-design
+  secondary:
+    - flow-control
+    - credits
+    - counters
+    - datapath-control
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It forces the sender and receiver to share a single clock-enable tree
+  - id: b
+    text: It tracks available receive capacity as a number and blocks new sends when that number reaches zero
+  - id: c
+    text: It makes every transfer complete in one cycle regardless of congestion
+  - id: d
+    text: It replaces all buffering with combinational retry logic
+answer:
+  correct: b
+  short_explainer: >
+    A credit counter represents available receive capacity. The sender may issue
+    transfers while credits remain, and it stops when the count reaches zero.
+  explanation: |
+    Credit-based flow control converts "can I send?" into a small piece of
+    tracked state. Instead of waiting for an acknowledgement for every beat, the
+    sender starts with some number of credits and decrements that count as it
+    launches work. Credits are returned when the receiver frees capacity.
+
+    ```mermaid
+    flowchart LR
+      SRC[Sender] -->|data| DST[Receiver]
+      DST -->|credit return| CTR[Credit counter]
+      CTR -->|can_send| SRC
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'send', wave:'0110..'},
+      {name:'credit_return', wave:'0001.0'},
+      {name:'credits', wave:'x.===.', data:['2','1','0','1']},
+      {name:'can_send', wave:'1..01.'}
+    ]}
+    ```
+notes:
+  - Uses a small-capacity example because the core idea is occupancy tracking.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

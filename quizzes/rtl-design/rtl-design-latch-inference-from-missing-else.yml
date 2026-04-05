@@ -40,18 +40,17 @@ answer:
     If `en` is low, the block does not assign `q`, so `q` must somehow retain
     its old value. That is storage behavior, not combinational behavior.
   explanation: >
-    This is one of the fastest code-review checks in RTL interviews: if an
-    output is not assigned on every path of a combinational block, the design is
-    no longer purely combinational. The hardware needs some way to preserve the
-    previous value, which points toward latch inference or a combinational-intent
+    This is one of the fastest code-review checks in RTL: if an output is not
+    assigned on every path of a combinational block, the design is no longer
+    purely combinational. The hardware needs some way to preserve the previous
+    value, which points toward latch inference or a combinational-intent
     violation.
 
     The best fix depends on the intended hardware. If the block was meant to be
     combinational, add a default assignment or a complete set of branches. If
     the storage was intentional, rewrite the code so the latch or flop intent is
-    explicit instead of leaving reviewers to guess. The interview-ready answer is
-    that incomplete assignment coverage is not just a style issue; it changes the
-    implied hardware.
+    explicit instead of leaving reviewers to guess. Incomplete assignment
+    coverage is not just a style issue; it changes the implied hardware.
 notes:
   - Keeps the teaching point on RTL hardware intent rather than simulator event ordering.
 references: []

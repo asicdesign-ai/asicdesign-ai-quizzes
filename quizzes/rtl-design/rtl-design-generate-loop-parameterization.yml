@@ -43,20 +43,19 @@ answer:
     A generate loop is for structural replication known at elaboration time. It
     creates repeated hardware instances; it is not a runtime loop.
   explanation: >
-    The central interview distinction is elaboration-time structure versus
-    runtime behavior. A `generate for` loop is resolved before simulation or
-    synthesis moves into normal execution semantics. That makes it ideal for
-    building repeated hardware based on constants or parameters, such as lanes,
-    bit slices, or replicated registers.
+    The central distinction is elaboration-time structure versus runtime
+    behavior. A `generate for` loop is resolved before simulation or synthesis
+    moves into normal execution semantics. That makes it ideal for building
+    repeated hardware based on constants or parameters, such as lanes, bit
+    slices, or replicated registers.
 
-    Candidates sometimes confuse generate loops with software-style iteration.
-    But hardware is not "looping" at runtime here; the loop is just a compact
-    way to stamp out multiple copies of a structure. Procedural loops still have
+    People sometimes confuse generate loops with software-style iteration. But
+    hardware is not "looping" at runtime here; the loop is just a compact way
+    to stamp out multiple copies of a structure. Procedural loops still have
     their place inside combinational or sequential logic, but they serve a
-    different purpose. The interview-ready answer is that generate builds
-    topology, not runtime control flow.
+    different purpose. Generate builds topology, not runtime control flow.
 notes:
-  - Emphasizes elaboration-time structure because that is the core interview distinction.
+  - Emphasizes elaboration-time structure because that is the core teaching distinction.
 references: []
 automation:
   authoring_format: yaml

@@ -1,0 +1,62 @@
+schema_version: 1
+id: synthesis-resource-sharing-area-throughput-tradeoff
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Resource sharing area versus throughput tradeoff
+prompt: >
+  When does sharing one arithmetic resource between two operations usually save
+  area but hurt throughput?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (mode)
+        y = a * b;
+      else
+        y = c * d;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - resource-sharing
+    - area
+    - throughput
+    - arithmetic
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When both operations must run at the same time every cycle
+  - id: b
+    text: When multiplication is replaced with simple wiring
+  - id: c
+    text: When the operations are mutually exclusive or scheduled in different cycles, allowing one unit to be reused instead of building two
+  - id: d
+    text: When the design requires maximum parallel throughput regardless of latency
+answer:
+  correct: c
+  short_explainer: >
+    Sharing saves hardware only when one unit can serve both operations over
+    time. The price is that the design gives up some parallelism or scheduling
+    freedom.
+  explanation: >
+    Resource sharing means one hardware block does multiple jobs instead of
+    building separate blocks for each job. That usually reduces area, but it
+    also means those jobs cannot all happen independently at full rate anymore.
+
+    If the operations are naturally mutually exclusive or already occur in
+    separate cycles, sharing is often a good fit. If the design needs both
+    results at once, then sharing becomes a throughput bottleneck rather than an
+    optimization.
+notes:
+  - Uses arithmetic sharing because the area-throughput tradeoff is easy to see there.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -39,19 +39,19 @@ answer:
     the next zero to two cycles. That matches the bounded-handshake intent most
     directly.
   explanation: >
-    This question is included because many real ASIC interviews now expect basic
-    assertion literacy even for design-leaning candidates. The key is to map the
-    English requirement to the property shape: `req` is the trigger, and `ack`
-    must follow within a bounded range. The range operator `##[0:2]` is what
-    captures "within two cycles" cleanly.
+    This question is included because many ASIC learners benefit from basic
+    assertion literacy even when they are focused mainly on design. The key is
+    to map the English requirement to the property shape: `req` is the trigger,
+    and `ack` must follow within a bounded range. The range operator `##[0:2]`
+    is what captures "within two cycles" cleanly.
 
     The distractors are plausible because they each encode a different meaning.
     One reverses the cause-and-effect direction, another changes the timing
-    requirement, and another is not a complete implication check. Interviewers
-    are not usually looking for deep formal expertise here; they want to know if
-    you can write or review a straightforward property tied to an interface rule.
+    requirement, and another is not a complete implication check. The goal here
+    is not deep formal expertise; it is being able to write or review a
+    straightforward property tied to an interface rule.
 notes:
-  - Assertion question kept at interview depth instead of scheduler-region depth to avoid overlap with the simulation lane.
+  - Assertion question kept at practical interface-rule depth instead of scheduler-region depth to avoid overlap with the simulation lane.
 references: []
 automation:
   authoring_format: yaml

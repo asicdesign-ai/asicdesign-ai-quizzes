@@ -1,0 +1,76 @@
+schema_version: 1
+id: rtl-design-fanout-heavy-enable-restructuring
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Restructuring a high-fanout enable path
+prompt: >
+  A single `frame_en` signal gates hundreds of datapath registers spread across
+  the block. Synthesis reports the enable network as a timing bottleneck. What
+  RTL change is usually the best first structural fix?
+code:
+  language: systemverilog
+  snippet: |
+    for (genvar i = 0; i < 256; i++) begin : g_reg
+      always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+          q[i] <= '0;
+        else if (frame_en)
+          q[i] <= d[i];
+      end
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - fanout
+    - enable
+    - timing
+    - restructuring
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Replace all nonblocking assignments with blocking assignments so the enable settles earlier
+  - id: b
+    text: Add more asynchronous resets so the tool has another control pin to optimize
+  - id: c
+    text: Convert the array into latches because latches naturally hide enable fanout
+  - id: d
+    text: Partition the datapath into smaller banks and generate local enables near each bank instead of one giant global enable
+answer:
+  correct: d
+  short_explainer: >
+    One huge control net often becomes a fanout and routing problem. Banking
+    the logic and deriving local enables shortens the control reach and makes
+    the structure easier to optimize.
+  explanation: |
+    A high-fanout enable is often not expensive because of Boolean complexity.
+    It is expensive because one control signal must physically reach many
+    consumers with tight timing. A good RTL-level fix is to give the design more
+    hierarchy: bank the datapath and derive or register local enables closer to
+    where they are used.
+
+    ```mermaid
+    flowchart LR
+      FE[frame_en] --> B0[bank 0 local enable]
+      FE --> B1[bank 1 local enable]
+      FE --> B2[bank 2 local enable]
+      B0 --> R0[register bank 0]
+      B1 --> R1[register bank 1]
+      B2 --> R2[register bank 2]
+    ```
+
+    This does not guarantee zero timing issues, but it attacks the real problem:
+    a wide, timing-sensitive control network. It also scales better than trying
+    to rely on a single global signal for every register cluster in the block.
+notes:
+  - Uses enable banking as the first RTL-level fix before deeper physical optimizations.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,75 @@
+schema_version: 1
+id: rtl-design-counter-terminal-count-pulse
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Generating a clean terminal-count pulse
+prompt: >
+  What is a clean way to generate a one-cycle pulse when a counter reaches its
+  terminal value?
+code:
+  language: systemverilog
+  snippet: |
+    logic tc_pulse;
+
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        count <= '0;
+      else if (en)
+        count <= (count == MAX) ? '0 : count + 1'b1;
+    end
+
+    assign tc_pulse = en && (count == MAX);
+topics:
+  primary: rtl-design
+  secondary:
+    - counters
+    - terminal-count
+    - pulse-generation
+    - control-logic
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Assert the pulse from the current-state comparison at the terminal count condition so it lasts exactly one enabled cycle
+  - id: b
+    text: Hold the pulse high until software clears it
+  - id: c
+    text: Toggle the pulse every cycle after the counter wraps once
+  - id: d
+    text: Generate the pulse only from the next-state value and never from the current counter value
+answer:
+  correct: a
+  short_explainer: >
+    A common clean pattern is to compare the current counter value against the
+    terminal value and assert the pulse only in that cycle. That naturally makes
+    the pulse one cycle wide.
+  explanation: |
+    A terminal-count pulse should mark one specific cycle, not become a sticky
+    event. Comparing the current count against `MAX` works well because the
+    result is true for exactly the cycle where the counter is at the terminal
+    state and enabled.
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p.....'},
+      {name:'count', wave:'x.====', data:['0','1','2','MAX','0']},
+      {name:'en', wave:'111111'},
+      {name:'tc_pulse', wave:'0...10'}
+    ]}
+    ```
+
+    The broader lesson is that small pulse-generation details matter. A control
+    pulse that is one cycle too long or too short can change the behavior of the
+    whole block that follows.
+notes:
+  - Keeps the focus on pulse width and cycle alignment.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

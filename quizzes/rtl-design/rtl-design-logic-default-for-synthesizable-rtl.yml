@@ -51,20 +51,20 @@ answer:
     for everything else. You still need real net types for special cases like
     resolved or multiply driven connections.
   explanation: >
-    In interview settings, this question is usually testing whether the
-    candidate understands intent rather than memorizing legacy syntax. In
-    SystemVerilog, `logic` is a variable type that fits most synthesizable RTL
-    signals driven from one source, whether that source is combinational or
-    sequential code. That makes code reviews cleaner because the declaration is
-    no longer tied to the old Verilog distinction between "assigned in an always
-    block" and "assigned by a net."
+    This question is really testing whether the learner understands intent
+    rather than memorizing legacy syntax. In SystemVerilog, `logic` is a
+    variable type that fits most synthesizable RTL signals driven from one
+    source, whether that source is combinational or sequential code. That makes
+    code reviews cleaner because the declaration is no longer tied to the old
+    Verilog distinction between "assigned in an always block" and "assigned by
+    a net."
 
     The important limit is that `logic` is not a magic replacement for every
     net behavior. If a signal truly needs multiple drivers, tri-state semantics,
-    or resolved net behavior, a net type is still the right tool. So the
-    interview-ready answer is not "always use logic," but rather "use logic by
-    default for single-driver RTL, and switch to a net only when the hardware
-    intent really requires it."
+    or resolved net behavior, a net type is still the right tool. The practical
+    takeaway is not "always use logic," but rather "use logic by default for
+    single-driver RTL, and switch to a net only when the hardware intent really
+    requires it."
 notes:
   - Authored as a SystemVerilog-first coding-style question for the rtl-design lane.
 references: []

@@ -1,0 +1,60 @@
+schema_version: 1
+id: synthesis-incomplete-conditional-infers-latch
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why synthesis infers a latch from an incomplete conditional
+prompt: >
+  Why does the combinational code below tend to infer a latch after synthesis?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      if (en)
+        y = a;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - latch-inference
+    - combinational-logic
+    - synthesis-basics
+    - rtl-to-gates
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Because `y` must retain its old value when `en` is low, which implies storage rather than pure combinational logic
+  - id: b
+    text: Because `always_comb` automatically inserts a latch for every `if` statement
+  - id: c
+    text: Because synthesis cannot process conditionals without an explicit `else if`
+  - id: d
+    text: Because latches are the default implementation for all combinational outputs
+answer:
+  correct: a
+  short_explainer: >
+    If `en` is low, the block does not assign `y`, so the hardware must somehow
+    preserve the previous value. That preservation requirement is what points to
+    latch behavior.
+  explanation: >
+    Synthesis does not implement source code literally. It implements the
+    hardware behavior implied by the source code. Here, `y` gets a new value only
+    when `en` is high. When `en` is low, the design still needs `y` to keep the
+    old value, so some kind of storage is implied.
+
+    That is why incomplete assignment in a combinational block is dangerous: it
+    changes the hardware from pure logic into logic plus storage. The clean fix
+    is usually to give `y` a default assignment or make the conditional
+    complete.
+notes:
+  - Keeps the lesson on inferred hardware rather than simulator behavior.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

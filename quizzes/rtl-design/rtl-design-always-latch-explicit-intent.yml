@@ -41,11 +41,11 @@ answer:
     incomplete combinational code. If the storage element is meant to be
     level-sensitive, saying so directly makes the code easier to review.
   explanation: >
-    Most ASIC interviewers treat accidental latch inference as a warning sign,
-    so this question often checks whether the candidate can separate "latch as a
-    bug" from "latch as a deliberate design choice." If the architecture really
-    needs level-sensitive storage, `always_latch` is the clean way to describe
-    it because the code states that intent up front.
+    Accidental latch inference is usually a warning sign, so this question
+    checks whether the learner can separate "latch as a bug" from "latch as a
+    deliberate design choice." If the architecture really needs level-sensitive
+    storage, `always_latch` is the clean way to describe it because the code
+    states that intent up front.
 
     The wrong mental model is "I can use `always_latch` after I accidentally
     omitted an else branch." That only papers over the real problem. The better
@@ -54,7 +54,7 @@ answer:
     edge-triggered. Strong RTL teams care about that distinction because review
     quality depends on intent being obvious.
 notes:
-  - Uses an interview-style distinction between intentional and accidental latch usage.
+  - Uses a clean distinction between intentional and accidental latch usage.
 references: []
 automation:
   authoring_format: yaml

@@ -1,0 +1,71 @@
+schema_version: 1
+id: rtl-design-onehot-vs-binary-fsm-encoding
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When one-hot FSM encoding is worth the extra flops
+prompt: >
+  When is one-hot FSM encoding often a good tradeoff compared with a denser
+  binary encoding?
+code:
+  language: systemverilog
+  snippet: |
+    typedef enum logic [3:0] {
+      IDLE = 4'b0001,
+      READ = 4'b0010,
+      WRITE = 4'b0100,
+      DONE = 4'b1000
+    } state_t;
+topics:
+  primary: rtl-design
+  secondary:
+    - fsm
+    - one-hot
+    - binary-encoding
+    - state-encoding
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Only when the number of states is exactly a power of two
+  - id: b
+    text: Only when the machine has no outputs
+  - id: c
+    text: When simpler decode logic and speed matter more than minimizing flop count
+  - id: d
+    text: When the FSM must cross clock domains without synchronization
+answer:
+  correct: c
+  short_explainer: >
+    One-hot encoding can be attractive when straightforward decode logic and
+    timing are more important than saving a few state bits. The tradeoff is more
+    flops and wider state storage.
+  explanation: |
+    One-hot encoding assigns one bit per state, so decoding "which state am I
+    in?" is often very direct. That can make next-state and output logic simpler
+    and sometimes faster. The price is that the state register grows with the
+    number of states.
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> READ
+      READ --> WRITE
+      WRITE --> DONE
+      DONE --> IDLE
+    ```
+
+    This is a classic example of a broader educational lesson: area, speed, and
+    clarity are often traded against each other. There is no single encoding
+    that wins every design.
+notes:
+  - Presents state encoding as a tradeoff, not a rigid rule.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,78 @@
+schema_version: 1
+id: rtl-design-iterative-vs-pipelined-datapath
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Iterative versus pipelined datapath choice
+prompt: >
+  When is an iterative datapath usually the better architectural choice than a
+  deeply pipelined version of the same operation?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n) begin
+        busy   <= 1'b0;
+        accum  <= '0;
+        count  <= '0;
+      end else if (start) begin
+        busy  <= 1'b1;
+        accum <= a;
+        count <= ITER_CNT;
+      end else if (busy) begin
+        accum <= step_fn(accum);
+        count <= count - 1'b1;
+      end
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - iterative
+    - pipelining
+    - datapath
+    - area-throughput
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When one result per cycle is mandatory and latency must be minimal
+  - id: b
+    text: When saving area or power matters more than achieving maximum throughput, and multi-cycle completion is acceptable
+  - id: c
+    text: Only when synthesis cannot build pipeline registers automatically
+  - id: d
+    text: Only for control logic, because datapaths are always better when fully pipelined
+answer:
+  correct: b
+  short_explainer: >
+    Iterative datapaths trade throughput for hardware reuse. They are a good
+    fit when the design can afford multiple cycles per result and wants lower
+    area or power.
+  explanation: |
+    A pipelined datapath spends more registers and more replicated logic so it
+    can keep many operations in flight. An iterative datapath reuses the same
+    hardware across several cycles. That usually lowers area and often power,
+    but the result arrives later and the steady-state throughput is lower.
+
+    ```mermaid
+    flowchart LR
+      IN[input] --> IT[iterative core]
+      IT --> OUT[result]
+      IT --> FB[feedback state]
+      FB --> IT
+    ```
+
+    The right choice depends on system needs. If you truly need one result every
+    cycle, a deeper pipeline may be worth it. If the workload is bursty or the
+    throughput target is modest, iterative reuse can be the cleaner design.
+notes:
+  - Keeps the comparison at architecture level rather than algorithm-specific math.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

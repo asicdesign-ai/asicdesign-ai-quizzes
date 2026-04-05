@@ -56,7 +56,7 @@ answer:
     maintenance improvement, not a magical hardware optimization. If a flat bus
     is already simple, either style can be acceptable. But once field meaning
     matters in multiple places, named packed fields usually win the review and
-    debug battle. That is the interview answer most teams want to hear.
+    debug battle.
 notes:
   - Keeps the focus on maintainable RTL for bus-like structures.
 references: []

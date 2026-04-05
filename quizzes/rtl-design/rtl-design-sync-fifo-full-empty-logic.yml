@@ -1,0 +1,69 @@
+schema_version: 1
+id: rtl-design-sync-fifo-full-empty-logic
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Safe full and empty logic for a synchronous FIFO
+prompt: >
+  Which approach gives a clean and unambiguous way to distinguish full from
+  empty in a synchronous FIFO?
+code:
+  language: systemverilog
+  snippet: |
+    logic [$clog2(DEPTH):0] wr_ptr, rd_ptr;
+
+    assign empty = (wr_ptr == rd_ptr);
+    assign full  = (wr_ptr[$clog2(DEPTH)] != rd_ptr[$clog2(DEPTH)]) &&
+                   (wr_ptr[$clog2(DEPTH)-1:0] == rd_ptr[$clog2(DEPTH)-1:0]);
+topics:
+  primary: rtl-design
+  secondary:
+    - fifo
+    - synchronous-fifo
+    - full-empty
+    - pointers
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Use only lower pointer equality for both full and empty, then let synthesis pick the right one
+  - id: b
+    text: Declare the FIFO full whenever write enable is high for two cycles in a row
+  - id: c
+    text: Use separate clocks for the read and write pointers even in a synchronous FIFO
+  - id: d
+    text: Track occupancy unambiguously, for example with an extra wrap bit or an explicit count, instead of relying on raw pointer equality alone
+answer:
+  correct: d
+  short_explainer: >
+    Full and empty need an unambiguous distinction. An extra wrap bit or an
+    explicit occupancy count is a common clean solution because plain pointer
+    equality by itself is not enough.
+  explanation: |
+    In a FIFO, both "completely empty" and "completely full after wrapping"
+    can make lower pointer bits look similar. That is why educational FIFO
+    designs add one more piece of state, such as a wrap bit or a counter. The
+    extra information tells the design whether matching positions mean "nothing
+    stored" or "all slots occupied."
+
+    ```mermaid
+    flowchart LR
+      WR[Write pointer + wrap] --> CMP[Full/Empty compare]
+      RD[Read pointer + wrap] --> CMP
+      CMP --> FLAGS[full / empty]
+    ```
+
+    The core lesson is that flag correctness matters as much as the memory array
+    itself. A FIFO with ambiguous flags may look simple, but it will not behave
+    simply.
+notes:
+  - Uses extra-wrap-bit logic because it is a common teaching pattern for synchronous FIFOs.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

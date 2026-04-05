@@ -8,8 +8,9 @@ Quiz items in this repo are authored for human review first and machine ingestio
 
 ## Portal Product Goals
 
-- The long-term goal is to build a quiz and interview-question portal that is reviewed by real engineers who actively work in industry. The product should keep moving toward real practitioner knowledge rather than synthetic trivia.
+- The long-term goal is to build a quiz and learning portal that is reviewed by real engineers who actively work in industry. The product should keep moving toward real practitioner knowledge rather than synthetic trivia.
 - The portal should encourage meaningful engagement from experienced engineers so quiz quality improves through human review, correction, and refinement over time.
+- These quizzes are for freshers, beginners, and seasoned engineers alike. Author them as educational material that broadens knowledge, and avoid recruitment-oriented framing.
 - The short and long explainers are core product value, not filler metadata. After a learner answers, the explanation quality should be strong enough that the user learns something even when they got the question wrong.
 - The long explainer should evolve toward richer teaching assets, including diagrams such as WaveDrom waveforms, Mermaid state machines, and other visuals that make protocol timing, FSM behavior, and architecture flows easier to understand.
 - Until richer explainer fields are added to the schema or portal, author explanations in a way that can later be paired with diagrams cleanly.
@@ -136,7 +137,7 @@ Quiz content does not become visible on `https://asicdesign.ai` from this repo a
 
 Updated: 2026-04-06
 
-- The repository currently contains reviewed quiz content under `quizzes/amba`, `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/rtl-design`, `quizzes/simulation`, and `quizzes/sta`.
+- The repository currently contains reviewed quiz content under `quizzes/amba`, `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/rtl-design`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/synthesis`.
 - Current reviewed counts by directory are:
   - `amba`: 20
   - `cache-coherency`: 30
@@ -145,17 +146,19 @@ Updated: 2026-04-06
   - `dft`: 20
   - `l2-cache-controller`: 10
   - `firmware`: 1
-  - `rtl-design`: 15
+  - `rtl-design`: 35
   - `simulation`: 16
   - `sta`: 21
+  - `synthesis`: 15
 - `quizzes/amba/` now holds a reviewed AMBA set covering AXI handshakes and channels, burst types, AXI4-Lite limits, AHB transfer phasing and signaling, and APB operating states and revision features.
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
 - `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and scan-chain hold or lock-up-latch practice.
 - `quizzes/l2-cache-controller/` has been created and populated with research-backed reviewed items covering L2 hierarchy policy, unified versus split lower-level caches, banking, MSHRs, and write-back buffering behavior.
-- `quizzes/rtl-design/` now holds the first reviewed Batch 1 RTL-interview set covering SystemVerilog coding intent, latch inference, case-style intent, array or struct modeling, arithmetic width traps, generate usage, assertion basics, and reset-value coding practice.
+- `quizzes/rtl-design/` now holds a 35-question reviewed RTL-design set covering SystemVerilog coding intent, latch inference, case-style intent, array or struct modeling, arithmetic width traps, generate usage, assertion basics, handshake timing, buffering, FIFO behavior, arbitration, FSM structure, control-path robustness, and datapath architecture tradeoffs.
 - `quizzes/sta/` now holds a reviewed STA set covering slack, path classes, PVT corners, skew, multicycle versus false-path intent, WNS/TNS, I/O constraints, and common hold-fix practice.
 - `quizzes/simulation/` now holds a reviewed simulation set covering preprocessing, elaboration, min/typ/max delays, blocking versus nonblocking assignments, event regions, assertion scheduling, RTL-vs-gate mismatches, and timing-simulation limits.
+- `quizzes/synthesis/` now holds a reviewed synthesis set covering latch inference, default assignments, resource sharing, constant propagation, retiming intuition, high-fanout control cost, reset overhead, priority depth, case-based selection, operator sharing, width trimming, comparator or decoder growth, combinational loops, enable mapping, and flow-stage boundaries.
 - The old generic `vlsi` quiz lane has been retired; its remaining reviewed items were folded into dedicated domain lanes.
 - The current trusted source set used in recent research-backed items includes:
   - Sorin, Hill, and Wood, *A Primer on Memory Consistency and Cache Coherence*
@@ -175,7 +178,7 @@ Updated: 2026-04-06
 
 ## Still Missing / Open Gaps
 
-- Coverage is still thinner in `firmware` and the not-yet-created `synthesis` lane than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `simulation`.
+- Coverage is still thinner in `firmware`, `clock-gating`, and `synthesis` than in the larger banks such as `cache-coherency`, `cdc`, `sta`, and `rtl-design`.
 - `quizzes/systemverilog/` is now empty after the initial RTL-lane migration. Future work should either retire the empty category or keep it only as a temporary legacy path.
 - `quizzes/verilog/` currently exists but has no quiz content. Future work should either populate it or remove the empty category if it is no longer needed.
 - This repo now has a lightweight metadata-validation workflow that checks required top-level quiz fields such as `human_verified`, but deeper schema and content linting are still limited.

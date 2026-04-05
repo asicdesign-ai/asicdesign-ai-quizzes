@@ -1,0 +1,98 @@
+schema_version: 1
+id: rtl-design-sequence-detector-mealy-vs-moore
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Choosing Mealy versus Moore for a sequence detector
+prompt: >
+  A sequence detector drives a control output that other synchronous logic
+  samples on the next clock edge. If clean, state-based output timing matters
+  more than reacting one cycle earlier, which architecture is usually the better
+  fit?
+code:
+  language: systemverilog
+  snippet: |
+    typedef enum logic [1:0] {IDLE, S1, S10, HIT} state_t;
+    state_t state, next_state;
+
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        state <= IDLE;
+      else
+        state <= next_state;
+    end
+
+    always_comb begin
+      next_state = state;
+      hit = 1'b0;
+      case (state)
+        IDLE: if (din) next_state = S1;
+        S1:   if (!din) next_state = S10;
+        S10:  if (din) next_state = HIT;
+        HIT: begin
+          hit = 1'b1;
+          next_state = din ? S1 : IDLE;
+        end
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - fsm
+    - mealy-vs-moore
+    - sequence-detector
+    - control-logic
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: A Moore-style detector, because the output depends on registered state rather than a same-cycle input path
+  - id: b
+    text: A Mealy-style detector, because every control output should depend directly on the current input
+  - id: c
+    text: Either style is identical as long as the state encoding is one-hot
+  - id: d
+    text: A latch-based controller, because level-sensitive storage reacts earlier than either FSM style
+answer:
+  correct: a
+  short_explainer: >
+    A Moore-style detector is usually easier to reason about when a clean,
+    state-based output matters more than earliest possible assertion. The output
+    changes only when the FSM enters the detect state.
+  explanation: |
+    A Mealy detector can often assert the output one cycle earlier because it
+    can depend directly on the current input and the current state. That is
+    useful in some fast control paths, but it also means the output is part of a
+    combinational path from the input. If the goal is a cleaner, more obviously
+    registered control signal, a Moore-style detect state is usually the safer
+    teaching example.
+
+    ```mermaid
+    stateDiagram-v2
+      [*] --> IDLE
+      IDLE --> S1: din=1
+      S1 --> S10: din=0
+      S10 --> HIT: din=1
+      HIT --> S1: din=1
+      HIT --> IDLE: din=0
+    ```
+
+    ```wavedrom
+    { signal: [
+      {name:'clk', wave:'p....'},
+      {name:'din', wave:'0.10.1'},
+      {name:'state', wave:'x.====', data:['IDLE','S1','S10','HIT']},
+      {name:'hit', wave:'0...10'}
+    ]}
+    ```
+notes:
+  - Uses a Moore-style output example because the educational point is clean control timing.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,59 @@
+schema_version: 1
+id: synthesis-lint-vs-synthesis-vs-sta-boundaries
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What lint, synthesis review, and STA each catch best
+prompt: >
+  Which division of responsibility is the most accurate for lint, synthesis
+  review, and static timing analysis?
+code:
+  language: systemverilog
+  snippet: |
+    // Think in terms of flow stages rather than one specific code fragment.
+topics:
+  primary: synthesis
+  secondary:
+    - lint
+    - sta
+    - flow
+    - methodology
+difficulty: advanced
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Lint catches only setup slack, synthesis review catches only syntax errors, and STA catches only unreachable code
+  - id: b
+    text: Lint, synthesis review, and STA are interchangeable because they all operate on the same abstraction level
+  - id: c
+    text: Lint is strongest on structural RTL issues and suspicious coding patterns, synthesis review is strongest on inferred hardware shape and optimization results, and STA is strongest on path timing and slack
+  - id: d
+    text: STA should be run first because timing reports are the best way to discover missing RTL assignments
+answer:
+  correct: c
+  short_explainer: >
+    Each stage sees the design through a different lens. Lint focuses on RTL
+    structure, synthesis review focuses on what hardware got built, and STA
+    focuses on whether the resulting timing requirements are met.
+  explanation: >
+    Lint is good at flagging suspicious RTL before you even look at a mapped
+    netlist, such as incomplete assignments, multiple drivers, or coding
+    patterns that often cause bugs. Synthesis review tells you what hardware
+    structure actually emerged, including sharing, replication, inferred muxing,
+    and general implementation shape.
+
+    STA then answers a different question: given the implemented timing graph
+    and constraints, which paths meet or miss timing? Keeping these boundaries
+    clear makes the flow easier to debug because each stage is used for the kind
+    of problem it is best at exposing.
+notes:
+  - Ends the batch with flow literacy rather than a single coding idiom.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

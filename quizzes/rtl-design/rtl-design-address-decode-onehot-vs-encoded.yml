@@ -1,0 +1,75 @@
+schema_version: 1
+id: rtl-design-address-decode-onehot-vs-encoded
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: One-hot versus encoded address decode
+prompt: >
+  When is one-hot address decode usually the better choice than carrying an
+  encoded select value deeper into the block?
+code:
+  language: systemverilog
+  snippet: |
+    always_comb begin
+      sel_oh = '0;
+      unique case (addr[5:4])
+        2'b00: sel_oh[0] = 1'b1;
+        2'b01: sel_oh[1] = 1'b1;
+        2'b10: sel_oh[2] = 1'b1;
+        2'b11: sel_oh[3] = 1'b1;
+      endcase
+    end
+topics:
+  primary: rtl-design
+  secondary:
+    - address-decode
+    - onehot
+    - encoded-select
+    - control-distribution
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Only when the address bus crosses into another clock domain
+  - id: b
+    text: Only when the number of destinations is too small to justify any decode logic
+  - id: c
+    text: Encoded select is always better because fewer wires always means less delay
+  - id: d
+    text: When simpler local gating and shallower per-target decode matter more than the cost of carrying extra wires
+answer:
+  correct: d
+  short_explainer: >
+    One-hot decode spends wires to simplify selection at each destination. That
+    trade can be worthwhile when local decode depth and control clarity matter
+    more than minimizing the select bus width.
+  explanation: |
+    Encoded control keeps the bus narrow, but each consumer may then need extra
+    local decode logic. One-hot control does the opposite: it expands the
+    control signal count so that each destination can often use a simpler enable
+    or select path.
+
+    ```mermaid
+    flowchart LR
+      ADDR[address bits] --> DEC[one-hot decode]
+      DEC --> T0[target 0]
+      DEC --> T1[target 1]
+      DEC --> T2[target 2]
+      DEC --> T3[target 3]
+    ```
+
+    Neither style is universally better. The educational lesson is to think in
+    terms of total structure: wire count, decode depth, local timing, and ease
+    of reasoning. One-hot often wins when distributed control simplicity matters
+    more than absolute control-bus width.
+notes:
+  - Compares wiring cost against local decode simplicity.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

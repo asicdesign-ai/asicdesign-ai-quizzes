@@ -1,0 +1,60 @@
+schema_version: 1
+id: synthesis-reset-mux-datapath-cost
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Datapath cost of adding reset behavior
+prompt: >
+  What is a common synthesis consequence of adding explicit reset behavior to a
+  wide datapath register?
+code:
+  language: systemverilog
+  snippet: |
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+        q <= '0;
+      else
+        q <= d;
+    end
+topics:
+  primary: synthesis
+  secondary:
+    - reset
+    - datapath
+    - area
+    - timing
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Reset behavior is free because all datapath flops already contain the desired reset value internally
+  - id: b
+    text: Reset logic only affects simulation and disappears completely after synthesis
+  - id: c
+    text: The implementation may need extra reset or muxing structure on each bit, which can increase area and sometimes hurt timing
+  - id: d
+    text: Adding reset forces the register to become combinational logic
+answer:
+  correct: c
+  short_explainer: >
+    Reset behavior is not always free. On a wide datapath, it may add extra
+    logic or steer the tool toward a more expensive flop implementation.
+  explanation: >
+    Reset is often necessary, but it still has a hardware cost. Depending on the
+    library and the way the RTL is written, the tool may need resettable flops
+    or extra muxing and control logic to deliver the requested reset behavior.
+
+    That cost matters most on very wide datapaths where every added bit of
+    control structure is replicated many times. This is why many designs reset
+    control state aggressively but are more selective with bulk datapath state.
+notes:
+  - Teaches reset as a hardware tradeoff, not a style preference.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
