@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-axi-fixed-burst-fifo-register"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "AXI burst type for repeated access to one address"
+prompt: >
+  Which AXI burst type keeps the address constant for every beat, such as
+  repeated accesses to a FIFO location?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "bursts"
+    - "fixed"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "FIXED"
+  - id: b
+    text: "INCR"
+  - id: c
+    text: "WRAP"
+  - id: d
+    text: "EXCLUSIVE"
+answer:
+  correct: a
+  short_explainer: >
+    A FIXED burst does not change the address from beat to beat. That makes it a
+    natural fit for repeated reads or writes to the same FIFO-mapped location.
+  explanation: >
+    The Arm AXI specification says a FIXED burst uses the same address for every
+    transfer in the burst. It specifically mentions repeated access to the same
+    location, such as loading or emptying a FIFO.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

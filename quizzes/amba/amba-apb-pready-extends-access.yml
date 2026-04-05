@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-apb-pready-extends-access"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Effect of PREADY LOW during APB ACCESS"
+prompt: >
+  What happens on APB when the completer or peripheral keeps PREADY LOW during
+  ACCESS?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "apb"
+    - "pready"
+    - "wait-states"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "The bus returns to IDLE immediately with an error"
+  - id: b
+    text: "The transfer converts back to SETUP for one cycle"
+  - id: c
+    text: "PSEL must deassert until the peripheral recovers"
+  - id: d
+    text: "The bus remains in ACCESS and waits until PREADY goes HIGH"
+answer:
+  correct: d
+  short_explainer: >
+    PREADY is the completion control for APB ACCESS. If it stays LOW, the bus
+    simply remains in ACCESS and waits rather than finishing the transfer.
+  explanation: >
+    The APB state machine says exit from ACCESS is controlled by PREADY. If the
+    completer holds PREADY LOW, the interface remains in ACCESS; if PREADY goes
+    HIGH, the transfer can complete and the bus can move on.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA APB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0024/latest"
+    note: "Official Arm APB specification covering operating states, PREADY, PSLVERR, APB revisions, and optional PPROT/PSTRB signaling."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

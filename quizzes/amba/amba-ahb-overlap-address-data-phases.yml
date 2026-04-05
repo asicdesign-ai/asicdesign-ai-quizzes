@@ -1,0 +1,53 @@
+schema_version: 1
+id: "amba-ahb-overlap-address-data-phases"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Why AHB is considered pipelined"
+prompt: >
+  What fundamental feature gives AHB its pipelined, higher-performance
+  behavior?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "ahb"
+    - "pipelining"
+    - "transfers"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "The address phase of one transfer overlaps the data phase of the previous transfer"
+  - id: b
+    text: "Every transfer uses separate read and write data buses simultaneously"
+  - id: c
+    text: "The address phase can be stretched indefinitely by the subordinate"
+  - id: d
+    text: "Responses are returned on a dedicated completion channel like AXI B"
+answer:
+  correct: a
+  short_explainer: >
+    AHB pipelines work because address/control for the next transfer happen
+    while data for the previous transfer is still completing. That overlap is
+    the core performance feature.
+  explanation: >
+    Arm explains that the address phase of any transfer occurs during the data
+    phase of the previous transfer. This overlap of address and data is
+    described as fundamental to the pipelined nature of AHB.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AHB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0033/latest"
+    note: "Official Arm AHB specification covering transfer phases, HTRANS, HREADY, HRESP, and burst operation."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

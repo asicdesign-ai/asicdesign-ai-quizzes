@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-ahb-wrap4-word-address-example"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "AHB WRAP4 address sequence for word transfers"
+prompt: >
+  In AHB, a four-beat WRAP4 burst of word accesses starts at address 0x34.
+  Which address sequence is correct?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "ahb"
+    - "bursts"
+    - "addressing"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "0x34, 0x38, 0x3C, 0x40"
+  - id: b
+    text: "0x34, 0x36, 0x38, 0x3A"
+  - id: c
+    text: "0x30, 0x34, 0x38, 0x3C"
+  - id: d
+    text: "0x34, 0x38, 0x3C, 0x30"
+answer:
+  correct: d
+  short_explainer: >
+    A WRAP4 word burst wraps on a 16-byte boundary. Starting at 0x34 therefore
+    steps to 0x38 and 0x3C, then wraps back to 0x30 for the final beat.
+  explanation: >
+    The AHB burst-operation section gives this exact style of example. For a
+    four-beat wrapping burst of 4-byte transfers, the wrap boundary is 16 bytes,
+    so the sequence from 0x34 is 0x34, 0x38, 0x3C, then 0x30.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AHB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0033/latest"
+    note: "Official Arm AHB specification covering transfer phases, HTRANS, HREADY, HRESP, and burst operation."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

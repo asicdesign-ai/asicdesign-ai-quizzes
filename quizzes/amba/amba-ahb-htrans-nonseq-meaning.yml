@@ -1,0 +1,51 @@
+schema_version: 1
+id: "amba-ahb-htrans-nonseq-meaning"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Meaning of NONSEQ on AHB"
+prompt: >
+  In AHB, what does HTRANS=NONSEQ indicate?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "ahb"
+    - "htrans"
+    - "bursts"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "A wait-state cycle inserted in the middle of a burst"
+  - id: b
+    text: "An idle cycle that must be ignored by the subordinate"
+  - id: c
+    text: "A single transfer or the first transfer of a burst"
+  - id: d
+    text: "A retry of the previous beat with identical address and control"
+answer:
+  correct: c
+  short_explainer: >
+    NONSEQ marks either a standalone transfer or the first beat of a burst. It
+    means the address and control are not related to the previous transfer.
+  explanation: >
+    Arm defines HTRANS=NONSEQ as the encoding for a single transfer or the first
+    transfer of a burst. The spec explicitly says the address and control
+    signals are unrelated to the previous transfer in that case.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AHB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0033/latest"
+    note: "Official Arm AHB specification covering transfer phases, HTRANS, HREADY, HRESP, and burst operation."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

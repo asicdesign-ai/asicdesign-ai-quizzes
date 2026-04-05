@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-axi-write-response-per-transaction"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "AXI write completion signaling granularity"
+prompt: >
+  In AXI, how is completion of a write transaction signaled?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "channels"
+    - "writes"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "One B-channel response is returned for every beat on the W channel"
+  - id: b
+    text: "Completion is implied by the final W beat, so no separate response is required"
+  - id: c
+    text: "A single B-channel response is returned for the complete write transaction"
+  - id: d
+    text: "The manager must poll the subordinate on the AR channel"
+answer:
+  correct: c
+  short_explainer: >
+    AXI uses one write response for the whole write transaction, not one
+    response per data beat. The B channel is the explicit completion signal for
+    writes.
+  explanation: >
+    Arm states that all write transactions require completion signaling on the
+    write response channel and that completion is signaled only for the complete
+    transaction, not for each data transfer within it.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

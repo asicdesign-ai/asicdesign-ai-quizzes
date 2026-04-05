@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-axi-read-data-channel-response"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Which AXI channel carries read data and read response"
+prompt: >
+  In AMBA AXI, which channel carries both the read data and the read response
+  information?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "channels"
+    - "reads"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "The R channel"
+  - id: b
+    text: "The AR channel"
+  - id: c
+    text: "The B channel"
+  - id: d
+    text: "The W channel"
+answer:
+  correct: a
+  short_explainer: >
+    The R channel returns the read payload together with the read response
+    status. AXI keeps the read request and read return paths separate.
+  explanation: >
+    The AXI channel architecture defines separate request channels for
+    addresses, but the read data channel carries both read data and the read
+    response information from the subordinate back to the manager.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,53 @@
+schema_version: 1
+id: "amba-axi4-lite-ordering-without-ids"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Ordering implication of AXI4-Lite not supporting IDs"
+prompt: >
+  If an interface uses AXI4-Lite without AXI IDs, what is the practical
+  ordering implication?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "axi4-lite"
+    - "ordering"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "Responses may return out of order if READY is asserted early"
+  - id: b
+    text: "Transactions are observed in order and use a single fixed ID value"
+  - id: c
+    text: "Only read transactions are allowed to complete in order"
+  - id: d
+    text: "The interface must add a sideband tag to every transfer"
+answer:
+  correct: b
+  short_explainer: >
+    Without AXI IDs, AXI4-Lite behaves as an in-order interface with a single
+    fixed transaction identity. That simplifies both endpoints and the
+    interconnect logic.
+  explanation: >
+    The AXI4-Lite definition states that AXI IDs are not supported. Arm notes
+    that this means all transactions must be in order and all accesses use a
+    single fixed ID value.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

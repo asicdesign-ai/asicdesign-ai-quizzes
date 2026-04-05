@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-apb4-pprot-pstrb-additions"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Signals added with APB4 features"
+prompt: >
+  Compared with APB3, which signals were added to support APB4 features such
+  as protection and sparse writes?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "apb"
+    - "apb4"
+    - "signals"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "HREADY and HRESP"
+  - id: b
+    text: "AWVALID and WSTRB"
+  - id: c
+    text: "PPROT and PSTRB"
+  - id: d
+    text: "PLOCK and PBURST"
+answer:
+  correct: c
+  short_explainer: >
+    APB4 added protection and byte-strobe style capabilities on top of APB3.
+    Those features are carried by PPROT and PSTRB respectively.
+  explanation: >
+    The APB revision history in the Arm specification says APB3 added wait
+    states and error reporting through PREADY and PSLVERR. APB4 then added
+    transaction protection and sparse data transfer using PPROT and PSTRB.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA APB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0024/latest"
+    note: "Official Arm APB specification covering operating states, PREADY, PSLVERR, APB revisions, and optional PPROT/PSTRB signaling."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

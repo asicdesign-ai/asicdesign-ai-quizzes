@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-apb-pslverr-valid-last-cycle"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "When PSLVERR is valid on APB"
+prompt: >
+  During an APB transfer, when is PSLVERR considered valid?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "apb"
+    - "pslverr"
+    - "errors"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "Only in the last cycle of the transfer, when PSEL, PENABLE, and PREADY are all HIGH"
+  - id: b
+    text: "During any cycle in which PSEL is HIGH"
+  - id: c
+    text: "Only during SETUP, before PENABLE rises"
+  - id: d
+    text: "On read transfers only, never on writes"
+answer:
+  correct: a
+  short_explainer: >
+    PSLVERR is not sampled throughout the whole transfer. The spec only treats
+    it as meaningful in the final completion cycle when PSEL, PENABLE, and
+    PREADY are all asserted.
+  explanation: >
+    Arm states that PSLVERR is only considered valid during the last cycle of an
+    APB transfer, when PSEL, PENABLE, and PREADY are all HIGH. Outside that
+    completion point it is recommended, though not required, to drive it LOW.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA APB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0024/latest"
+    note: "Official Arm APB specification covering operating states, PREADY, PSLVERR, APB revisions, and optional PPROT/PSTRB signaling."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

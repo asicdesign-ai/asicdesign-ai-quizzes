@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-ahb-hready-inserts-wait-states"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Effect of HREADY going LOW in AHB"
+prompt: >
+  In AHB, what does a subordinate accomplish by driving HREADY LOW?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "ahb"
+    - "wait-states"
+    - "hready"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "It cancels the current burst and forces IDLE"
+  - id: b
+    text: "It extends the address phase of the current transfer"
+  - id: c
+    text: "It changes a read transfer into a write transfer"
+  - id: d
+    text: "It inserts wait states by extending the data phase of the transfer"
+answer:
+  correct: d
+  short_explainer: >
+    HREADY is the mechanism for adding wait states in AHB. The subordinate
+    cannot stretch the address phase, but it can hold off completion by
+    extending the data phase.
+  explanation: >
+    The Arm AHB specification says a subordinate cannot request that the address
+    phase be extended, but it can request extra time by using HREADY. When
+    HREADY is LOW, wait states are inserted and the data phase is extended.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AHB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0033/latest"
+    note: "Official Arm AHB specification covering transfer phases, HTRANS, HREADY, HRESP, and burst operation."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

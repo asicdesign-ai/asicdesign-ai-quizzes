@@ -1,0 +1,51 @@
+schema_version: 1
+id: "amba-axi-wstrb-byte-lanes"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Meaning of WSTRB on the AXI write data channel"
+prompt: >
+  On the AXI write data channel, what does WSTRB indicate?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "writes"
+    - "wstrb"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "Whether the current beat is the last beat of the burst"
+  - id: b
+    text: "Which byte lanes of WDATA contain valid write data"
+  - id: c
+    text: "The cacheability of the transaction"
+  - id: d
+    text: "The number of outstanding writes with the same ID"
+answer:
+  correct: b
+  short_explainer: >
+    WSTRB is a byte-lane qualifier for WDATA. Each strobe bit says whether the
+    corresponding byte lane carries valid data for that write beat.
+  explanation: >
+    The AXI specification defines one write strobe per eight bits of the write
+    data bus. WSTRB identifies which byte lanes of WDATA are valid during a
+    write transfer.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

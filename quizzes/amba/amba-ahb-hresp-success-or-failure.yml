@@ -1,0 +1,51 @@
+schema_version: 1
+id: "amba-ahb-hresp-success-or-failure"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Purpose of HRESP in AHB"
+prompt: >
+  What does HRESP indicate on an AMBA AHB transfer?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "ahb"
+    - "responses"
+    - "hresp"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "Whether the transfer completed successfully or with a failure response"
+  - id: b
+    text: "Whether the address phase is sequential or nonsequential"
+  - id: c
+    text: "Which subordinate currently owns the bus"
+  - id: d
+    text: "How many beats remain in the burst"
+answer:
+  correct: a
+  short_explainer: >
+    HRESP is the transfer outcome signal. It tells the manager whether the
+    transfer completed normally or with an error/failure indication.
+  explanation: >
+    In the AHB operation overview, Arm states that the subordinate uses HRESP to
+    indicate the success or failure of a transfer. It is not a burst-progress or
+    arbitration signal.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AHB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0033/latest"
+    note: "Official Arm AHB specification covering transfer phases, HTRANS, HREADY, HRESP, and burst operation."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

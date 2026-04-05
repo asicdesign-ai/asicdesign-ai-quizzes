@@ -1,0 +1,53 @@
+schema_version: 1
+id: "amba-apb-setup-state-signals"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Signal values in the APB SETUP state"
+prompt: >
+  During the SETUP state of an APB transfer, which signal combination is
+  correct?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "apb"
+    - "states"
+    - "signals"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "PSEL=0 and PENABLE=1"
+  - id: b
+    text: "PSEL=1 and PENABLE=0"
+  - id: c
+    text: "PSEL=0 and PENABLE=0 while address changes are forbidden"
+  - id: d
+    text: "PSEL=1 and PENABLE=1 while PRDATA must already be valid"
+answer:
+  correct: b
+  short_explainer: >
+    SETUP is the one-cycle phase where the peripheral is selected but the
+    transfer has not yet been enabled. That means PSEL is asserted and PENABLE
+    is still LOW.
+  explanation: >
+    The APB operating-state diagram defines SETUP with PSEL asserted and PENABLE
+    deasserted. The interface stays in SETUP for one cycle and then moves to
+    ACCESS on the next rising clock edge.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA APB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0024/latest"
+    note: "Official Arm APB specification covering operating states, PREADY, PSLVERR, APB revisions, and optional PPROT/PSTRB signaling."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

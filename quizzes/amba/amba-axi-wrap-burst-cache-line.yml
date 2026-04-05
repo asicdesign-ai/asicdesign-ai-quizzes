@@ -1,0 +1,53 @@
+schema_version: 1
+id: "amba-axi-wrap-burst-cache-line"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "AXI burst type used for cache-line style wrapping access"
+prompt: >
+  In AXI, which burst type is intended for accesses that increment through a
+  cache line and then wrap at the boundary?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "bursts"
+    - "wrap"
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "FIXED"
+  - id: b
+    text: "INCR"
+  - id: c
+    text: "STREAM"
+  - id: d
+    text: "WRAP"
+answer:
+  correct: d
+  short_explainer: >
+    WRAP bursts increment like INCR bursts, but once the wrap limit is reached
+    the address wraps back to the wrap boundary. The Arm spec calls out
+    cache-line access as a primary use case.
+  explanation: >
+    Arm defines WRAP as the burst type that increments addresses and then wraps
+    back to a lower address at the wrap boundary. The specification explicitly
+    notes that wrapping bursts are primarily intended for cache-line accesses.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

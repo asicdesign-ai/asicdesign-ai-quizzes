@@ -1,0 +1,52 @@
+schema_version: 1
+id: "amba-apb-low-bandwidth-register-access"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "When APB is the right protocol choice"
+prompt: >
+  For which kind of on-chip access is AMBA APB primarily intended?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "apb"
+    - "overview"
+    - "peripherals"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "Highest-throughput cache-coherent data movement between CPUs"
+  - id: b
+    text: "Long multi-beat DMA bursts with out-of-order completion"
+  - id: c
+    text: "Low-bandwidth peripheral register access with simple, low-power interfacing"
+  - id: d
+    text: "Streaming sample data with no address phase"
+answer:
+  correct: c
+  short_explainer: >
+    APB is the simple, low-power peripheral bus in the AMBA family. It is meant
+    for register-style accesses, not high-throughput pipelined traffic.
+  explanation: >
+    Arm describes APB as a low-cost, non-pipelined interface optimized for
+    minimal power consumption and reduced interface complexity. The spec says it
+    is used to connect low-bandwidth peripherals and access programmable control
+    registers.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA APB Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0024/latest"
+    note: "Official Arm APB specification covering operating states, PREADY, PSLVERR, APB revisions, and optional PPROT/PSTRB signaling."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -115,10 +115,11 @@ Quiz content does not become visible on `https://asicdesign.ai` from this repo a
 
 ## Current Progress Snapshot
 
-Updated: 2026-04-04
+Updated: 2026-04-05
 
-- The repository currently contains reviewed quiz content under `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
+- The repository currently contains reviewed quiz content under `quizzes/amba`, `quizzes/cache-coherency`, `quizzes/cdc`, `quizzes/clock-gating`, `quizzes/dft`, `quizzes/firmware`, `quizzes/l2-cache-controller`, `quizzes/simulation`, `quizzes/sta`, and `quizzes/systemverilog`.
 - Current reviewed counts by directory are:
+  - `amba`: 20
   - `cache-coherency`: 30
   - `cdc`: 21
   - `clock-gating`: 5
@@ -128,6 +129,7 @@ Updated: 2026-04-04
   - `simulation`: 16
   - `sta`: 21
   - `systemverilog`: 1
+- `quizzes/amba/` now holds a reviewed AMBA set covering AXI handshakes and channels, burst types, AXI4-Lite limits, AHB transfer phasing and signaling, and APB operating states and revision features.
 - `quizzes/cache-coherency/` now holds a larger research-backed set that covers protocol families, invariants, MSI/MESI/MOESI/MESIF concepts, invalidation and update behavior, snooping and directory basics, false sharing, inclusion, and LLC behavior.
 - `quizzes/cdc/` now holds a reviewed, ASIC-oriented set focused on metastability, synchronizers, handshake choices, async FIFOs, reconvergence, reset crossings, and MTBF tradeoffs.
 - `quizzes/dft/` now holds a reviewed DFT set covering scan insertion, ATPG, stuck-at modeling, OCC behavior, scan clocking architecture, JTAG or boundary scan basics, MBIST, compression, MISR aliasing, and scan-chain hold or lock-up-latch practice.
@@ -147,6 +149,7 @@ Updated: 2026-04-04
   - gem5 classic cache documentation as supporting systems documentation
 - Recent quiz-bank expansions also rely on source sets from VerilogPro, AnySilicon, OpenLane, Verilator, Icarus Verilog, Cliff Cummings papers, and university timing/metastability lecture material.
 - Recent DFT expansion relies on VLSI Tutorials DFT pages, AnySilicon lock-up-latch coverage, and broad embedded-memory BIST references.
+- Recent AMBA expansion relies on the official Arm AXI, AHB, and APB protocol specifications.
 - A GitHub Actions workflow now exists in this repo to trigger a portal rebuild when `quizzes/**` changes land on `main`, but that hop depends on the dispatch token described above.
 - For new researched quizzes, keep preserving per-item `references` sections, avoid adding claims that are not supported by a trustworthy source, and prefer broadly applicable methodology sources over narrow vendor or patent references unless the quiz is intentionally vendor-specific.
 

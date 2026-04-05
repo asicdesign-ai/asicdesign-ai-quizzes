@@ -1,0 +1,51 @@
+schema_version: 1
+id: "amba-axi4-lite-burst-and-exclusive-limits"
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: "Basic transaction limits of AXI4-Lite"
+prompt: >
+  Which statement is true for an AXI4-Lite interface?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: amba
+  secondary:
+    - "axi"
+    - "axi4-lite"
+    - "register-access"
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: "It requires AXI IDs so that responses can complete out of order"
+  - id: b
+    text: "It supports wrapping bursts of 2, 4, 8, or 16 beats"
+  - id: c
+    text: "All transactions are burst length 1 and exclusive accesses are not supported"
+  - id: d
+    text: "Data interleaving is mandatory for multi-beat reads"
+answer:
+  correct: c
+  short_explainer: >
+    AXI4-Lite is the simplified control-plane subset. Its transactions are
+    always single-beat, and it does not support exclusive accesses.
+  explanation: >
+    Arm defines AXI4-Lite so that all transactions have burst length 1 and
+    exclusive accesses are not supported. It is intentionally simpler than full
+    AXI for control and register access use cases.
+notes:
+  - "Authored from official Arm AMBA protocol specifications."
+references:
+  - title: "AMBA AXI Protocol Specification"
+    url: "https://documentation-service.arm.com/documentation/ihi0022/latest"
+    note: "Official Arm AXI specification covering channel architecture, VALID/READY transport, burst types, WSTRB, and AXI4-Lite behavior."
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
