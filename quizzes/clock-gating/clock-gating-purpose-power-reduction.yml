@@ -24,7 +24,7 @@ choices:
   - id: a
     text: To reduce leakage (static) power by stopping clock-driven toggling when logic is idle
   - id: b
-    text: To stop unreliable data to be sampled bu flip flops
+    text: To stop unreliable data to be sampled by flip flops
   - id: c
     text: To reduce dynamic power dissipation by stopping the clock of inactive flops or latches
   - id: d
