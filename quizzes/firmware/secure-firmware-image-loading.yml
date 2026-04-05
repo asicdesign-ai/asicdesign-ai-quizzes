@@ -25,13 +25,13 @@ choices:
   - id: b
     text: Primary core (BSP) before booting OS
   - id: c
-    text: Dedicated off-chip uC should handle it
-  - id: d
     text: FW image should reside in a ROM
-  - id: e
+  - id: d
     text: Autonomous hardware DMA with hardcoded addresses
+  - id: e
+    text: Dedicated off-chip uC should handle it
 answer:
-  correct: c
+  correct: e
   short_explainer: >
     A dedicated off-chip management controller gives firmware loading its own trust
     boundary, so images can be authenticated and controlled before the host OS is in

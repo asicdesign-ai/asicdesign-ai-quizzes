@@ -24,15 +24,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: They provide better sequence properties and more desirable aliasing behavior
-  - id: b
     text: They eliminate all X sources without masking logic
-  - id: c
+  - id: b
     text: They remove the need for scan chains in LBIST
-  - id: d
+  - id: c
     text: They guarantee zero-area DFT logic
+  - id: d
+    text: They provide better sequence properties and more desirable aliasing behavior
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Primitive polynomials are favored because they give better LFSR sequence
     behavior than non-primitive choices. In response analysis, that improves

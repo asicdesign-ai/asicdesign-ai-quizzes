@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Extra area and additional clock-skew or timing-management complexity
-  - id: b
     text: The design automatically becomes asynchronous
-  - id: c
+  - id: b
     text: Setup and hold timing are no longer checked
-  - id: d
+  - id: c
     text: The design can no longer use registers
+  - id: d
+    text: Extra area and additional clock-skew or timing-management complexity
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Clock gating saves dynamic power, but it is not free. The gating cells add
     some area and they become part of the clock path, so skew and timing

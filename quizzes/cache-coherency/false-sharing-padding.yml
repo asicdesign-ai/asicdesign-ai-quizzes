@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Pad each thread's state so separate counters land on different cache lines
-  - id: b
     text: Replace the array with a global variable shared by all threads
-  - id: c
+  - id: b
     text: Use a smaller integer type so more counters fit into one cache line
-  - id: d
+  - id: c
     text: Force every update to bypass the cache entirely
+  - id: d
+    text: Pad each thread's state so separate counters land on different cache lines
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Padding separates independent counters so they stop bouncing the same line back
     and forth between cores. It does not remove communication that is real, but it

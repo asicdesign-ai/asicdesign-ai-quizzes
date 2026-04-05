@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To invalidate other sharers when the requester already has the line and does not need data returned
-  - id: b
     text: To fetch the full line from memory and invalidate all caches
-  - id: c
+  - id: b
     text: To downgrade a Modified line to Shared
-  - id: d
+  - id: c
     text: To force a dirty writeback from the requester to memory
+  - id: d
+    text: To invalidate other sharers when the requester already has the line and does not need data returned
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     `BusUpg` is the no-data upgrade path. It is used when the cache already has the
     line but needs other shared copies invalidated so it can write.

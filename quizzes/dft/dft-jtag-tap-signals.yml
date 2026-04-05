@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: TDI, TDO, TCK, and TMS
-  - id: b
     text: TDI, TDO, TRST, and TCK
-  - id: c
+  - id: b
     text: TMS, TRST, SE, and SI
-  - id: d
+  - id: c
     text: SI, SO, CAPCLK, and SHCLK
+  - id: d
+    text: TDI, TDO, TCK, and TMS
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     The mandatory TAP signals are `TDI`, `TDO`, `TCK`, and `TMS`. `TRST` is a
     common optional reset signal, but it is not one of the four mandatory TAP

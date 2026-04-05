@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It modifies the default setup and hold relationships to reflect extra capture cycles
-  - id: b
     text: It removes the path from timing analysis completely
-  - id: c
+  - id: b
     text: It changes the path into an asynchronous CDC
+  - id: c
+    text: It modifies the default setup and hold relationships to reflect extra capture cycles
   - id: d
     text: It disables logic optimization on the path
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     A multicycle constraint relaxes the default single-cycle relationship for a
     synchronous path. The path is still timed, but the setup and related hold

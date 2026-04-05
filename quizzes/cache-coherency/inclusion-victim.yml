@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A line invalidated from an upper cache because the inclusive outer cache evicted its copy
-  - id: b
     text: A line silently moved from L1 to L2 in an exclusive hierarchy
+  - id: b
+    text: A line invalidated from an upper cache because the inclusive outer cache evicted its copy
   - id: c
     text: A line updated in all sharers by a write-update protocol
   - id: d
     text: A line that misses only because of virtual-address aliasing
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Inclusion victims are a downside of inclusive hierarchies. An outer-cache
     eviction can force a still-useful upper-level line to be invalidated just to

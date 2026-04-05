@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To give metastability another cycle to resolve and improve MTBF in high-speed or harsh conditions
-  - id: b
     text: To make multi-bit buses coherent automatically
-  - id: c
+  - id: b
     text: To eliminate the need for any timing constraints
-  - id: d
+  - id: c
     text: To guarantee zero metastability failures
+  - id: d
+    text: To give metastability another cycle to resolve and improve MTBF in high-speed or harsh conditions
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A third stage adds another full destination cycle of resolution time, which
     can improve MTBF when clocks are very fast or reliability targets are

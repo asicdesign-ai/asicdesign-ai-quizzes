@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Embedded memories such as SRAM arrays
-  - id: b
     text: Only PLL lock behavior during scan shift
-  - id: c
+  - id: b
     text: Only JTAG instruction decoding
+  - id: c
+    text: Embedded memories such as SRAM arrays
   - id: d
     text: Only inter-chip boundary-scan links
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     MBIST exists for memories, not general core logic. It is used because
     embedded memories are dense, numerous, and sensitive to defects, so they

@@ -25,13 +25,13 @@ choices:
   - id: a
     text: The processor invalidates every other copy and keeps the block private forever
   - id: b
-    text: The processor updates the other shared copies with the new value
-  - id: c
     text: The processor must evict the block before storing to it
+  - id: c
+    text: The processor updates the other shared copies with the new value
   - id: d
     text: The processor sends the write only to main memory and never to peer caches
 answer:
-  correct: b
+  correct: c
   short_explainer: >
     Write-update propagates the new value to other sharers instead of invalidating
     them. That keeps the copies current, but it can cost more bandwidth than

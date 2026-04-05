@@ -25,15 +25,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: No, async paths are ignored
-  - id: b
-    text: Depends on the technology lib
-  - id: c
     text: Yes, propagation delay is checked
+  - id: b
+    text: No, async paths are ignored
+  - id: c
+    text: Depends on the technology lib
   - id: d
     text: No, only set_max_delay works
 answer:
-  correct: c
+  correct: a
   short_explainer: >
     Yes. If you apply a `set_multicycle_path` constraint, STA still analyzes the
     path timing; the constraint changes the required timing relationship rather than

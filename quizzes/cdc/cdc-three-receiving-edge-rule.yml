@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Keep the source signal stable for at least 1.5 destination cycles, the so-called three receiving edge rule
-  - id: b
     text: Keep the source signal stable for half of one destination cycle
+  - id: b
+    text: Keep the source signal stable for at least 1.5 destination cycles, the so-called three receiving edge rule
   - id: c
     text: Make the pulse exactly one source cycle wide
   - id: d
     text: Force both clocks to use the same active edge
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     The usual rule of thumb is to hold the signal long enough to be seen across
     three destination clock edges, which is equivalent to at least 1.5

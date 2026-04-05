@@ -24,15 +24,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: I/O pads have frequency limits, while the OCC can use an internal PLL clock to create at-speed pulses
-  - id: b
     text: OCC is required only because scan chains cannot shift without it
-  - id: c
+  - id: b
     text: OCC removes the need for scan enable control
+  - id: c
+    text: I/O pads have frequency limits, while the OCC can use an internal PLL clock to create at-speed pulses
   - id: d
     text: I/O pads can only carry analog clocks, not digital clocks
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     At-speed capture pulses often need to run at true functional frequency.
     OCC logic solves the pad-frequency limitation by generating test clocks

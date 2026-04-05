@@ -27,13 +27,13 @@ choices:
   - id: a
     text: $display
   - id: b
-    text: $finish
-  - id: c
     text: $strobe
+  - id: c
+    text: $finish
   - id: d
     text: $stop
 answer:
-  correct: c
+  correct: b
   short_explainer: >
     `$display` runs before NBA updates have taken effect in that same time slot.
     `$strobe` is the classic way to report the final updated value for the slot.

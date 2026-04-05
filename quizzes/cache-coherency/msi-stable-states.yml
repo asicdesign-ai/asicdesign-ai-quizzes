@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Modified, Shared, Invalid
-  - id: b
     text: Modified, Exclusive, Shared, Invalid
-  - id: c
+  - id: b
     text: Modified, Owned, Shared, Invalid
+  - id: c
+    text: Modified, Shared, Invalid
   - id: d
     text: Exclusive, Shared, Invalid
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     MSI has three stable states: Modified, Shared, and Invalid. `Exclusive` is
     added in MESI, not in MSI.

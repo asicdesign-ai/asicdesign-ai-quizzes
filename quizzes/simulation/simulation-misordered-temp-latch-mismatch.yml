@@ -27,15 +27,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: RTL simulation can reuse the old temporary value and behave as if the temp were latched
-  - id: b
     text: Synthesis will always create a metastability issue
-  - id: c
+  - id: b
     text: The simulator converts the block into a nonblocking process
-  - id: d
+  - id: c
     text: The design becomes asynchronous by definition
+  - id: d
+    text: RTL simulation can reuse the old temporary value and behave as if the temp were latched
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Procedural statements execute in order during RTL simulation. If a temp is
     read before it is updated, the block may use a stale value and simulate like

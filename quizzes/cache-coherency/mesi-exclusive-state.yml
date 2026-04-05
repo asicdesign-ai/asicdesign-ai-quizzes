@@ -26,11 +26,11 @@ choices:
   - id: b
     text: The line is invalid and reserved for a future store
   - id: c
-    text: The line is present in exactly one cache, is clean, and matches memory
-  - id: d
     text: The line is writable simultaneously by all sharers
+  - id: d
+    text: The line is present in exactly one cache, is clean, and matches memory
 answer:
-  correct: c
+  correct: d
   short_explainer: >
     `Exclusive` means one cache has the line, but it is still clean, so memory is
     already up to date. That is what distinguishes `E` from `M`.

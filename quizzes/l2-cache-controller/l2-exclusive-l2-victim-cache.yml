@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: As a large victim cache that receives lines evicted from L1
-  - id: b
     text: As a duplicate copy of every L1 line
-  - id: c
+  - id: b
     text: As a write-through bypass FIFO only
+  - id: c
+    text: As a large victim cache that receives lines evicted from L1
   - id: d
     text: As a structure that stores tags but no data
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     In an exclusive hierarchy, a block is in L1 or L2, not both, so L2 acts
     much like a large victim cache for lines displaced from L1.

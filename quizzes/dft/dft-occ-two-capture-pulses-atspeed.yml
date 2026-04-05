@@ -25,13 +25,13 @@ choices:
   - id: a
     text: One pulse
   - id: b
-    text: Two pulses
-  - id: c
     text: Four pulses
-  - id: d
+  - id: c
     text: It never generates capture pulses at-speed
+  - id: d
+    text: Two pulses
 answer:
-  correct: b
+  correct: d
   short_explainer: >
     A basic OCC generates two capture pulses for at-speed testing. Those pulses
     are intended to run at the functional clock rate needed for delay-oriented

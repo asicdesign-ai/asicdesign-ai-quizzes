@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Scan flop D acts like a pseudo primary input and Q acts like a pseudo primary output
-  - id: b
     text: Scan flop Q is a pseudo clock and D is a pseudo reset
-  - id: c
+  - id: b
     text: Both D and Q are treated as boundary-scan pins only
+  - id: c
+    text: Scan flop D acts like a pseudo primary input and Q acts like a pseudo primary output
   - id: d
     text: Both D and Q are ignored once scan insertion is complete
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Scan effectively exposes flop state to test tools. ATPG can treat the flop
     inputs and outputs as if they were extra controllable and observable ports.

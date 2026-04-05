@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Otherwise the system can deadlock when another core requests a line this cache must provide
-  - id: b
     text: Otherwise the cache loses its replacement-policy history
-  - id: c
+  - id: b
     text: Otherwise the cache becomes effectively direct-mapped
-  - id: d
+  - id: c
     text: Otherwise ECC bits cannot be regenerated
+  - id: d
+    text: Otherwise the system can deadlock when another core requests a line this cache must provide
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Waiting for the bus does not remove a cache’s coherence obligations. If it stops
     servicing incoming transactions, another core can block forever waiting for data

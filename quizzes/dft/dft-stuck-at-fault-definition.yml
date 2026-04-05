@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A circuit node is permanently shorted to VDD
-  - id: b
     text: A clock pulse is missing during capture
-  - id: c
+  - id: b
     text: A scan chain is disconnected at shift time
+  - id: c
+    text: A circuit node is permanently shorted to VDD
   - id: d
     text: A path has a slow-to-fall transition delay
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     A stuck-at-1 fault models a node permanently tied high. Its complement,
     stuck-at-0, models a node permanently tied to ground.

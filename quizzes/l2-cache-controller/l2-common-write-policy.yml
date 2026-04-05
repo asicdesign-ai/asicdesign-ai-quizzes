@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Write-back
-  - id: b
     text: Write-through
-  - id: c
+  - id: b
     text: Write-around only
+  - id: c
+    text: Write-back
   - id: d
     text: Update-based writes only
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Second-level and lower caches are commonly write-back caches. This reduces
     lower-level traffic because only dirty evictions need to be written back.

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The maximum combinational delay on the path
-  - id: b
     text: The minimum combinational delay on the path
+  - id: b
+    text: The maximum combinational delay on the path
   - id: c
     text: The average delay across all paths in the clock domain
   - id: d
     text: The clock period of the destination domain
 answer:
-  correct: b
+  correct: a
   short_explainer: >
     Hold analysis is about data arriving too early, so STA checks the fastest
     path, not the slowest one. That is why minimum delay matters for hold.

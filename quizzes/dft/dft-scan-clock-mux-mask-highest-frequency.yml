@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Mask the functional select in scan mode and force the highest-frequency testable clock choice
-  - id: b
     text: Leave the functional select uncontrolled because scan ignores muxes
+  - id: b
+    text: Mask the functional select in scan mode and force the highest-frequency testable clock choice
   - id: c
     text: Convert the mux into a scan chain automatically
   - id: d
     text: Disable the mux output entirely during scan capture
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     If the mux select comes from scanned logic, it can toggle unpredictably in
     test mode. A scan-friendly clock architecture masks that control and forces

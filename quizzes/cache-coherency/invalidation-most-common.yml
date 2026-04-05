@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Invalidation-based protocols
-  - id: b
     text: Pure write-update protocols
-  - id: c
+  - id: b
     text: Software-managed coherence only
-  - id: d
+  - id: c
     text: Per-byte token protocols only
+  - id: d
+    text: Invalidation-based protocols
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Invalidation-based protocols are the mainstream choice. They fit naturally with
     the single-writer rule and usually avoid the bandwidth cost of updating every

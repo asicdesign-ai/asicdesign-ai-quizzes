@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: If a line misses in the inclusive LLC, the system knows it cannot be present in upper-level caches
-  - id: b
     text: It guarantees that all dirty data is always already in DRAM
-  - id: c
+  - id: b
     text: It removes the need for any coherence protocol
-  - id: d
+  - id: c
     text: It allows multiple caches to write the same line simultaneously
+  - id: d
+    text: If a line misses in the inclusive LLC, the system knows it cannot be present in upper-level caches
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Inclusion means upper-level cached lines must also exist in the inclusive LLC.
     So an LLC miss can rule out upper-level hits, which is exactly why it acts like

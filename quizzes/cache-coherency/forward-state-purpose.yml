@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To mark the only cache that may supply shared clean data in response to a coherence request
-  - id: b
     text: To allow multiple caches to write a line simultaneously
-  - id: c
+  - id: b
     text: To indicate that a line is dirty and must be written back before any read
+  - id: c
+    text: To mark the only cache that may supply shared clean data in response to a coherence request
   - id: d
     text: To reserve a victim line for the next prefetch stream
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     The `F` state picks one clean sharer as the designated responder. That avoids
     the waste of having multiple shared caches all try to answer the same request.

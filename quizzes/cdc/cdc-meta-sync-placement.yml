@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To keep interstage delay and skew small so the first stage gets maximum resolution time before the second stage samples
-  - id: b
     text: To make the crossing synchronous and remove metastability completely
-  - id: c
+  - id: b
     text: Only to reduce dynamic power in the clock tree
-  - id: d
+  - id: c
     text: Only to simplify synthesis logs
+  - id: d
+    text: To keep interstage delay and skew small so the first stage gets maximum resolution time before the second stage samples
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     The second stage is useful only if the first stage gets time to resolve
     before it is sampled again. Long interconnect or excessive skew between the

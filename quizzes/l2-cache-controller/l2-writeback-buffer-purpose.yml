@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: So a dirty evicted line can be flushed later while the requested line is loaded immediately
-  - id: b
     text: To convert the cache into a write-through design
+  - id: b
+    text: So a dirty evicted line can be flushed later while the requested line is loaded immediately
   - id: c
     text: To avoid storing dirty bits in the cache
   - id: d
     text: To guarantee the snoop controller never checks buffered addresses
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A write-back buffer lets the controller decouple dirty eviction from the
     critical miss path. The processor can resume after the fill while the dirty

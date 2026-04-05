@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The pulse can disappear before any destination edge samples it
-  - id: b
     text: The source pulse becomes wider automatically
-  - id: c
+  - id: b
     text: The destination clock becomes phase-locked to the source
-  - id: d
+  - id: c
     text: The crossing becomes safe simply because the clocks are unrelated
+  - id: d
+    text: The pulse can disappear before any destination edge samples it
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A short fast-domain pulse may never overlap a destination sampling edge, so
     the destination can miss it entirely. That is why fast-to-slow events often

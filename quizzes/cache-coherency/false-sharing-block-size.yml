@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Larger blocks force all caches to become fully associative
-  - id: b
     text: Larger blocks can place more unrelated words in the same coherence unit
+  - id: b
+    text: Larger blocks force all caches to become fully associative
   - id: c
     text: Larger blocks eliminate all cold misses, which exposes false sharing by itself
   - id: d
     text: Larger blocks prevent caches from holding modified data
 answer:
-  correct: b
+  correct: a
   short_explainer: >
     Bigger coherence blocks mean more nearby data gets tied to one cache line. That
     makes it easier for unrelated variables to collide in the same coherence unit

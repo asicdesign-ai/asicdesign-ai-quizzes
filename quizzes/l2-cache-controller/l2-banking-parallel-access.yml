@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To allow parallel access to different banks
-  - id: b
     text: To eliminate the need for cache tags
-  - id: c
+  - id: b
     text: To guarantee every access is single-cycle
+  - id: c
+    text: To allow parallel access to different banks
   - id: d
     text: To remove coherence-related traffic
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Banking is used to increase access bandwidth by letting different banks be
     accessed in parallel. It does not remove tags or coherence logic.

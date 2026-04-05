@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To dynamically allocate capacity between instructions and data and reduce miss rate
-  - id: b
     text: To guarantee simultaneous instruction and data accesses every cycle
-  - id: c
+  - id: b
     text: To remove set conflicts entirely
+  - id: c
+    text: To dynamically allocate capacity between instructions and data and reduce miss rate
   - id: d
     text: Because lower-level caches do not use tags
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Lower-level caches are often unified so unused instruction capacity can be
     used for data, and vice versa. That helps reduce miss rate where capacity

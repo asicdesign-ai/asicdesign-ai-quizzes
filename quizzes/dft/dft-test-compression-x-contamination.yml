@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The `X` can block observability of the corresponding bit from another chain compacted into the same output channel
-  - id: b
     text: The compactor automatically converts the `X` into a useful random fill value
+  - id: b
+    text: The `X` can block observability of the corresponding bit from another chain compacted into the same output channel
   - id: c
     text: The decompressor stops working for all scan chains
   - id: d
     text: The fault is always guaranteed to become visible at the tester
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     XOR compaction is efficient, but unknown values are dangerous because one
     `X` can spoil visibility for another chain sharing the same output channel.

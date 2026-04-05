@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The SI-to-Q shift path is activated so scan data can be shifted serially
-  - id: b
     text: The flops capture functional data from combinational logic
-  - id: c
+  - id: b
     text: The OCC automatically generates at-speed pulses
-  - id: d
+  - id: c
     text: The TAP controller resets to Test-Logic-Reset
+  - id: d
+    text: The SI-to-Q shift path is activated so scan data can be shifted serially
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     `SE=1` puts scan flops into shift behavior so test data can be loaded and
     unloaded serially. Functional capture happens when `SE` is deasserted.

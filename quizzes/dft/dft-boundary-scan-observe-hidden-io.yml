@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It allows chip inputs and outputs to be controlled and observed through the scan chain even when board access is limited
-  - id: b
     text: It replaces all internal scan chains in the core
-  - id: c
+  - id: b
     text: It guarantees every delay fault is detectable without ATPG
-  - id: d
+  - id: c
     text: It removes the need for an instruction register in JTAG
+  - id: d
+    text: It allows chip inputs and outputs to be controlled and observed through the scan chain even when board access is limited
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Boundary scan makes external pins much easier to drive and observe during
     board or chip-level test. That extra visibility is especially valuable when

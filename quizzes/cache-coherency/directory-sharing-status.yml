@@ -25,13 +25,13 @@ choices:
   - id: a
     text: Only the replacement policy for the L1 caches
   - id: b
-    text: The sharing status of the block and, depending on the design, which caches hold it
-  - id: c
     text: Only the branch predictor entries related to that address
-  - id: d
+  - id: c
     text: The source code line that allocated the block
+  - id: d
+    text: The sharing status of the block and, depending on the design, which caches hold it
 answer:
-  correct: b
+  correct: d
   short_explainer: >
     A directory keeps coherence metadata for a block, such as whether it is shared
     and which caches currently have copies. That information lets the protocol send

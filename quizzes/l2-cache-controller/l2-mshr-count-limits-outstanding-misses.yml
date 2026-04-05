@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The number of MSHRs or unresolved misses the cache can track
-  - id: b
     text: The number of ways in each set
-  - id: c
+  - id: b
     text: The number of load opcodes in the ISA
-  - id: d
+  - id: c
     text: The number of cores on the chip
+  - id: d
+    text: The number of MSHRs or unresolved misses the cache can track
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A lockup-free cache can overlap misses only up to the number of outstanding
     misses it has structures to track. In Kroft's design, that structure is the

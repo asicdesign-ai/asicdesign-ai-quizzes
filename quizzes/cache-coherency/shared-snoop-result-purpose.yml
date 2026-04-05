@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It determines whether the requester should load the line in Shared or Exclusive
-  - id: b
     text: It selects the replacement way inside the cache set
+  - id: b
+    text: It determines whether the requester should load the line in Shared or Exclusive
   - id: c
     text: It tells the cache whether ECC should be checked
   - id: d
     text: It decides whether the processor should trap to the OS
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A read miss can become `Exclusive` only if no one else already has a valid
     copy. If another cache reports sharing, the requester must load the line in

@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: STA verifies timing closure across timing paths, but it does not prove logic functional correctness
-  - id: b
     text: STA proves functional correctness, but not timing closure
-  - id: c
+  - id: b
     text: STA checks only power and IR-drop behavior
+  - id: c
+    text: STA verifies timing closure across timing paths, but it does not prove logic functional correctness
   - id: d
     text: STA replaces CDC and gate-level simulation entirely
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     STA is a structural timing analysis, not a functional proof. It tells you
     whether paths meet timing under the modeled constraints and libraries, not

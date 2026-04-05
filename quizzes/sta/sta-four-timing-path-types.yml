@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Input-to-output, input-to-register, register-to-register, register-to-output
-  - id: b
     text: Clock-to-clock, register-to-clock, output-to-output, input-to-input
+  - id: b
+    text: Input-to-output, input-to-register, register-to-register, register-to-output
   - id: c
     text: Launch-to-launch, hold-to-hold, jitter-to-jitter, skew-to-skew
   - id: d
     text: Macro-to-macro, floorplan-to-placement, CTS-to-route, route-to-signoff
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     STA classifies paths by where they start and end. The standard set is
     input-to-output, input-to-register, register-to-register, and

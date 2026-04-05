@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Combinational glitches can create extra asynchronous events and unsafe captures at the synchronizer input
-  - id: b
     text: Combinational logic eliminates metastability before the first flip-flop
+  - id: b
+    text: Combinational glitches can create extra asynchronous events and unsafe captures at the synchronizer input
   - id: c
     text: Combinational logic is always safe when the destination clock is faster
   - id: d
     text: The only problem is extra dynamic power, not correctness
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Registering the source signal removes combinational glitches before the
     crossing. Those glitches can look like extra asynchronous events, reduce

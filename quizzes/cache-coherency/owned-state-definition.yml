@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A line that is invalid locally but reserved in the directory
-  - id: b
     text: A line that is valid, read-only, dirty, and whose owner must respond to coherence requests
+  - id: b
+    text: A line that is invalid locally but reserved in the directory
   - id: c
     text: A line that is clean, exclusive, and silently evictable
   - id: d
     text: A line that allows all sharers to write concurrently
 answer:
-  correct: b
+  correct: a
   short_explainer: >
     `Owned` means the line is still dirty with respect to memory, but it may also
     be shared. The owner keeps responsibility for supplying the correct data on

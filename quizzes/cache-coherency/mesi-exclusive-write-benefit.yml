@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The later write can upgrade silently to Modified without another coherence request
-  - id: b
     text: Multiple caches can write the line at the same time
+  - id: b
+    text: The later write can upgrade silently to Modified without another coherence request
   - id: c
     text: The line becomes shared and dirty at the same time
   - id: d
     text: Main memory is immediately updated on every store
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     If a line is in `Exclusive`, the cache already knows no one else has it. That
     lets a later write move to `Modified` without paying for another coherence

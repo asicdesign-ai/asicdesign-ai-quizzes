@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To add design techniques that make manufacturing test feasible
-  - id: b
     text: To eliminate the need for ATPG and ATE completely
-  - id: c
+  - id: b
     text: To replace functional verification and STA
-  - id: d
+  - id: c
     text: To prevent all silicon defects from occurring
+  - id: d
+    text: To add design techniques that make manufacturing test feasible
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     DFT is about improving controllability and observability so faults can be
     detected efficiently in silicon test. It helps test happen; it does not

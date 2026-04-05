@@ -25,13 +25,13 @@ choices:
   - id: a
     text: Slow process, low voltage, high temperature, with maximum interconnect delay
   - id: b
-    text: Fast process, high voltage, low temperature, with minimum interconnect delay
-  - id: c
     text: Typical process, nominal voltage, room temperature, with nominal interconnect delay
-  - id: d
+  - id: c
     text: Hold violations are independent of process, voltage, and temperature
+  - id: d
+    text: Fast process, high voltage, low temperature, with minimum interconnect delay
 answer:
-  correct: b
+  correct: d
   short_explainer: >
     Hold failures are early-arrival problems, so they show up in the fastest
     corner. Fast devices, high voltage, low temperature, and minimum wire delay

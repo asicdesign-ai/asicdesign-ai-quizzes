@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The value may resolve to either legal logic state, so you cannot assume it will match the latest source transition
-  - id: b
     text: It is guaranteed to resolve to the newest input value after enough time
+  - id: b
+    text: The value may resolve to either legal logic state, so you cannot assume it will match the latest source transition
   - id: c
     text: It is guaranteed to oscillate forever
   - id: d
     text: It always resolves to logic 0 first and logic 1 later
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A metastable event does not guarantee that the final logic value will match
     the source transition you hoped to capture. The only safe assumption is that

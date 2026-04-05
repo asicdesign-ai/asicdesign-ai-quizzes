@@ -26,15 +26,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: RTL simulation can miss updates and disagree with the synthesized hardware behavior
-  - id: b
     text: Synthesis will refuse to infer any logic from the block
+  - id: b
+    text: RTL simulation can miss updates and disagree with the synthesized hardware behavior
   - id: c
     text: The simulator automatically promotes the block to `always_comb`
   - id: d
     text: The omission affects only clock frequency, not functionality
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A missing sensitivity signal can make RTL simulation stale even though the
     synthesized logic still behaves like the full combinational equation. That

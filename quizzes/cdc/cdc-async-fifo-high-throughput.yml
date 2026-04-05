@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A dual-clock asynchronous FIFO
-  - id: b
     text: Independent 2-FF synchronizers on every data bit
+  - id: b
+    text: A dual-clock asynchronous FIFO
   - id: c
     text: A single combinational gate before the destination
   - id: d
     text: An assumption that the two domains are almost synchronous
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     An asynchronous FIFO is the standard high-throughput answer for multi-bit
     CDC because it buffers data safely while decoupling the two clocks.

@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Coherence is specified per memory location, while consistency is specified across all memory locations
-  - id: b
     text: Coherence applies only to write-through caches, while consistency applies only to write-back caches
-  - id: c
+  - id: b
     text: Coherence is a software policy, while consistency is a hardware protocol
+  - id: c
+    text: Coherence is specified per memory location, while consistency is specified across all memory locations
   - id: d
     text: Coherence and consistency are two names for the same property
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Cache coherence is about what all cores observe for one memory location, while
     memory consistency is about ordering relationships across loads and stores to

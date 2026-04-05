@@ -32,11 +32,11 @@ choices:
   - id: b
     text: input that drives a constant
   - id: c
-    text: stable Q output of a reg/FF
-  - id: d
     text: localparam
+  - id: d
+    text: stable Q output of a reg/FF
 answer:
-  correct: c
+  correct: d
   short_explainer: >
     Reset values should resolve to a true constant. A stable Q output from another
     flop is still a signal, not a constant reset value, so it is the wrong pattern

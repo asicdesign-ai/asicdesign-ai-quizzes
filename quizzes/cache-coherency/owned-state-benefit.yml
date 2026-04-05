@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It avoids an immediate writeback to memory or LLC while still allowing the block to be shared
-  - id: b
     text: It allows all sharers to update the line without invalidations
+  - id: b
+    text: It avoids an immediate writeback to memory or LLC while still allowing the block to be shared
   - id: c
     text: It forces memory to service every future read instead of peer caches
   - id: d
     text: It removes the need for directories or snooping entirely
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     `Owned` lets the current owner keep responsibility for a dirty line even after a
     read by another core. That avoids an immediate memory update while still

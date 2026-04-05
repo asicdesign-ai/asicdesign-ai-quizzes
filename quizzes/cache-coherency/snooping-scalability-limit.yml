@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: They require every coherence message to be broadcast to all caches
-  - id: b
     text: They require every cache line to be permanently pinned in all L1 caches
-  - id: c
+  - id: b
     text: They work only with write-through caches
-  - id: d
+  - id: c
     text: They prevent caches from serving data to one another
+  - id: d
+    text: They require every coherence message to be broadcast to all caches
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Snooping relies on everyone seeing coherence traffic, so the interconnect must
     distribute messages broadly. That broadcast requirement becomes expensive as the

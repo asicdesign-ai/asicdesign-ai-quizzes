@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Two accesses target the same bank, so one has to wait
-  - id: b
     text: A line has both clean and dirty status at the same time
-  - id: c
+  - id: b
     text: Two cache sets resolve to the same tag value
+  - id: c
+    text: Two accesses target the same bank, so one has to wait
   - id: d
     text: Main memory returns blocks in a different order than requested
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     In a banked cache, parallelism comes from sending requests to different
     banks. If two accesses land in the same bank, they contend for that bank

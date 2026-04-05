@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It invalidates the other shared copies so it can gain exclusive access
-  - id: b
     text: It updates every other shared copy with the new value immediately
-  - id: c
+  - id: b
     text: It bypasses caches and writes directly to disk-backed memory
-  - id: d
+  - id: c
     text: It demotes the block to an uncached state in every processor permanently
+  - id: d
+    text: It invalidates the other shared copies so it can gain exclusive access
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Write-invalidate means the writer first knocks out other copies, then writes as
     the sole owner. That matches the single-writer rule behind coherence.

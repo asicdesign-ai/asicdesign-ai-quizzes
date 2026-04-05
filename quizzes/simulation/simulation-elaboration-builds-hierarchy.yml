@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It chooses root modules and instantiates the design hierarchy
-  - id: b
     text: It expands `define and `include directives
+  - id: b
+    text: It chooses root modules and instantiates the design hierarchy
   - id: c
     text: It performs gate-level SDF annotation
   - id: d
     text: It replaces assertions with hardware monitors in silicon
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Elaboration turns parsed module definitions into an actual instance tree.
     That is the stage where tops are chosen and parameterized instances are

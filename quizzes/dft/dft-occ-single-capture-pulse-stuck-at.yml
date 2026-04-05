@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: One capture pulse
-  - id: b
     text: Two capture pulses
-  - id: c
+  - id: b
     text: Three capture pulses
-  - id: d
+  - id: c
     text: A free-running functional clock burst
+  - id: d
+    text: One capture pulse
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A basic OCC generates one capture pulse for stuck-at testing. Two at-speed
     capture pulses are typically used for transition or delay-style testing

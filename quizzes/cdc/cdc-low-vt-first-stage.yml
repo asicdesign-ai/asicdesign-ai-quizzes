@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: They can reduce the metastability time constant and improve MTBF
-  - id: b
     text: They make the crossing synchronous
-  - id: c
+  - id: b
     text: They remove the need for a second synchronizer stage
+  - id: c
+    text: They can reduce the metastability time constant and improve MTBF
   - id: d
     text: They are chosen only for lower dynamic power
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Faster or dedicated synchronizer cells can resolve metastability more
     quickly, which improves MTBF for the same clock period. They are an

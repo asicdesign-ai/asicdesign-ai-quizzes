@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To avoid clock glitches and unsafe clock-enable transitions
-  - id: b
     text: To increase logic depth for the gated block
-  - id: c
+  - id: b
     text: To turn asynchronous clocks into synchronous ones
-  - id: d
+  - id: c
     text: Only to reduce area
+  - id: d
+    text: To avoid clock glitches and unsafe clock-enable transitions
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A mistimed gating or clock-switch control can create dangerous clock
     glitches, not just late data. Synchronizing the control signal helps ensure

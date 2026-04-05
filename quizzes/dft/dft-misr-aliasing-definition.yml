@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A faulty response produces the same signature as the fault-free gold signature
-  - id: b
     text: Two scan chains share the same scan-enable signal
-  - id: c
+  - id: b
     text: A scan chain is longer than the MISR width
+  - id: c
+    text: A faulty response produces the same signature as the fault-free gold signature
   - id: d
     text: A boundary-scan register and scan chain use the same TCK pin
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Aliasing is the bad case where a faulty output compresses to the same final
     signature as a good output. When that happens, the fault can escape

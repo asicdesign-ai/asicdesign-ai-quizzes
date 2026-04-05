@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Setup uncertainty is subtracted from required time, while hold uncertainty is added to required time
-  - id: b
     text: Both setup and hold uncertainty are subtracted from arrival time only
-  - id: c
+  - id: b
     text: Uncertainty affects hold checks only, not setup checks
+  - id: c
+    text: Setup uncertainty is subtracted from required time, while hold uncertainty is added to required time
   - id: d
     text: Uncertainty changes clock frequency but not required time
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Clock uncertainty tightens both checks. It reduces setup margin by shrinking
     required time and reduces hold margin by pushing the hold requirement later.

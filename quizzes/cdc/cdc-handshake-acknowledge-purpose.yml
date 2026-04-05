@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The destination has safely received the request and the source may update or drop the current value
-  - id: b
     text: The clocks are now frequency-locked
-  - id: c
+  - id: b
     text: Metastability has been eliminated everywhere in the design
+  - id: c
+    text: The destination has safely received the request and the source may update or drop the current value
   - id: d
     text: The data bus can now change every source cycle with no limit
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     The acknowledgment is the source-domain confirmation that the destination
     observed the transfer. The source uses it to know when it is safe to change

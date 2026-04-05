@@ -24,15 +24,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Buffer delay varies across PVT and RC corners, so the hold fix is less robust across signoff conditions
-  - id: b
     text: Buffers cannot legally be placed on a scan path
-  - id: c
+  - id: b
     text: Buffers automatically reduce aliasing in scan compression
+  - id: c
+    text: Buffer delay varies across PVT and RC corners, so the hold fix is less robust across signoff conditions
   - id: d
     text: Buffers convert a stuck-at test into a transition-delay test
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Buffers can hide a hold problem in one corner and reopen it in another. A
     lock-up latch gives a more structural fix for scan transfers across skewed

@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Two processors repeatedly write different addresses that happen to be in the same cache line
-  - id: b
     text: Two processors repeatedly write the exact same variable intentionally
+  - id: b
+    text: Two processors repeatedly write different addresses that happen to be in the same cache line
   - id: c
     text: One processor reads a private stack variable from its own cache
   - id: d
     text: A core uses an instruction cache miss to fetch a new basic block
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     False sharing happens when different data items share one coherence unit, so
     the line bounces even though the threads are not logically communicating. The

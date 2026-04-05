@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The block is not cached in any L1 on chip and is effectively in state I there
-  - id: b
     text: The block must be shared in at least one L1
-  - id: c
+  - id: b
     text: The block must be dirty in the last requester
+  - id: c
+    text: The block is not cached in any L1 on chip and is effectively in state I there
   - id: d
     text: The block is guaranteed to be in the write-back buffer
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     If inclusion holds, any line present in an upper cache must also appear in the
     inclusive LLC or directory. So a miss there means no upper-level cache on chip

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The cache must request exclusive ownership and transition toward Modified
-  - id: b
     text: The cache may write silently because Shared already allows writes
+  - id: b
+    text: The cache must request exclusive ownership and transition toward Modified
   - id: c
     text: The cache must first move to Exclusive without any coherence request
   - id: d
     text: The cache must evict the line and write directly to memory
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A write cannot complete from `Shared` in MSI. The cache has to request write
     permission so other shared copies can be invalidated and the line can move to

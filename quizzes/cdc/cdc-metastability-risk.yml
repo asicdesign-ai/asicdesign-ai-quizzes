@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Metastability caused by setup and hold violations at the receiving flip-flop
-  - id: b
     text: Automatic retiming between the two clock domains
-  - id: c
+  - id: b
     text: Guaranteed extra setup margin on the destination path
+  - id: c
+    text: Metastability caused by setup and hold violations at the receiving flip-flop
   - id: d
     text: Deterministic phase alignment after a few cycles
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     The core CDC risk is metastability. Because unrelated clocks can sample data
     near an edge, the receiving flip-flop can violate setup or hold and take

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It helps setup margin but makes hold more critical
-  - id: b
     text: It hurts setup margin but helps hold
+  - id: b
+    text: It helps setup margin but makes hold more critical
   - id: c
     text: It improves both setup and hold at the same time
   - id: d
     text: It has no effect because skew is removed from STA
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A later capture edge gives data more time for setup, but it also extends
     the hold window and makes early-arrival problems worse. Positive skew helps

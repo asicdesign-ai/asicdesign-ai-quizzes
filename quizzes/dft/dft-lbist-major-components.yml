@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: BIST controller, test pattern generator, and response analyzer
-  - id: b
     text: PLL, OCC, and clock mux
-  - id: c
+  - id: b
     text: Boundary scan register, TAP controller, and instruction decoder
+  - id: c
+    text: BIST controller, test pattern generator, and response analyzer
   - id: d
     text: Decompressor, compactor, and lockup latch
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     A basic LBIST architecture needs control logic, pattern generation, and
     response compaction or analysis. Those roles are commonly described as the

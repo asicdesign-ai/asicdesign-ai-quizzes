@@ -24,15 +24,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A multicycle constraint
-  - id: b
     text: A false path constraint
-  - id: c
+  - id: b
     text: A clock-disable constraint
-  - id: d
+  - id: c
     text: No constraint at all
+  - id: d
+    text: A multicycle constraint
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     If the path is still real and must remain timed, use a multicycle
     constraint, not a false path. False paths remove analysis, while multicycle

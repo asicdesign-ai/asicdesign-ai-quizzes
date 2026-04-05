@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A clock glitch or short pulse can appear at the output
-  - id: b
     text: The clock automatically becomes asynchronous to itself
+  - id: b
+    text: A clock glitch or short pulse can appear at the output
   - id: c
     text: The destination logic is permanently reset
   - id: d
     text: The tool automatically inserts an extra PLL
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Clock-gating logic must keep the gating decision stable during the active
     phase of the clock. If the enable changes at the wrong time, the gated

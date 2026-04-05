@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Every read must come directly from DRAM rather than from another cache
-  - id: b
     text: The value at the start of an epoch matches the value at the end of the previous read-write epoch
+  - id: b
+    text: Every read must come directly from DRAM rather than from another cache
   - id: c
     text: Every store must immediately update all cache lines in the system
   - id: d
     text: All loads and stores to all addresses must execute in one global total order
 answer:
-  correct: b
+  correct: a
   short_explainer: >
     The Data-Value invariant says values must propagate correctly from one access
     epoch to the next. A reader should observe the value established by the last

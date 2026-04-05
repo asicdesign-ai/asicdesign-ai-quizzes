@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The destination can observe a combination of values that never existed together in the source domain
-  - id: b
     text: The two signals become automatically Gray-coded
-  - id: c
+  - id: b
     text: Reconvergence removes metastability
-  - id: d
+  - id: c
     text: The only effect is one extra cycle of latency
+  - id: d
+    text: The destination can observe a combination of values that never existed together in the source domain
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Separate synchronizers do not preserve relationships between related
     signals. When those signals reconverge, the destination may see mismatched

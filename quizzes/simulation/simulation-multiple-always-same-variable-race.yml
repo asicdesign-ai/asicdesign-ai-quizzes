@@ -25,15 +25,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: It is still a race condition and can disagree with synthesized hardware
-  - id: b
     text: It is safe because nonblocking assignments serialize the updates deterministically
-  - id: c
+  - id: b
     text: It is safe only if both blocks trigger on the same edge
-  - id: d
+  - id: c
     text: It simply creates a wider register with no functional risk
+  - id: d
+    text: It is still a race condition and can disagree with synthesized hardware
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Using `<=` does not rescue a bad ownership pattern. Multiple procedural
     writers to the same variable can still produce racey simulation behavior and

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Dedicated clock-gating hardware or clock-control buffers
-  - id: b
     text: Ordinary combinational logic inserted on any local route
-  - id: c
+  - id: b
     text: A tristate buffer on the clock line
-  - id: d
+  - id: c
     text: A larger fanout tree driven from the same ungated clock
+  - id: d
+    text: Dedicated clock-gating hardware or clock-control buffers
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     Dedicated clock-gating resources are preferred because they use proper clock
     routing and avoid many of the skew, hold, and glitch problems that plain

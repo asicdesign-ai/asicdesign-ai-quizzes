@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: An instantiated module is referenced but not otherwise defined, so elaboration searches the library
-  - id: b
     text: Every file in the library directory is parsed before preprocessing
+  - id: b
+    text: An instantiated module is referenced but not otherwise defined, so elaboration searches the library
   - id: c
     text: Any file whose name matches the top module is always loaded
   - id: d
     text: A `include directive automatically imports all library modules
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Automatic libraries are demand-loaded. The simulator only pulls in a
     library module when elaboration encounters an instantiated module that is

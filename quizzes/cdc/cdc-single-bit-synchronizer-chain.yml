@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A chain of two or more registers in the destination clock domain
-  - id: b
     text: A single combinational gate before the destination register
-  - id: c
+  - id: b
     text: A multi-bit synchronizer bus without control logic
-  - id: d
+  - id: c
     text: A set_max_delay constraint with no synchronizer registers
+  - id: d
+    text: A chain of two or more registers in the destination clock domain
 answer:
-  correct: a
+  correct: d
   short_explainer: >
     A single-bit asynchronous signal should be protected by a destination-domain
     synchronizer chain. Two flip-flops is the usual baseline so the first stage

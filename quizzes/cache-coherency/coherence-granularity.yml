@@ -27,11 +27,11 @@ choices:
   - id: b
     text: Entire programs
   - id: c
-    text: Cache blocks or cache lines
-  - id: d
     text: Full DRAM rows
+  - id: d
+    text: Cache blocks or cache lines
 answer:
-  correct: c
+  correct: d
   short_explainer: >
     Coherence is usually tracked at cache-line granularity, not per byte. That is
     why unrelated variables that share one line can still interfere with each other.

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Different bits can be captured in different destination cycles, breaking bus coherency
-  - id: b
     text: Two flip-flops force all bits to align automatically
-  - id: c
+  - id: b
     text: It only fails when the bus is wider than 32 bits
+  - id: c
+    text: Different bits can be captured in different destination cycles, breaking bus coherency
   - id: d
     text: It is safe as long as the source clock is faster
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Separate per-bit synchronizers do not preserve word-level coherency.
     Different bits can arrive or settle on different cycles, producing

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Any number of cores may write the same location at the same time if they use write-back caches
-  - id: b
     text: At any given time, either one core may write a location or multiple cores may only read it
+  - id: b
+    text: Any number of cores may write the same location at the same time if they use write-back caches
   - id: c
     text: Only the directory controller may write a shared memory location
   - id: d
     text: A location can be read only after all caches have evicted it
 answer:
-  correct: b
+  correct: a
   short_explainer: >
     SWMR means the system never allows simultaneous writers and readers for the
     same location. At a given moment, a location is either in a single-writer phase

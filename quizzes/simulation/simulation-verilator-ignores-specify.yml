@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Verilator ignores specify blocks and timing checks, so it is not a full timing-signoff simulator
-  - id: b
     text: Verilator fully supports SDF timing checks and specify semantics by default
+  - id: b
+    text: Verilator ignores specify blocks and timing checks, so it is not a full timing-signoff simulator
   - id: c
     text: Verilator can only simulate behavioral code, not synthesizable RTL
   - id: d
     text: Verilator requires program blocks for all testbenches
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     Verilator is great for fast compiled simulation, but its timing semantics
     are not the same as a full event-driven GLS tool. In particular, specify

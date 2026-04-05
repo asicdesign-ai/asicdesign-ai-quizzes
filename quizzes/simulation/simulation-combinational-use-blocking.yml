@@ -27,15 +27,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Blocking assignments
-  - id: b
     text: Nonblocking assignments only
+  - id: b
+    text: Blocking assignments
   - id: c
     text: Delayed nonblocking assignments
   - id: d
     text: Mixed blocking and nonblocking assignments in the same block
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     For combinational logic, blocking assignments let the statements execute in
     the order they are written within a single activation. That matches the

@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The read and write pointers
-  - id: b
     text: Every data word stored in the RAM
-  - id: c
+  - id: b
     text: The SRAM bit cells themselves
+  - id: c
+    text: The read and write pointers
   - id: d
     text: The local clock waveforms
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Asynchronous FIFOs usually keep the data in memory locally and only
     synchronize the read and write pointers across domains. Those pointers are

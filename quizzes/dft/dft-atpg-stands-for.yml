@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Automatic Test Pattern Generation
-  - id: b
     text: Automated Timing and Power Guardbanding
-  - id: c
+  - id: b
     text: Asynchronous Test Port Gating
+  - id: c
+    text: Automatic Test Pattern Generation
   - id: d
     text: Analog Test Probe Generator
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     ATPG means Automatic Test Pattern Generation. These tools create test
     patterns that target modeled faults such as stuck-at and at-speed faults.

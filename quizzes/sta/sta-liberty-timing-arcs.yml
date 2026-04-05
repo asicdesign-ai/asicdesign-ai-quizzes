@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: Cell delay and sequential timing characteristics such as max or min delay, setup, hold, and clock-to-Q
-  - id: b
     text: Only floorplan density and routing congestion
+  - id: b
+    text: Cell delay and sequential timing characteristics such as max or min delay, setup, hold, and clock-to-Q
   - id: c
     text: Only RTL coding style information
   - id: d
     text: Only clock definitions, but not data-path behavior
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     STA gets cell timing behavior from the library, not by simulating transistor
     waveforms at signoff. Timing arcs capture the delays and sequential

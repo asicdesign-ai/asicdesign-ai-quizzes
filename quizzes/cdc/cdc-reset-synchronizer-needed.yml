@@ -21,15 +21,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A reset synchronizer in each receiving clock domain
-  - id: b
     text: A permanently gated-off test clock
-  - id: c
+  - id: b
     text: A combinational feedback loop on the reset net
+  - id: c
+    text: A reset synchronizer in each receiving clock domain
   - id: d
     text: A PLL in front of every reset tree
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Asynchronous reset assertion is usually easy; safe reset release is the hard
     part. A reset synchronizer lets the design assert reset immediately but

@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: WNS is the single worst negative slack, while TNS is the sum of negative slack over violating paths
-  - id: b
     text: WNS is used only for setup and TNS only for hold
-  - id: c
+  - id: b
     text: WNS counts violating nets, while TNS counts violating clocks
+  - id: c
+    text: WNS is the single worst negative slack, while TNS is the sum of negative slack over violating paths
   - id: d
     text: WNS is wire delay and TNS is net skew
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     WNS tells you how bad the single worst violation is. TNS tells you how much
     total negative slack is spread across all violating paths.

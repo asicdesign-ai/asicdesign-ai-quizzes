@@ -23,15 +23,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: So input and output timing paths are analyzed instead of being left incomplete or unconstrained
-  - id: b
     text: So the logic function of the design can be inferred correctly
-  - id: c
+  - id: b
     text: So CDC analysis is no longer required
+  - id: c
+    text: So input and output timing paths are analyzed instead of being left incomplete or unconstrained
   - id: d
     text: So hold violations are automatically converted into setup violations
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     STA can only check what you constrain. If I/O timing is not described with
     clocks and delays, the external interface paths may be incomplete or

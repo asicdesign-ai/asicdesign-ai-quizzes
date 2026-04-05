@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: The path exists structurally but should never be exercised functionally
-  - id: b
     text: The path is the shortest path in the design
+  - id: b
+    text: The path exists structurally but should never be exercised functionally
   - id: c
     text: The path takes more than one cycle but is still captured
   - id: d
     text: The path is missing an output delay constraint
 answer:
-  correct: a
+  correct: b
   short_explainer: >
     A false path is not just a relaxed path. It is a path that exists in the
     netlist but is not functionally valid, so STA should not optimize or report
