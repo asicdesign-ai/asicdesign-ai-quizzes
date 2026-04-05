@@ -22,15 +22,15 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: To reduce dynamic power by stopping clock-driven toggling when logic is idle
+    text: To reduce leakage (static) power by stopping clock-driven toggling when logic is idle
   - id: b
-    text: To eliminate setup and hold checks on sequential logic
+    text: To stop unreliable data to be sampled bu flip flops
   - id: c
-    text: To convert an asynchronous design into a synchronous one
+    text: To reduce dynamic power dissipation by stopping the clock of inactive flops or latches
   - id: d
     text: To guarantee zero clock skew across the chip
 answer:
-  correct: a
+  correct: c
   short_explainer: >
     Clock gating is primarily a power-saving technique. By turning a clock off
     when a block is idle, the clock network and the registers it drives stop
