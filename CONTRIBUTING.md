@@ -6,6 +6,19 @@ This repository is the editable YAML source-of-truth for quiz content. The
 portal consumes generated data from this repo, but quiz authoring and review
 belong here.
 
+## Product direction
+
+Please keep the portal's top goals in mind when contributing:
+
+- move the quiz bank toward real engineer-reviewed knowledge from practicing
+  industry contributors
+- encourage content that invites correction, clarification, and deeper review by
+  experienced engineers
+- prioritize the quality of the short and long explainers shown after answer
+  resolution
+- write long-form explanations so they can later support diagrams such as
+  WaveDrom waveforms, Mermaid FSMs, and other teaching visuals
+
 ## Start from the template
 
 Use `quizzes/templates/multiple-choice.template.yml` as the default starting
@@ -50,6 +63,14 @@ show directly in the portal feedback UI.
 - This is the short learner-facing explanation shown right after answer
   resolution in the portal.
 - Keep it concise, clear, and useful on its own.
+- Treat it as a high-priority teaching surface, not a checkbox field.
+
+`answer.explanation`
+
+- Use this for the deeper explanation shown after the short explainer.
+- Prefer teaching-oriented explanation over minimal answer justification.
+- When the topic would benefit from visuals, write it so future portal diagram
+  support can attach cleanly to the concept.
 
 `references`
 

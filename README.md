@@ -9,6 +9,17 @@ This repository stores quiz items as authored YAML, grouped by learner-facing
 topic. The portal builds normalized frontend data from this repo, but the quiz
 content itself is edited here.
 
+## Portal goals
+
+- build toward a quiz and interview-question portal reviewed by real engineers
+  who actively work in industry
+- encourage practitioner engagement so quiz quality improves through human
+  feedback and review
+- treat `answer.short_explainer` and `answer.explanation` as core learner value,
+  not optional filler
+- evolve long explainers toward richer visual teaching aids such as WaveDrom
+  waveforms, Mermaid FSMs, and similar diagrams
+
 ## Repository layout
 
 - `quizzes/<topic>/` - one YAML file per quiz item
@@ -23,6 +34,8 @@ point for a new multiple-choice quiz.
 - keep one quiz per YAML file
 - use stable `id` values and descriptive filenames
 - write `answer.short_explainer` for immediate learner feedback
+- make `answer.explanation` strong enough to teach the concept after answer
+  resolution
 - add `references` when the answer depends on research, tool behavior, or
   design methodology
 

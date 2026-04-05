@@ -6,6 +6,14 @@ This repository is the source-of-truth for quiz content used by the `asicdesign.
 
 Quiz items in this repo are authored for human review first and machine ingestion second. The portal or other downstream systems can normalize this content into JSON or another delivery format, but the editable source lives here.
 
+## Portal Product Goals
+
+- The long-term goal is to build a quiz and interview-question portal that is reviewed by real engineers who actively work in industry. The product should keep moving toward real practitioner knowledge rather than synthetic trivia.
+- The portal should encourage meaningful engagement from experienced engineers so quiz quality improves through human review, correction, and refinement over time.
+- The short and long explainers are core product value, not filler metadata. After a learner answers, the explanation quality should be strong enough that the user learns something even when they got the question wrong.
+- The long explainer should evolve toward richer teaching assets, including diagrams such as WaveDrom waveforms, Mermaid state machines, and other visuals that make protocol timing, FSM behavior, and architecture flows easier to understand.
+- Until richer explainer fields are added to the schema or portal, author explanations in a way that can later be paired with diagrams cleanly.
+
 ## Source Format
 
 - Author quiz items in YAML.
@@ -42,12 +50,16 @@ This field is intended for direct rendering in the website UI after the user ans
 - State why the correct answer is right.
 - When useful, briefly contrast it with why the competing options are weaker.
 - Avoid unnecessary jargon unless the quiz itself is advanced.
+- Treat this as one of the highest-value fields in the portal experience because it is the first feedback shown after answer resolution.
 
 ## `answer.explanation` Rules
 
 - Keep `answer.explanation` available for a fuller explanation.
 - It can be longer than `answer.short_explainer`.
 - Use it for nuance, tradeoffs, design context, or implementation details.
+- Prefer explanations that teach, not just justify the correct option.
+- When the concept is temporal, protocol-heavy, or state-based, write the explanation so it can later be paired with a waveform, FSM, timing sketch, or other visual aid.
+- Future portal work should support richer long-form explainers with diagrams such as WaveDrom, Mermaid FSMs, and similar visual formats.
 
 ## Draft Items
 
