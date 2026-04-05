@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Where #0 blocking assignments go
+title: "Where `#0` blocking assignments go in the event queue"
 prompt: >
   In the Verilog or SystemVerilog event queue, where are `#0` blocking
   assignments scheduled?

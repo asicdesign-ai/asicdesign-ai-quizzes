@@ -4,9 +4,10 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Purpose of the MESIF Forward state
+title: Purpose of the Forward state in MESIF cache coherence
 prompt: >
-  What is the purpose of the `Forward` (`F`) state in the MESIF protocol?
+  In the MESIF cache-coherence protocol, what is the purpose of the `Forward`
+  (`F`) state?
 code:
   language: null
   snippet: null

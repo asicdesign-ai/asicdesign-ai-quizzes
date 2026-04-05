@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Purpose of a BusUpg transaction
+title: Purpose of a BusUpg transaction in snooping coherence
 prompt: >
   In a snooping MESI-style system, what is a `BusUpg` transaction used for?
 code:

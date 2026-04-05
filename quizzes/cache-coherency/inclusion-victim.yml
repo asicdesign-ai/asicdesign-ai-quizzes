@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Meaning of an inclusion victim
+title: Meaning of an inclusion victim in an inclusive cache hierarchy
 prompt: >
   What is an inclusion victim in an inclusive cache hierarchy?
 code:

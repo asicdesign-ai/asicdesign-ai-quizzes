@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: true
 question_type: multiple_choice
-title: WNS versus TNS
+title: WNS versus TNS in STA reports
 prompt: >
   What is the difference between WNS and TNS in STA reports?
 code:

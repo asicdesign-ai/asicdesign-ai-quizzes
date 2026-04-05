@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Meaning of positive slack
+title: Meaning of positive slack in STA
 prompt: >
   What does positive slack mean in static timing analysis?
 code:

@@ -4,10 +4,10 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: The three receiving edge rule
+title: Three receiving-edge rule for CDC pulse capture
 prompt: >
-  What practical pulse-width rule helps a single-bit open-loop CDC survive
-  fast-to-slow clock relationships?
+  For a single-bit open-loop CDC into a slower domain, what practical
+  pulse-width rule helps the destination reliably capture the event?
 code:
   language: null
   snippet: null

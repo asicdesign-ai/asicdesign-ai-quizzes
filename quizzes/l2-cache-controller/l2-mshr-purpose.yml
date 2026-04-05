@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Purpose of an MSHR
+title: Purpose of an MSHR in a lockup-free cache
 prompt: >
   In a lockup-free L2 cache controller, what is an MSHR used for?
 code:

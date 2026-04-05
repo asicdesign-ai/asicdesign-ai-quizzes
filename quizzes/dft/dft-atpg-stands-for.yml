@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: ATPG expansion
+title: What ATPG stands for in a DFT flow
 prompt: >
   In a DFT flow, what does ATPG stand for?
 code:

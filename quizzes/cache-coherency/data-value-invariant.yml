@@ -4,9 +4,10 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Data-value coherence invariant
+title: Data-Value invariant in cache coherence
 prompt: >
-  What does the Data-Value coherence invariant require?
+  In a cache-coherence specification, what does the Data-Value invariant
+  require?
 code:
   language: null
   snippet: null
