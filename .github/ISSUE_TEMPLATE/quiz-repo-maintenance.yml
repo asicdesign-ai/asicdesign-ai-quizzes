@@ -1,0 +1,59 @@
+name: Quiz repo bug or maintenance task
+description: Report a broken quiz item, metadata problem, contributor-doc gap, or validation/tooling issue.
+title: "[quiz-maintenance] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for incorrect answers, malformed metadata, authoring-guide gaps, or validation/tooling problems in the quiz source repo.
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue kind
+      options:
+        - Incorrect or misleading quiz content
+        - Missing or malformed metadata
+        - Contributor-doc gap
+        - Validation or tooling improvement
+        - Other repo-maintenance problem
+    validations:
+      required: true
+  - type: input
+    id: affected_scope
+    attributes:
+      label: Affected files or topic lanes
+      description: Link the specific file, lane, or script when possible.
+      placeholder: quizzes/sta/..., quizzes/clock-gating/..., scripts/validate-quiz-metadata.sh
+    validations:
+      required: true
+  - type: textarea
+    id: current_problem
+    attributes:
+      label: Current problem
+      description: Explain what is wrong today and why it matters.
+      placeholder: The answer is misleading, the explainer is too weak, the validator misses a required field, or the contributor docs are unclear.
+    validations:
+      required: true
+  - type: textarea
+    id: expected_fix
+    attributes:
+      label: Expected fix or direction
+      description: Describe the smallest useful correction if you have one in mind.
+      placeholder: Tighten the answer, add missing metadata checks, or expand the authoring guide with one worked example.
+    validations:
+      required: true
+  - type: textarea
+    id: supporting_refs
+    attributes:
+      label: Supporting references or evidence
+      description: Add source links, failing examples, or related issues when available.
+      placeholder: Official docs, screenshots, failing validation output, or links to affected quiz files.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked whether this problem is already tracked in an open issue.
+          required: true
+        - label: I included the affected lane, file, or script so maintainers can triage this quickly.
+          required: true

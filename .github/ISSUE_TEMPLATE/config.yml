@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Quiz contributor guide
+    url: https://github.com/asicdesign-ai/asicdesign-ai-quizzes/blob/main/CONTRIBUTING.md
+    about: Read the authoring model, required fields, and validation guidance before opening an issue.
+  - name: asicdesign.ai contributor page
+    url: https://asicdesign.ai/contribute/
+    about: Start from the portal guide if you want a curated path into quiz and workflow contributions.

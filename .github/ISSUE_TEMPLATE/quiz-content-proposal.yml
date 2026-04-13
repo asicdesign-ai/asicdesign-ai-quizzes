@@ -1,0 +1,70 @@
+name: Quiz content proposal
+description: Propose a new quiz batch, lane expansion, question set, or learner-facing improvement.
+title: "[quiz] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new quiz content, lane expansion, explanation improvements, or topic-level cleanup.
+
+        Before submitting, please read `CONTRIBUTING.md` and check the open issues to avoid duplicates.
+  - type: dropdown
+    id: proposal_type
+    attributes:
+      label: Proposal type
+      description: Pick the closest content-oriented change.
+      options:
+        - Add new quiz questions
+        - Expand an existing topic lane
+        - Improve existing explanations
+        - Improve references or source quality
+        - Reorganize topic placement or metadata
+    validations:
+      required: true
+  - type: input
+    id: topic_lane
+    attributes:
+      label: Topic lane
+      description: Example: `clock-gating`, `cdc`, `rtl-design`
+      placeholder: clock-gating
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or weak today?
+      description: Describe the learner-facing gap, not just the repo change.
+      placeholder: The lane is too thin, explanations are inconsistent, or the topic currently misses an important engineering concept.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_scope
+    attributes:
+      label: Proposed scope
+      description: Be concrete about what should be added or changed.
+      placeholder: Add 10 new questions covering integrated clock-gating intuition, glitch risk, scan interactions, and timing tradeoffs.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Candidate references
+      description: Share official docs, textbooks, standards, or other trustworthy sources when you have them.
+      placeholder: Arm AMBA spec, VerilogPro article, university lecture notes, textbook chapter, etc.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Suggested acceptance criteria
+      description: Optional, but useful for turning this into a contributor-friendly issue.
+      placeholder: New files added, `answer.short_explainer` present, metadata validation passes, references included where claims are non-obvious.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked the open issues for an existing request.
+          required: true
+        - label: I understand this repo stores quiz source YAML, not runtime feedback or portal backend data.
+          required: true
+        - label: I read the contributor guide and understand that `answer.short_explainer` is a required learner-facing field.
+          required: true
