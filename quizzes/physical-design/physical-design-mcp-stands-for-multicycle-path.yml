@@ -1,0 +1,59 @@
+schema_version: 1
+id: physical-design-mcp-stands-for-multicycle-path
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Meaning of MCP in physical design
+prompt: >
+  In physical design and timing constraints, what does MCP stand for?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: physical-design
+  secondary:
+    - timing-constraints
+    - multicycle-path
+    - acronyms
+    - setup-timing
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Multi Clock Propagation
+  - id: b
+    text: Maximum Cell Power
+  - id: c
+    text: MultiCycle Path
+  - id: d
+    text: Multi Corner Placement
+answer:
+  correct: c
+  short_explainer: >
+    MCP stands for MultiCycle Path. It refers to a path that is intentionally
+    allowed more than one clock cycle to meet its timing requirement.
+  explanation: >
+    In timing constraints, MCP means MultiCycle Path. Designers use a
+    multicycle-path constraint when data launched on one clock edge is intended
+    to be captured after more than one cycle instead of on the very next active
+    edge.
+
+    This matters during physical design and timing closure because the timing
+    tool must evaluate those paths with the intended cycle relationship rather
+    than with the default single-cycle assumption. If the path is truly
+    multicycle, applying the correct constraint prevents a valid design intent
+    from being reported as a false setup violation.
+
+    The beginner takeaway is simple: MCP is a timing-constraint concept, not a
+    power metric or a clock-propagation mode.
+notes:
+  - Beginner-friendly acronym check for timing-constraint terminology used in physical design flows.
+references: []
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
