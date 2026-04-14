@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "quizzes/**"
+  schedule:
+    - cron: "50 3 * * 0"
   workflow_dispatch:
 
 permissions:
