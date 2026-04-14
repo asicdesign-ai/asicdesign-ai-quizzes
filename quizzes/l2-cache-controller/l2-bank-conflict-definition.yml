@@ -22,13 +22,13 @@ source:
   import_kind: manual_completion
 choices:
   - id: a
-    text: A line has both clean and dirty status at the same time
+    text: A line in one bank is marked clean and dirty at the same time
   - id: b
-    text: Two cache sets resolve to the same tag value
+    text: Two different accesses land in different banks, but the controller still serializes them as if they hit one bank
   - id: c
     text: Two accesses target the same bank, so one has to wait
   - id: d
-    text: Main memory returns blocks in a different order than requested
+    text: A miss to one bank forces a stall on every other bank, even when those banks are idle
 answer:
   correct: c
   short_explainer: >
