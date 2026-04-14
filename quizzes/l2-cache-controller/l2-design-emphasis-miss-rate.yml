@@ -4,7 +4,7 @@ status: reviewed
 review_state: answered
 human_verified: false
 question_type: multiple_choice
-title: Design emphasis for lower-level caches
+title: Cache hierarchy design considerations
 prompt: >
   When designing lower-level caches such as L2 and L3, what is typically
   emphasized more than hit time?
