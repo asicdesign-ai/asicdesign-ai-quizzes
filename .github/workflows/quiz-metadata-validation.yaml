@@ -7,12 +7,22 @@ on:
     paths:
       - "quizzes/**"
       - "scripts/validate-quiz-metadata.sh"
+      - "scripts/validate-quiz-structure.py"
+      - "scripts/validate-quiz-prose.py"
+      - "scripts/validate-quiz-bank.sh"
+      - "scripts/quiz-prose-ignore-words.txt"
+      - "requirements-quiz-qa.txt"
       - ".github/workflows/quiz-metadata-validation.yaml"
       - "AGENTS.md"
   pull_request:
     paths:
       - "quizzes/**"
       - "scripts/validate-quiz-metadata.sh"
+      - "scripts/validate-quiz-structure.py"
+      - "scripts/validate-quiz-prose.py"
+      - "scripts/validate-quiz-bank.sh"
+      - "scripts/quiz-prose-ignore-words.txt"
+      - "requirements-quiz-qa.txt"
       - ".github/workflows/quiz-metadata-validation.yaml"
       - "AGENTS.md"
 
@@ -20,12 +30,24 @@ permissions:
   contents: read
 
 jobs:
-  validate-human-verified:
+  validate-quiz-bank:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Validate quiz metadata
-        run: bash scripts/validate-quiz-metadata.sh
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install QA dependencies
+        run: python3 -m pip install -r requirements-quiz-qa.txt
+
+      - name: Validate quiz structure
+        run: python3 scripts/validate-quiz-structure.py
+
+      - name: Validate quiz prose
+        run: python3 scripts/validate-quiz-prose.py

@@ -54,11 +54,21 @@ The portal-side generated outputs live in `asicdesign-ai-portal`, not here.
 
 ## Local validation
 
-Run:
+Install the prose QA dependencies if you want the full gate:
+
+`python3 -m pip install -r requirements-quiz-qa.txt`
+
+Run the structure check:
 
 `bash scripts/validate-quiz-metadata.sh`
 
-This checks required quiz metadata before you open a PR.
+Run the full QA gate:
+
+`bash scripts/validate-quiz-bank.sh`
+
+The structure check validates YAML shape, required fields, and quiz
+invariants. The full gate adds spelling and prose checks for learner-facing
+text.
 
 ## Contributing
 

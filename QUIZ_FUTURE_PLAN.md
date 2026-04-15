@@ -25,6 +25,9 @@ This wave should be authored as broad educational content for freshers, beginner
 - Outside-wave note:
   - A separate `error-detection` category was added on 2026-04-15 with 10 initial reviewed questions covering parity, CRC, Hamming distance, SECDED, ECC memory, and retransmission tradeoffs.
 
+- Separate maintenance track:
+  - repository-wide quiz QA hardening is tracked in `QUIZ_QA_PLAN.md`
+
 ## Planning Answers Captured
 
 - Audience: mixed
