@@ -24,19 +24,25 @@ choices:
   - id: a
     text: It never occurs if the source and destination clocks run at the same frequency
   - id: b
-    text: It only happens in FPGAs, not ASICs
+    text: It disappears completely once two flip-flops are used
   - id: c
-    text: It can be made very unlikely, but no finite synchronizer guarantees bounded-time resolution
+    text: It can be reduced to a very low probability, but no finite synchronizer guarantees bounded-time resolution
   - id: d
     text: It depends only on data toggle rate, not on destination clock frequency
 answer:
   correct: c
   short_explainer: >
-    Synchronizers reduce metastability risk, but they do not eliminate it.
+    A synchronizer improves MTBF by increasing resolution time, but no finite
+    synchronizer can guarantee metastability resolves within a bounded time.
   explanation: >
-    Metastability is probabilistic. A synchronizer gives the first stage more
-    time to resolve and makes failure far less likely, but no finite chain can
-    guarantee bounded-time resolution for every asynchronous transition.
+    The MIT synchronization lecture and the Technion metastability tutorial make
+    the same CDC point: synchronizers are probabilistic risk reducers, not
+    absolute guarantees. Additional stages increase the available resolution
+    time and improve MTBF, but for any finite resolution interval there remains
+    a non-zero probability that a metastable stage has not settled before the
+    next sampling edge. In ASIC CDC design, the goal is therefore to drive the
+    failure probability low enough for the target product, not to claim zero
+    metastability risk.
 notes:
   - Authored from source-backed CDC references focused on ASIC and VLSI practice.
 references:
