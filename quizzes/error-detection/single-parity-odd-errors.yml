@@ -1,0 +1,57 @@
+schema_version: 1
+id: ed-single-parity-odd-errors
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What does a single parity bit reliably detect?
+prompt: >
+  A frame uses one parity bit per word. Which error pattern is guaranteed to
+  be detected?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - parity
+    - bit-errors
+    - data-link
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Any odd number of bit flips
+  - id: b
+    text: Any even number of bit flips
+  - id: c
+    text: Any burst error longer than 1 bit
+  - id: d
+    text: Every error pattern with exactly two flipped parity bits
+answer:
+  correct: a
+  short_explainer: >
+    A single parity bit flips whenever an odd number of protected bits flips.
+    Even numbers of flips can leave the parity unchanged, which is why parity
+    alone is a weak detector.
+  explanation: >
+    Parity adds one redundant bit so the protected word has either even or odd
+    parity. If an odd number of bits changes, the parity changes and the check
+    fails. If an even number of bits changes, the parity can still match, so the
+    error may pass unnoticed.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Williams CS 105 — Parity Codes for Error Detection
+    url: https://www.cs.williams.edu/~tom/courses/105/outlines/CS105_362.html
+    note: Explains that a parity bit makes the total number of 1s even or odd and detects any single-bit change.
+  - title: Hawaii ICS 451 — Error Detection and Correction
+    url: https://www2.hawaii.edu/~esb/2010fall.ics451/nov22.html
+    note: Notes that parity always detects a single bit error but can miss any even number of errors.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

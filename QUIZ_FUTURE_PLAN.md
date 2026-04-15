@@ -22,6 +22,9 @@ This wave should be authored as broad educational content for freshers, beginner
   - completed batches: Batch 1, Batch 2, Batch 3
   - next recommended batch: future backlog refresh
 
+- Outside-wave note:
+  - A separate `error-detection` category was added on 2026-04-15 with 10 initial reviewed questions covering parity, CRC, Hamming distance, SECDED, ECC memory, and retransmission tradeoffs.
+
 ## Planning Answers Captured
 
 - Audience: mixed

@@ -1,0 +1,56 @@
+schema_version: 1
+id: ed-even-parity-bit-choice
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: How is an even parity bit chosen?
+prompt: >
+  When using even parity, what must the parity bit do before transmission?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - parity
+    - framing
+    - data-link
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Make the total number of 1s odd
+  - id: b
+    text: Make the total number of 1s even
+  - id: c
+    text: Make the total number of 0s even
+  - id: d
+    text: Make the checksum equal zero in binary
+answer:
+  correct: b
+  short_explainer: >
+    Even parity means the protected word ends with an even count of 1s.
+    The parity bit is chosen to force that condition, regardless of the
+    payload's original bit pattern.
+  explanation: >
+    Even parity is the simplest parity convention: add one bit so the total
+    number of 1s in the data plus parity bit is even. Odd parity is the same
+    idea with the opposite target. Either way, the receiver recomputes the
+    parity and checks for a mismatch.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Williams CS 336 — Error Detection and Correction
+    url: https://www.cs.williams.edu/~tom/courses/336/outlines/lect6_4.html
+    note: Defines parity as choosing the extra bit so the total number of 1s is even or odd.
+  - title: Hawaii ICS 451 — Error Detection and Correction
+    url: https://www2.hawaii.edu/~esb/2010fall.ics451/nov22.html
+    note: Shows even parity as adding a bit so the total number of 1s is even.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

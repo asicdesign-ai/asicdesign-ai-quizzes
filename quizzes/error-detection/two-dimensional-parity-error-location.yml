@@ -1,0 +1,56 @@
+schema_version: 1
+id: ed-two-dimensional-parity-error-location
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why is two-dimensional parity stronger than one parity bit?
+prompt: >
+  What is the main advantage of two-dimensional parity over a single parity bit?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - parity
+    - burst-errors
+    - fec
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It eliminates the need for any redundancy bits
+  - id: b
+    text: It guarantees correction of every multi-bit error
+  - id: c
+    text: Row and column parity can pinpoint a single-bit error
+  - id: d
+    text: It only works when the word length is a power of two
+answer:
+  correct: c
+  short_explainer: >
+    With row and column parity, a single flipped bit shows up in exactly one
+    row and one column. That lets the receiver locate the bad bit and correct
+    it, which is stronger than plain parity.
+  explanation: >
+    Two-dimensional parity arranges the data in a table and adds parity checks
+    across both rows and columns. A single-bit error produces one bad row and
+    one bad column, so the receiver can identify the intersection. This is a
+    simple form of forward error correction, not just detection.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Hawaii ICS 451 — Error Detection and Correction
+    url: https://www2.hawaii.edu/~esb/2010fall.ics451/nov22.html
+    note: Explains two-dimensional parity and notes that a single-bit error can be identified and corrected.
+  - title: Williams CS 336 — Error Detection and Correction
+    url: https://www.cs.williams.edu/~tom/courses/336/outlines/lect6_4.html
+    note: Says that sending data by columns with row parity lets you detect an error whose length is less than two columns.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

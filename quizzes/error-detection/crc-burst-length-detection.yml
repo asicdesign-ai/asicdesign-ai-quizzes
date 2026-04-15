@@ -1,0 +1,55 @@
+schema_version: 1
+id: ed-crc-burst-length-detection
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What burst errors does a degree-r CRC always catch?
+prompt: >
+  For a CRC whose generator polynomial has degree r, which burst error lengths
+  are guaranteed to be detected?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - crc
+    - burst-errors
+    - polynomials
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Any burst of length r or less
+  - id: b
+    text: Only bursts longer than r
+  - id: c
+    text: Only bursts of exactly 2r bits
+  - id: d
+    text: Only bursts with an odd number of flipped bits
+answer:
+  correct: a
+  short_explainer: >
+    A degree-r CRC always catches every burst whose length is at most r bits.
+    Longer bursts are still often detected, but that guarantee weakens.
+  explanation: >
+    A burst error of length r or less cannot be divisible by a generator of
+    degree r, so it must be detected. For longer bursts, a CRC still catches
+    many patterns, but the guarantee becomes probabilistic instead of absolute.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Williams CS 336 — The Cyclic Redundancy Check
+    url: https://www.cs.williams.edu/~tom/courses/336/outlines/lect7_2.html
+    note: Shows that a CRC based on a degree-k generator detects all burst errors of length less than its degree.
+  - title: Hawaii ICS 451 — Error Detection and Correction
+    url: https://www2.hawaii.edu/~esb/2010fall.ics451/nov22.html
+    note: Describes CRCs as a standard link-layer error-detection method and frames burst errors as a key target.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

@@ -1,0 +1,51 @@
+schema_version: 1
+id: ed-ecc-memory-single-double
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What does typical ECC memory aim for?
+prompt: >
+  In mainstream memory protection, what is the common goal of ECC memory?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - ecc
+    - memory-reliability
+    - secded
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Single-bit correction and double-bit detection
+  - id: b
+    text: Double-bit correction and single-bit detection
+  - id: c
+    text: Only detection, with no correction capability
+  - id: d
+    text: Burst correction without any error detection
+answer:
+  correct: a
+  short_explainer: >
+    ECC memory usually uses SECDED-style coding. It fixes one flipped bit and
+    flags a two-bit error so the system can treat the data as suspect.
+  explanation: >
+    Memory systems favor a code that can correct the common single-bit upset and
+    detect the more dangerous double-bit case. That is the classic SECDED tradeoff:
+    correction for the likely fault, detection for the less common but more severe one.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 371 — Reliability of Logic and Memory
+    url: https://acg.cis.upenn.edu/milom/cis371-Spring09/lectures/11_reliability.pdf
+    note: Explains that many machines use 64-bit SECDED code in memory and gives the single-error-correct / double-error-detect behavior.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
