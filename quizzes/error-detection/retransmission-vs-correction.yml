@@ -1,0 +1,56 @@
+schema_version: 1
+id: ed-retransmission-vs-correction
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: When is retransmission usually preferred?
+prompt: >
+  In data-link error control, when do systems often choose detection plus retransmission
+  instead of full correction?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - retransmission
+    - link-layer
+    - reliability
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: When errors are rare and retransmitting a damaged frame is cheaper
+  - id: b
+    text: When the channel cannot resend data at all
+  - id: c
+    text: When every frame must be corrected in place
+  - id: d
+    text: When redundancy bits are not allowed
+answer:
+  correct: a
+  short_explainer: >
+    Many networks prefer detect-and-retransmit because it is simpler and more
+    efficient when errors are uncommon. Full correction costs more redundancy.
+  explanation: >
+    Link layers often use redundancy just to detect corruption and then ask for a
+    resend. That keeps the coding overhead low and works well when the channel is
+    usually clean. Heavy correction is reserved for noisier or less re-sent-friendly
+    systems.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Williams CS 336 — Error Detection and Correction
+    url: https://www.cs.williams.edu/~tom/courses/336/outlines/lect6_4.html
+    note: Says most current networks take the detect-and-retransmit approach.
+  - title: CEN 4500C — Error Detection and Correction
+    url: https://www.cise.ufl.edu/~nemo/cen4500/ecc.html
+    note: Describes the common choice of just enough redundancy to detect errors and request retransmission.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

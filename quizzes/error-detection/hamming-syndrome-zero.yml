@@ -1,0 +1,55 @@
+schema_version: 1
+id: ed-hamming-syndrome-zero
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What does a zero Hamming syndrome mean?
+prompt: >
+  When a Hamming-code receiver computes a zero syndrome, what does that tell you?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - hamming-code
+    - syndrome
+    - parity-checks
+difficulty: beginner
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: The received word satisfies all parity checks
+  - id: b
+    text: The error must be in a data bit
+  - id: c
+    text: The code is guaranteed to have corrected a one-bit error
+  - id: d
+    text: The message definitely contains no corruption of any kind
+answer:
+  correct: a
+  short_explainer: >
+    Zero syndrome means the parity checks all passed, so the received word is a
+    valid codeword. It does not magically prove the transmission was perfect.
+  explanation: >
+    In a Hamming decoder, the syndrome is the parity-check result. A zero syndrome
+    means the received vector lies in the code space, so no parity violation was
+    detected. A nonzero syndrome points to the bad bit position for a single-error
+    case.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Reliable Computing I — Lecture 6
+    url: https://cdnc.itec.kit.edu/downloads/WS-17-18-Reliable-Computing-lecture6_new.pdf
+    note: Shows that for a codeword H C = 0, and that a nonzero syndrome identifies the erroneous bit.
+  - title: CMU 15-440 Lecture 14 — Error Detection and Correction
+    url: https://www.andrew.cmu.edu/course/15-440-sp11/applications/ln/lecture14.html
+    note: Describes Hamming code parity groups and how recomputing them reveals whether the received word is valid.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

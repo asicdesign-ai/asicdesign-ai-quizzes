@@ -1,0 +1,56 @@
+schema_version: 1
+id: ed-crc-xplus1-odd-errors
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why is x+1 a useful factor in a CRC generator?
+prompt: >
+  If a CRC generator polynomial has (x + 1) as a factor, what error pattern is
+  guaranteed to be detected?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - crc
+    - polynomials
+    - bit-errors
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Any even number of bit errors
+  - id: b
+    text: Any odd number of bit errors
+  - id: c
+    text: Only single-bit errors
+  - id: d
+    text: Only burst errors shorter than the CRC width
+answer:
+  correct: b
+  short_explainer: >
+    A generator with an x+1 factor catches every odd-weight error pattern.
+    That gives the CRC the same odd-error coverage as a parity bit, but with
+    much stronger burst-error behavior overall.
+  explanation: >
+    In CRC algebra, an error pattern with an odd number of flipped bits is not
+    divisible by a generator that has x + 1 as a factor. That is why choosing a
+    generator with x + 1 built in guarantees detection of every odd-weight error.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: Williams CS 336 — The Cyclic Redundancy Check
+    url: https://www.cs.williams.edu/~tom/courses/336/outlines/lect7_2.html
+    note: Proves that if the generator satisfies G(1)=0, the CRC detects any odd number of errors and explicitly uses x+1 as the sanity check.
+  - title: UCSD CS 123 — Data Link Layer 2
+    url: https://cseweb.ucsd.edu/~varghese/TEACH/cs123/dl2.pdf
+    note: States that odd-bit error polynomials are never divisible by x+1 and that a generator multiple of x+1 catches all odd bit errors.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

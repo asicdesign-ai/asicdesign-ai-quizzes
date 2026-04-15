@@ -1,0 +1,57 @@
+schema_version: 1
+id: ed-hamming-distance-detect-correct
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: What does minimum Hamming distance d buy you?
+prompt: >
+  A block code has minimum Hamming distance d between valid codewords. What is
+  the standard detection and correction capability?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - hamming-code
+    - coding-theory
+    - correction
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: Detect up to d-1 errors and correct up to floor((d-1)/2)
+  - id: b
+    text: Detect up to floor((d-1)/2) errors and correct up to d-1
+  - id: c
+    text: Detect only one error and correct none
+  - id: d
+    text: Correct any error if the code uses parity bits
+answer:
+  correct: a
+  short_explainer: >
+    Distance tells you how many bit flips separate valid codewords. If codewords
+    are farther apart, you can detect more errors and correct fewer of them with
+    confidence.
+  explanation: >
+    A minimum distance of d means any received word that is within d-1 flips of a
+    valid codeword can be recognized as corrupted. For correction, the safe radius
+    is floor((d-1)/2), because that is the largest ball around each codeword that
+    still avoids overlap with every other codeword.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CEN 4500C — Error Detection and Correction
+    url: https://www.cise.ufl.edu/~nemo/cen4500/ecc.html
+    note: States that n-bit error detection requires Hamming distance n+1 and that d-bit correction requires distance 2d+1.
+  - title: CMU 15-440 Lecture 14 — Error Detection and Correction
+    url: https://www.andrew.cmu.edu/course/15-440-sp11/applications/ln/lecture14.html
+    note: Explains why increasing Hamming distance creates room for reliable correction.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false

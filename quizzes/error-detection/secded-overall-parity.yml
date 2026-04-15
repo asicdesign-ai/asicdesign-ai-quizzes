@@ -1,0 +1,55 @@
+schema_version: 1
+id: ed-secded-overall-parity
+status: reviewed
+review_state: answered
+human_verified: false
+question_type: multiple_choice
+title: Why add an overall parity bit to a Hamming code?
+prompt: >
+  What does the extra parity bit in SECDED buy you beyond a plain Hamming code?
+code:
+  language: null
+  snippet: null
+topics:
+  primary: error-detection
+  secondary:
+    - hamming-code
+    - secded
+    - memory-reliability
+difficulty: intermediate
+source:
+  platform: manual
+  import_kind: manual_completion
+choices:
+  - id: a
+    text: It makes the code systematic
+  - id: b
+    text: It detects double-bit errors while preserving single-bit correction
+  - id: c
+    text: It lets the receiver correct any burst error
+  - id: d
+    text: It removes the need for the other Hamming parity bits
+answer:
+  correct: b
+  short_explainer: >
+    The extra parity bit distinguishes a single flipped bit from a two-bit error.
+    That keeps single-error correction while adding double-error detection.
+  explanation: >
+    Plain Hamming codes correct single-bit errors, but a second flipped bit can
+    make the syndrome look like a different one-bit error. Adding an overall parity
+    bit gives the decoder enough information to flag the double-bit case instead of
+    miscorrecting it.
+notes:
+  - Generated from primary course and research references only.
+references:
+  - title: CIS 371 — Reliability of Logic and Memory
+    url: https://acg.cis.upenn.edu/milom/cis371-Spring09/lectures/11_reliability.pdf
+    note: States that SECDED means single error correct and double error detect, and shows how the overall parity bit distinguishes 1-bit from 2-bit errors.
+  - title: Reliable Computing I — Lecture 6
+    url: https://cdnc.itec.kit.edu/downloads/WS-17-18-Reliable-Computing-lecture6_new.pdf
+    note: Introduces the SEC-DED Hamming code as the extended form used for single-error correction and double-error detection.
+automation:
+  authoring_format: yaml
+  build_target: json
+  ready_for_ingestion: true
+  review_required: false
