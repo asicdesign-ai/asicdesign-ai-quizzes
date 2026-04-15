@@ -108,12 +108,21 @@ Please keep source quality high.
 
 ## Local validation
 
-Run the metadata check before you open a PR:
+Install the prose QA dependencies if you want the full gate:
+
+`python3 -m pip install -r requirements-quiz-qa.txt`
+
+Run the structure check before you open a PR:
 
 `bash scripts/validate-quiz-metadata.sh`
 
-That script verifies the required top-level `human_verified` metadata across the
-quiz bank.
+Run the full QA gate when you want spelling and prose checks too:
+
+`bash scripts/validate-quiz-bank.sh`
+
+The structure check now validates quiz schema, ID/folder alignment, answer
+choice structure, and required answer metadata. The full gate adds spelling
+and prose checks for learner-facing text.
 
 ## Pull request expectations
 
